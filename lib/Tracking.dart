@@ -15,10 +15,14 @@ class _Tracking extends State<Tracking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tracking'),
+        title: Text('Tracking',
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold
+          ),),
         centerTitle: true,
         leading: BackButton(color: Colors.grey[300]),
-        //backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: Center(
@@ -64,8 +68,13 @@ class _Tracking extends State<Tracking> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#1'),
-                                trailing: Text('11/02/2022'),
+                                title: Text('#01',
+                                style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),),
+                                trailing: Text('12/09/64',
+                                style: TextStyle(
+                                      fontSize: 12, color: Color(0xff848484))),
                               ),
                             ),
                             const Divider(
@@ -231,7 +240,7 @@ class _Tracking extends State<Tracking> {
                                                 Padding(
                                                     padding: EdgeInsets.all(8)),
                                                 Icon(
-                                                  Icons.delivery_dining_outlined,
+                                                  Icons.airport_shuttle_outlined,
                                                   size: 33,
                                                   color: Color(0xff757575),
                                                 ),
@@ -297,9 +306,10 @@ class _Tracking extends State<Tracking> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('Jan Jukoo'),
+                                  Text('Jan Jukoo',
+                                  style: TextStyle(fontWeight: FontWeight.bold),),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined),
+                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30),
                                 ],
                               ),
                             )

@@ -14,10 +14,13 @@ class _TrackPlanter extends State<TrackPlanter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tracking'),
+        title: Text('Tracking',
+        style: TextStyle(color: Colors.black,
+        fontWeight: FontWeight.bold
+        ),),
         centerTitle: true,
         leading: BackButton(color: Colors.grey[300]),
-        //backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: Center(
@@ -63,11 +66,17 @@ class _TrackPlanter extends State<TrackPlanter> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#1'),
-                                trailing: Text('11/02/2022'),
+                                title: Text('#01',
+                                style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),),
+                                trailing: Text('12/09/64',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xff848484))),
                               ),
                             ),
                             const Divider(
+                              color: Color(0xffE0E0E0),
                               height: 0,
                               thickness: 1,
                               indent: 1,
@@ -79,10 +88,15 @@ class _TrackPlanter extends State<TrackPlanter> {
                                     {onStepCancel, onStepContinue}) {
                                   return Center(
                                     child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                         TextButton(
                                           onPressed: onStepContinue,
-                                          child: const Text('Confirm'),
+                                          child: Container(
+                                            width: 120,
+                                            alignment: Alignment.center,
+                                            child: Text('Confirm'),
+                                          ),
                                           style: TextButton.styleFrom(
                                             primary: Colors.black,
                                             backgroundColor: Color(0xffFFB443),
@@ -97,7 +111,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                         ),
                                         TextButton(
                                           onPressed: onStepCancel,
-                                          child: const Text('Cancel'),
+                                          child: Container(
+                                            width: 120,
+                                            alignment: Alignment.center,
+                                            child: Text('Cancel'),
+                                          ),
                                           style: TextButton.styleFrom(
                                             primary: Colors.black,
                                             backgroundColor: Colors.white,
@@ -143,7 +161,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Order Confirmed'),
+                                              Text('Order Confirmed',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -168,7 +188,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Prepare to plant'),
+                                              Text('Prepare to plant',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -193,7 +215,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Planting'),
+                                              Text('Planting',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -218,7 +242,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Harvest'),
+                                              Text('Harvest',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -235,7 +261,7 @@ class _TrackPlanter extends State<TrackPlanter> {
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
                                           Icon(
-                                            Icons.delivery_dining_outlined,
+                                            Icons.airport_shuttle_outlined,
                                             size: 33,
                                             color: Color(0xff757575),
                                           ),
@@ -243,7 +269,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Delivery'),
+                                              Text('Delivery',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -269,7 +297,9 @@ class _TrackPlanter extends State<TrackPlanter> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              Text('Success'),
+                                              Text('Success',style: (
+                                                TextStyle(fontWeight: FontWeight.bold)
+                                              ),),
                                             ],
                                           ),
                                         ],
@@ -279,19 +309,22 @@ class _TrackPlanter extends State<TrackPlanter> {
                               ),
                             ),
                             const Divider(
+                              color: Color(0xffE0E0E0),
                               height: 0,
                               thickness: 1,
                               indent: 1,
                               endIndent: 1,
                             ),
                             Container(
-                              padding: EdgeInsets.all(14.0),
+                              padding: EdgeInsets.all(12.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('John John'),
+                                  Text('John John',style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined),
+                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30,),
                                 ],
                               ),
                             )

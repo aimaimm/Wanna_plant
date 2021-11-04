@@ -567,9 +567,11 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                         print(rating);
                                       }),
                                   SizedBox(width: 100),
-                                  Text('Jan Jukoo'),
+                                  Text('Jan Jukoo',style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined)
+                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30)
                                 ],
                               ),
                             )

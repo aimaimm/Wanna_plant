@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: HistoryCustomer(),
+      home: TrackingSuccess(),
       debugShowCheckedModeBanner: false,
     );
   }
