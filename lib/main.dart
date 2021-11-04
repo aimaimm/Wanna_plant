@@ -7,7 +7,9 @@ import 'package:wanna_plant/homepage/homeScreen.dart';
 import 'package:wanna_plant/landScreen.dart';
 import 'package:wanna_plant/loginScreen.dart';
 import 'package:wanna_plant/signupScreen.dart';
+import 'package:wanna_plant/trackplanter.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Home(),
+      home: TrackPlanter(),
       debugShowCheckedModeBanner: false,
     );
   }
