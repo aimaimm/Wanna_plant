@@ -136,7 +136,8 @@ class _TrackPlanter extends State<TrackPlanter> {
                                         children: <Widget>[
                                           Icon(
                                             Icons.inventory_outlined,
-                                            size: 36,
+                                            size: 33,
+                                            color: Color(0xff757575),
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -158,7 +159,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                       title: Stack(
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
-                                          Icon(Icons.timer_outlined, size: 36),
+                                          Icon(
+                                            Icons.timer_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -179,8 +184,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                       title: Stack(
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
-                                          Icon(Icons.emoji_people_outlined,
-                                              size: 36),
+                                          Icon(
+                                            Icons.emoji_people_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -201,7 +209,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                       title: Stack(
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
-                                          Icon(Icons.grass_outlined, size: 36),
+                                          Icon(
+                                            Icons.grass_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -222,8 +234,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                       title: Stack(
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
-                                          Icon(Icons.delivery_dining_outlined,
-                                              size: 36),
+                                          Icon(
+                                            Icons.delivery_dining_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -245,9 +260,11 @@ class _TrackPlanter extends State<TrackPlanter> {
                                         alignment: Alignment.centerLeft,
                                         children: <Widget>[
                                           Icon(
-                                              Icons
-                                                  .sentiment_very_satisfied_outlined,
-                                              size: 36),
+                                            Icons
+                                                .sentiment_very_satisfied_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,

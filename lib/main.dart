@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Tracking(),
+      home: TrackPlanter(),
       debugShowCheckedModeBanner: false,
     );
   }
