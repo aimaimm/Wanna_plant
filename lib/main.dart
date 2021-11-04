@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/Tracking.dart';
 import 'package:wanna_plant/bottomBar.dart';
 import 'package:wanna_plant/chatScreen.dart';
 import 'package:wanna_plant/favorite/favoriteScreen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: TrackPlanter(),
+      home: Tracking(),
       debugShowCheckedModeBanner: false,
     );
   }
