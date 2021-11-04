@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/HistoryDetailCustomer.dart';
 import 'package:wanna_plant/Tracking.dart';
 import 'package:wanna_plant/TrackingSuccess.dart';
 import 'package:wanna_plant/bottomBar.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: TrackingSuccess(),
+      home: HistoryCustomer(),
       debugShowCheckedModeBanner: false,
     );
   }
