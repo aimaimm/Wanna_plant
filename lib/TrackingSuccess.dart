@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 // ignore: unused_import
 //import 'package:timelines/timelines.dart';
 
-class Tracking extends StatefulWidget {
+class TrackingSuccess extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _Tracking();
+  State<StatefulWidget> createState() => _TrackingSuccess();
 }
 
-class _Tracking extends State<Tracking> {
+class _TrackingSuccess extends State<TrackingSuccess> {
   int currentStep = 0;
 
   @override
@@ -54,7 +55,7 @@ class _Tracking extends State<Tracking> {
               child: Container(
                 width: 420,
                 child: ListView.builder(
-                  itemCount: 1,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return Container(
                       width: 430,
@@ -64,7 +65,7 @@ class _Tracking extends State<Tracking> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#1'),
+                                title: Text('#$index'),
                                 trailing: Text('11/02/2022'),
                               ),
                             ),
@@ -81,12 +82,12 @@ class _Tracking extends State<Tracking> {
                                 children: [
                                   //Padding(padding: EdgeInsets.all(10)),
                                   SizedBox(
-                                      height: 90,
+                                      height: 80,
                                       child: TimelineTile(
                                         endChild: Column(
                                           children: [
                                             Padding(
-                                                padding: EdgeInsets.all(16)),
+                                                padding: EdgeInsets.all(10)),
                                             Row(
                                               children: <Widget>[
                                                 Padding(
@@ -100,32 +101,17 @@ class _Tracking extends State<Tracking> {
                                                 Text('Order Confirmed'),
                                               ],
                                             ),
-                                            Row(
-                                              //alignment: Alignment.centerLeft,
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  'Order cancel !!!',
-                                                  style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
                                           ],
                                         ),
                                         isFirst: true,
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.red,
+                                          color: Color(0xff7CC671),
                                         ),
                                         afterLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                      )),
                                   SizedBox(
                                       height: 80,
                                       child: TimelineTile(
@@ -145,18 +131,20 @@ class _Tracking extends State<Tracking> {
                                                 SizedBox(width: 20),
                                                 Text('Prepare to plant'),
                                               ],
-                                            ),                                           
+                                            ),
                                           ],
                                         ),
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.grey,
+                                          color: Color(0xff7CC671),
                                         ),
                                         beforeLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                        afterLineStyle: LineStyle(
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                      )),
                                   SizedBox(
                                       height: 80,
                                       child: TimelineTile(
@@ -176,18 +164,20 @@ class _Tracking extends State<Tracking> {
                                                 SizedBox(width: 20),
                                                 Text('Planting'),
                                               ],
-                                            ),                                           
+                                            ),
                                           ],
                                         ),
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.grey,
+                                          color: Color(0xff7CC671),
                                         ),
                                         beforeLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                        afterLineStyle: LineStyle(
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                      )),
                                   SizedBox(
                                       height: 80,
                                       child: TimelineTile(
@@ -207,18 +197,20 @@ class _Tracking extends State<Tracking> {
                                                 SizedBox(width: 20),
                                                 Text('Harvest'),
                                               ],
-                                            ),                                           
+                                            ),
                                           ],
                                         ),
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.grey,
+                                          color: Color(0xff7CC671),
                                         ),
                                         beforeLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                        afterLineStyle: LineStyle(
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                      )),
                                   SizedBox(
                                       height: 80,
                                       child: TimelineTile(
@@ -231,25 +223,28 @@ class _Tracking extends State<Tracking> {
                                                 Padding(
                                                     padding: EdgeInsets.all(8)),
                                                 Icon(
-                                                  Icons.delivery_dining_outlined,
+                                                  Icons
+                                                      .delivery_dining_outlined,
                                                   size: 33,
                                                   color: Color(0xff757575),
                                                 ),
                                                 SizedBox(width: 20),
                                                 Text('Delivery'),
                                               ],
-                                            ),                                           
+                                            ),
                                           ],
                                         ),
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.grey,
+                                          color: Color(0xff7CC671),
                                         ),
                                         beforeLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                        afterLineStyle: LineStyle(
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                      )),
                                   SizedBox(
                                       height: 80,
                                       child: TimelineTile(
@@ -262,26 +257,27 @@ class _Tracking extends State<Tracking> {
                                                 Padding(
                                                     padding: EdgeInsets.all(8)),
                                                 Icon(
-                                                  Icons.sentiment_very_satisfied_outlined,
+                                                  Icons
+                                                      .sentiment_very_satisfied_outlined,
                                                   size: 33,
                                                   color: Color(0xff757575),
                                                 ),
                                                 SizedBox(width: 20),
                                                 Text('Success'),
                                               ],
-                                            ),                                           
+                                            ),
                                           ],
                                         ),
                                         isLast: true,
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
-                                          color: Colors.grey,
+                                          color: Color(0xff7CC671),
                                         ),
                                         beforeLineStyle: LineStyle(
-                                            color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
-                                      )
-                                  ),
+                                            color: Color(0xff7CC671),
+                                            thickness: 2),
+                                        //afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
+                                      )),
                                 ],
                               ),
                             ),
@@ -291,18 +287,35 @@ class _Tracking extends State<Tracking> {
                               thickness: 1,
                               indent: 1,
                               endIndent: 1,
-                            ),
+                            ),                          
                             Container(
                               padding: EdgeInsets.all(14.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
+                                  RatingBar.builder(
+                                  itemSize: 30,
+                                    initialRating: 0,
+                                    minRating: 0,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    itemPadding:
+                                        EdgeInsets.symmetric(horizontal: 1.0),
+                                    itemBuilder: (context, _) => Icon(
+                                          Icons.star_outlined,
+                                          color: Colors.orange,
+                                        ),
+                                    onRatingUpdate: (rating) {
+                                      print(rating);
+                                    }),
+                                    SizedBox(width: 100),
                                   Text('Jan Jukoo'),
                                   SizedBox(width: 10),
                                   Icon(Icons.account_circle_outlined),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                         color: Color(0xffF0F0F0),
