@@ -16,11 +16,10 @@ class _TrackingSuccess extends State<TrackingSuccess> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tracking',
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold 
-          ),),
+        title: Text(
+          'Tracking',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         leading: BackButton(color: Colors.grey[300]),
         backgroundColor: Colors.white,
@@ -69,14 +68,16 @@ class _TrackingSuccess extends State<TrackingSuccess> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#0$index',
-                                style: TextStyle(
+                                title: Text(
+                                  '#0${index+1}',
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14),),
-                                trailing: Text('12/09/64',
-                                style: TextStyle(
-                                      fontSize: 12, color: Color(0xff848484))
+                                      fontSize: 14),
                                 ),
+                                trailing: Text('12/09/64',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xff848484))),
                               ),
                             ),
                             const Divider(
@@ -297,33 +298,37 @@ class _TrackingSuccess extends State<TrackingSuccess> {
                               thickness: 1,
                               indent: 1,
                               endIndent: 1,
-                            ),                          
+                            ),
                             Container(
                               padding: EdgeInsets.all(14.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   RatingBar.builder(
-                                  itemSize: 30,
-                                    initialRating: 0,
-                                    minRating: 0,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding:
-                                        EdgeInsets.symmetric(horizontal: 1.0),
-                                    itemBuilder: (context, _) => Icon(
-                                          Icons.star_outlined,
-                                          color: Colors.orange,
-                                        ),
-                                    onRatingUpdate: (rating) {
-                                      print(rating);
-                                    }),
-                                    SizedBox(width: 100),
-                                  Text('Jan Jukoo',
-                                  style: TextStyle(fontWeight: FontWeight.bold),),
+                                      itemSize: 30,
+                                      initialRating: 0,
+                                      minRating: 0,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 1.0),
+                                      itemBuilder: (context, _) => Icon(
+                                            Icons.star_outlined,
+                                            color: Colors.orange,
+                                          ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      }),
+                                  SizedBox(width: 100),
+                                  Text(
+                                    'Jan Jukoo',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30),
+                                  Icon(Icons.account_circle_outlined,
+                                      color: Color(0xff606060), size: 30),
                                 ],
                               ),
                             ),

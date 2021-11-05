@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: HistoryPlanter(),
+      home: TrackingSuccess(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // ignore: unused_import
 //import 'package:timelines/timelines.dart';
 
@@ -58,7 +59,7 @@ class _Tracking extends State<Tracking> {
               child: Container(
                 width: 420,
                 child: ListView.builder(
-                  itemCount: 1,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return Container(
                       width: 430,
@@ -68,7 +69,7 @@ class _Tracking extends State<Tracking> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#01',
+                                title: Text('#0${index+1}',
                                 style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),),
@@ -126,18 +127,18 @@ class _Tracking extends State<Tracking> {
                                             )
                                           ],
                                         ),
-                                        isFirst: true,
+                                        isFirst: true,     
                                         indicatorStyle: IndicatorStyle(
                                           //indicator: ,
                                           color: Colors.red,
-                                        ),
-                                        afterLineStyle: LineStyle(
+                                        ),                                
+                                        afterLineStyle: LineStyle(                                                                                                                           
                                             color: Colors.grey, thickness: 2),
                                       )
                                   ),
                                   SizedBox(
                                       height: 80,
-                                      child: TimelineTile(
+                                      child: TimelineTile(                                      
                                         endChild: Column(
                                           children: [
                                             Padding(
@@ -156,14 +157,24 @@ class _Tracking extends State<Tracking> {
                                               ],
                                             ),                                           
                                           ],
+                                        ),                                       
+                                          indicatorStyle: IndicatorStyle(   
+                                            color: Colors.grey,                                                                    
+                                          // indicator: Container(
+                                          //   decoration: BoxDecoration(
+                                          //     border: Border.all(
+                                          //       width: 2,
+                                          //       color: Colors.grey,
+                                          //       style: BorderStyle.solid,
+                                          //     ),                                             
+                                          //     color: Colors.transparent,                                             
+                                          //     shape: BoxShape.circle
+                                          //   ),
+                                          // )
                                         ),
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
-                                        beforeLineStyle: LineStyle(
+                                        beforeLineStyle: LineStyle(                                         
                                             color: Colors.grey, thickness: 2),
-                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
+                                            afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),  
                                       )
                                   ),
                                   SizedBox(
@@ -304,15 +315,39 @@ class _Tracking extends State<Tracking> {
                             Container(
                               padding: EdgeInsets.all(14.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text('Jan Jukoo',
-                                  style: TextStyle(fontWeight: FontWeight.bold),),
-                                  SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30),
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[                                  
+                                  Visibility(
+                                    visible: false,
+                                    child: RatingBar.builder(
+                                    itemSize: 30,
+                                      initialRating: 0,
+                                      minRating: 0,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 1.0),
+                                      itemBuilder: (context, _) => Icon(
+                                            Icons.star_outlined,
+                                            color: Colors.orange,
+                                          ),
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      }),
+                                  ),
+                                    //SizedBox(width: 100),
+                                  Row(
+                                    children: [
+                                      Text('Jan Jukoo',
+                                      style: TextStyle(fontWeight: FontWeight.bold),),
+                                      SizedBox(width: 10),
+                                      Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                         color: Color(0xffF0F0F0),
