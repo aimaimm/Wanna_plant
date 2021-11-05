@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/DetailLand/DetailScreen.dart';
 
 class Seeallscreen extends StatefulWidget {
   const Seeallscreen({Key? key}) : super(key: key);
@@ -13,72 +14,108 @@ List Listplant = [
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
   {
     'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
     'localtion': 'Chiang Rai',
     'land': '170 accur',
     'plant': 'Carrot, tree..',
+    'Description': 'Please wait for 50 day after plant',
+    'Owner': 'John John',
+    'Planted': '2 items',
   },
 ];
 
@@ -167,7 +204,14 @@ class _SeeallscreenState extends State<Seeallscreen> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    print(Listplant[index]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailScreen(
+                          listplant: Listplant[index],
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

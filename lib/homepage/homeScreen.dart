@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
 import '../CustomBottomBar.dart';
@@ -22,72 +23,108 @@ class _HomeState extends State<Home> {
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
     {
       'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
       'localtion': 'Chiang Rai',
       'land': '170 accur',
       'plant': 'Carrot, tree..',
+      'Description': 'Please wait for 50 day after plant',
+      'Owner': 'John John',
+      'Planted': '2 items',
     },
   ];
 
@@ -264,7 +301,16 @@ class _HomeState extends State<Home> {
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                           onTap: () {
-                                            print(Listplant[index]);
+                                            // print(index);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailScreen(
+                                                  listplant: Listplant[index],
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -377,7 +423,42 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        print(Listplant[index]);
+                        if (hide_pop == false) {
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                            setState(() {
+                              hide_pop = true;
+                              show_items_count = false;
+                              animation_search = 1;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                  listplant: Listplant[index],
+                                ),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                  listplant: Listplant[index],
+                                ),
+                              ),
+                            );
+                          }
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailScreen(
+                                listplant: Listplant[index],
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
