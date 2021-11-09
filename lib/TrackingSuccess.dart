@@ -334,7 +334,7 @@ class _TrackingSuccess extends State<TrackingSuccess> {
                             ),
                           ],
                         ),
-                        color: Color(0xffF0F0F0),
+                        color: Color(0xFFF3F3F3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),

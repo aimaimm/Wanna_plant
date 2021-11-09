@@ -67,7 +67,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                       ),
                     ],
                   ),
-                  color: Color(0xff7CC671),
+                  color: Color(0xFF7CC671),
                 ),
                 height: 75,
               ),
@@ -577,7 +577,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                             )
                           ],
                         ),
-                        color: Color(0xffF0F0F0),
+                        color: Color(0xFFF3F3F3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),

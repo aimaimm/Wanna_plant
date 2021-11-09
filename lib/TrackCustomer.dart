@@ -46,7 +46,7 @@ class _TrackCustomer extends State<TrackCustomer> {
                   decoration: InputDecoration(
                     focusedBorder: InputBorder.none,
                     filled: true,
-                    fillColor: Color(0xffF0F0F0),
+                    fillColor: Color(0xFFF3F3F3),
                     prefixIcon: Icon(Icons.search),
                     hintText: 'Search',
                     // labelText: 'Search',
@@ -350,7 +350,7 @@ class _TrackCustomer extends State<TrackCustomer> {
                             ),
                           ],
                         ),
-                        color: Color(0xffF0F0F0),
+                        color: Color(0xFFF3F3F3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),

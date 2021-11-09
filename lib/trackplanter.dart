@@ -14,16 +14,17 @@ class _TrackPlanter extends State<TrackPlanter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tracking',
-        style: TextStyle(color: Colors.black,
-        fontWeight: FontWeight.bold
-        ),),
+        title: Text(
+          'Tracking',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         leading: BackButton(color: Colors.grey[300]),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Center(
+      body: 
+      Center(
         child: Column(
           children: <Widget>[
             Container(
@@ -66,13 +67,16 @@ class _TrackPlanter extends State<TrackPlanter> {
                           children: <Widget>[
                             Container(
                               child: ListTile(
-                                title: Text('#01',
-                                style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),),
-                                trailing: Text('12/09/64',
+                                title: Text(
+                                  '#01',
                                   style: TextStyle(
-                                      fontSize: 12, color: Color(0xff848484))),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                                trailing: Text('12/09/64',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Color(0xff848484))),
                               ),
                             ),
                             const Divider(
@@ -82,13 +86,14 @@ class _TrackPlanter extends State<TrackPlanter> {
                               indent: 1,
                               endIndent: 1,
                             ),
-                            Container(
-                              child: Stepper(
+                            Container(                            
+                              child: Stepper(                             
                                 controlsBuilder: (context,
                                     {onStepCancel, onStepContinue}) {
                                   return Center(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
                                         TextButton(
                                           onPressed: onStepContinue,
@@ -143,30 +148,31 @@ class _TrackPlanter extends State<TrackPlanter> {
                                 },
                                 onStepCancel: () {},
                                 //Step Tracking 1- 6
-                                steps: [
-                                  Step(
+                                steps: [                                
+                                  Step(                                  
                                       isActive: currentStep >= 0,
                                       state: currentStep == 0
                                           ? StepState.editing
                                           : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.inventory_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Order Confirmed',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.inventory_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(12)),
+                                            Text(
+                                              'Order Confirmed',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                   Step(
@@ -176,24 +182,25 @@ class _TrackPlanter extends State<TrackPlanter> {
                                           : currentStep < 1
                                               ? StepState.disabled
                                               : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.timer_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Prepare to plant',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.timer_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(12)),
+                                            Text(
+                                              'Prepare to plant',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                   Step(
@@ -203,24 +210,25 @@ class _TrackPlanter extends State<TrackPlanter> {
                                           : currentStep < 2
                                               ? StepState.disabled
                                               : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.emoji_people_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Planting',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.emoji_people_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(10)),
+                                            Text(
+                                              'Planting',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                   Step(
@@ -230,24 +238,25 @@ class _TrackPlanter extends State<TrackPlanter> {
                                           : currentStep < 3
                                               ? StepState.disabled
                                               : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.grass_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Harvest',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.grass_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(10)),
+                                            Text(
+                                              'Harvest',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                   Step(
@@ -257,24 +266,25 @@ class _TrackPlanter extends State<TrackPlanter> {
                                           : currentStep < 4
                                               ? StepState.disabled
                                               : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.airport_shuttle_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Delivery',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.airport_shuttle_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(10)),
+                                            Text(
+                                              'Delivery',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                   Step(
@@ -284,25 +294,26 @@ class _TrackPlanter extends State<TrackPlanter> {
                                           : currentStep < 5
                                               ? StepState.disabled
                                               : StepState.complete,
-                                      title: Stack(
-                                        alignment: Alignment.centerLeft,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons
-                                                .sentiment_very_satisfied_outlined,
-                                            size: 33,
-                                            color: Color(0xff757575),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Text('Success',style: (
-                                                TextStyle(fontWeight: FontWeight.bold)
-                                              ),),
-                                            ],
-                                          ),
-                                        ],
+                                      title: Container(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons
+                                                  .sentiment_very_satisfied_outlined,
+                                              size: 33,
+                                              color: Color(0xff757575),
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.all(10)),
+                                            Text(
+                                              'Success',
+                                              style: (TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       content: Text('')),
                                 ],
@@ -320,17 +331,23 @@ class _TrackPlanter extends State<TrackPlanter> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  Text('John John',style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),),
+                                  Text(
+                                    'John John',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30,),
+                                  Icon(
+                                    Icons.account_circle_outlined,
+                                    color: Color(0xff606060),
+                                    size: 30,
+                                  ),
                                 ],
                               ),
                             )
                           ],
                         ),
-                        color: Color(0xffF0F0F0),
+                        color: Color(0xFFF3F3F3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),

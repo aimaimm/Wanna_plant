@@ -28,8 +28,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.green,
       ),
-      home: TrackCustomer(),
+      home: HistoryCustomer(),
       debugShowCheckedModeBanner: false,
     );
   }
