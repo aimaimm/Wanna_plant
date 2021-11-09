@@ -128,7 +128,9 @@ class _SeeallscreenState extends State<Seeallscreen> {
           elevation: 0,
           leading: IconButton(
             padding: EdgeInsets.all(0),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
