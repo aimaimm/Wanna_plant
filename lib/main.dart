@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.green,
       ),
-      home: HistoryCustomer(),
+      home: HistoryPlanter(),
       debugShowCheckedModeBanner: false,
     );
   }

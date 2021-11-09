@@ -68,7 +68,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
                       ),
                     ],
                   ),
-                  color: Color(0xff7CC671),
+                  color: Color(0xFF7CC671),
                 ),
                 height: 75,
               ),

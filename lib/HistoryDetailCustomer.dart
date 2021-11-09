@@ -599,7 +599,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     primary: Colors.white,
-                    backgroundColor: Color(0xff7CC671),
+                    backgroundColor: Color(0xFF7CC671),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),                  
