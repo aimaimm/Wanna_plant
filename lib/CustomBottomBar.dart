@@ -10,10 +10,13 @@ class CustomBottomBar extends StatefulWidget {
 
 class _CustomBottomBarState extends State<CustomBottomBar> {
   var index = 0;
+
   void _onItemTapped(int val) {
-    setState(() {
-      index = val;
-    });
+    setState(
+      () {
+        index = val;
+      },
+    );
   }
 
   @override
