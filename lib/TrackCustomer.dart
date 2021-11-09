@@ -4,12 +4,12 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // ignore: unused_import
 //import 'package:timelines/timelines.dart';
 
-class Tracking extends StatefulWidget {
+class TrackCustomer extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _Tracking();
+  State<StatefulWidget> createState() => _TrackCustomer();
 }
 
-class _Tracking extends State<Tracking> {
+class _TrackCustomer extends State<TrackCustomer> {
   int currentStep = 0;
 
   @override
