@@ -163,113 +163,125 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          toolbarHeight: 340,
+          toolbarHeight: 170,
           backgroundColor: Colors.white,
-          leading: Column(
-            children: [
-              Text(
-                'Will you have',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Text(
-                'Wanna plant?',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ],
-          ),
           title: Container(
-            margin: EdgeInsets.symmetric(
-              vertical: 20,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(15),
-              ),
-            ),
-            child: SizedBox(
-              height: 50,
-              child: TextField(
-                onTap: () {
-                  setState(() {
-                    animation_search = 0;
-                    animationFade_search(context);
-                  });
-                },
-                cursorColor: Colors.black,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Color(0xffF0F0F0),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Search',
-                  contentPadding:
-                      EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
-                ),
-              ),
-            ),
-          ),
-          actions: [
-            Row(
+            margin: EdgeInsets.only(top: 20),
+            child: Column(
               children: [
-                Stack(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Icons.notifications,
-                      color: Colors.grey[350],
-                      size: 35,
-                    ),
-                    Positioned(
-                      right: 6,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
+                    Column(
+                      children: [
+                        Text(
+                          'Will you have',
+                          style:
+                              Theme.of(context).textTheme.headline5!.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
-                        width: 10,
-                        height: 10,
-                      ),
+                        Text(
+                          'Wanna plant?',
+                          style:
+                              Theme.of(context).textTheme.headline5!.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: Colors.grey[350],
+                              size: 35,
+                            ),
+                            Positioned(
+                              right: 6,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                                width: 10,
+                                height: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.all(0),
+                          onPressed: () {},
+                          icon: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                IconButton(
-                  padding: EdgeInsets.all(0),
-                  onPressed: () {},
-                  icon: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.grey.withOpacity(0.5),
-                      ),
-                      borderRadius: BorderRadius.circular(10),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15),
                     ),
-                    child: Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.black,
+                  ),
+                  child: SizedBox(
+                    height: 50,
+                    child: TextField(
+                      onTap: () {
+                        setState(() {
+                          animation_search = 0;
+                          animationFade_search(context);
+                        });
+                      },
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Color(0xffF0F0F0),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.grey,
+                        ),
+                        hintText: 'Search',
+                        contentPadding: EdgeInsets.only(
+                            left: 15, bottom: 11, top: 11, right: 15),
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-          ],
+          ),
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
+            padding: const EdgeInsets.only(left: 30, right: 30),
             child: Column(
               children: [
                 Column(
