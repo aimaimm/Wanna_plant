@@ -161,7 +161,113 @@ class _HomeState extends State<Home> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          toolbarHeight: 340,
+          backgroundColor: Colors.white,
+          leading: Column(
+            children: [
+              Text(
+                'Will you have',
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              Text(
+                'Wanna plant?',
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+          title: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 20,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(15),
+              ),
+            ),
+            child: SizedBox(
+              height: 50,
+              child: TextField(
+                onTap: () {
+                  setState(() {
+                    animation_search = 0;
+                    animationFade_search(context);
+                  });
+                },
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Color(0xffF0F0F0),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Search',
+                  contentPadding:
+                      EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications,
+                      color: Colors.grey[350],
+                      size: 35,
+                    ),
+                    Positioned(
+                      right: 6,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        width: 10,
+                        height: 10,
+                      ),
+                    ),
+                  ],
+                ),
+                IconButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {},
+                  icon: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.grey.withOpacity(0.5),
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
             child: Column(
@@ -170,109 +276,7 @@ class _HomeState extends State<Home> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              'Will you have',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                            Text(
-                              'Wanna plant?',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Stack(
-                              children: [
-                                Icon(
-                                  Icons.notifications,
-                                  color: Colors.grey[350],
-                                  size: 35,
-                                ),
-                                Positioned(
-                                  right: 6,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    width: 10,
-                                    height: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {},
-                              icon: Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.grey.withOpacity(0.5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Icon(Icons.shopping_cart_outlined),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                        ),
-                      ),
-                      child: SizedBox(
-                        height: 50,
-                        child: TextField(
-                          onTap: () {
-                            setState(() {
-                              animation_search = 0;
-                              animationFade_search(context);
-                            });
-                          },
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            filled: true,
-                            fillColor: Color(0xffF0F0F0),
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.grey,
-                            ),
-                            hintText: 'Search',
-                            contentPadding: EdgeInsets.only(
-                                left: 15, bottom: 11, top: 11, right: 15),
-                          ),
-                        ),
-                      ),
+                      children: [],
                     ),
                     AnimatedOpacity(
                       opacity: animation_search,
@@ -296,6 +300,7 @@ class _HomeState extends State<Home> {
                                   child: Container(
                                     height: 200,
                                     child: ListView.builder(
+                                      physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
                                       itemCount: Listplant.length,
                                       itemBuilder: (context, index) {
@@ -341,30 +346,50 @@ class _HomeState extends State<Home> {
                                                     height: 10,
                                                   ),
                                                   Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
                                                     children: [
-                                                      Text(
-                                                        '${Listplant[index]['localtion']}',
-                                                        style: TextStyle(
-                                                            fontSize: 10),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            '${Listplant[index]['localtion']}',
+                                                            style: TextStyle(
+                                                                fontSize: 10),
+                                                          ),
+                                                          Text(
+                                                            '${Listplant[index]['land']}',
+                                                            style: TextStyle(
+                                                                fontSize: 10),
+                                                          ),
+                                                          Text(
+                                                            '${Listplant[index]['plant']}',
+                                                            style: TextStyle(
+                                                                fontSize: 10),
+                                                          ),
+                                                        ],
                                                       ),
                                                       SizedBox(
-                                                        width: 60,
+                                                        width: 40,
                                                       ),
-                                                      Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.amber,
+                                                      Column(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.star_rate,
+                                                            color: Colors.amber,
+                                                            size: 20,
+                                                          ),
+                                                          Text(
+                                                            '4.7 rate',
+                                                            style: TextStyle(
+                                                              fontSize: 10,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
-                                                  ),
-                                                  Text(
-                                                    '${Listplant[index]['land']}',
-                                                    style:
-                                                        TextStyle(fontSize: 10),
-                                                  ),
-                                                  Text(
-                                                    '${Listplant[index]['plant']}',
-                                                    style:
-                                                        TextStyle(fontSize: 10),
                                                   ),
                                                 ],
                                               ),
@@ -394,29 +419,35 @@ class _HomeState extends State<Home> {
                 ),
                 Visibility(
                   visible: hide_pop,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('All'),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Seeallscreen()));
-                          },
-                          child: Text(
-                            'see all',
-                            style: TextStyle(color: Colors.black),
-                          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'All',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Seeallscreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'see all',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 ListView.builder(
+                  padding: EdgeInsets.all(0),
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: Listplant.length,
@@ -481,7 +512,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(right: 20),
+                                margin: EdgeInsets.only(right: 30),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -493,7 +524,7 @@ class _HomeState extends State<Home> {
                                       height: 20,
                                     ),
                                     Text(
-                                      '${Listplant[index]['land']}',
+                                      'Land: ${Listplant[index]['land']}',
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     SizedBox(
@@ -512,9 +543,14 @@ class _HomeState extends State<Home> {
                                     Icon(
                                       Icons.star_rate,
                                       color: Colors.amber,
-                                      size: 35,
+                                      size: 25,
                                     ),
-                                    Text('4.7 rate'),
+                                    Text(
+                                      '4.7 rate',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               )

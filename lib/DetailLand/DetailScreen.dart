@@ -20,283 +20,269 @@ class _DetailScreenState extends State<DetailScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            icon: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Image.asset(
+                  '${widget.listplant['picture']}',
+                  width: size.width,
+                  height: 350,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 30,
+                left: 30,
+                right: 30,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(
-                    '${widget.listplant['picture']}',
-                    width: size.width,
-                    height: 350,
-                    fit: BoxFit.cover,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${widget.listplant['localtion']}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          'Land: ${widget.listplant['land']}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    width: size.width,
-                    left: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () {},
-                            icon: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Icon(Icons.shopping_cart_outlined),
-                            ),
-                          ),
-                        ),
-                      ],
+                  Column(
+                    children: [
+                      Icon(
+                        Icons.star_rate,
+                        color: Colors.amber,
+                        size: 35,
+                      ),
+                      Text('4.7 rate'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 30,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      'Description',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '${widget.listplant['Description']}',
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.7),
+                      fontSize: 14,
                     ),
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 30,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${widget.listplant['localtion']}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            'Land: ${widget.listplant['land']}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.star_rate,
-                          color: Colors.amber,
-                          size: 35,
-                        ),
-                        Text('4.7 rate'),
-                      ],
-                    ),
-                  ],
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 30,
+                right: 30,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        'Description',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      '${widget.listplant['Description']}',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(width: 1, color: Colors.grey),
-                      bottom: BorderSide(width: 1, color: Colors.grey),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 35,
-                          margin: EdgeInsets.only(
-                            right: 20,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(35),
-                          ),
-                          child: Icon(
-                            Icons.person,
-                            size: 27,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${widget.listplant['Owner']}',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Planted: ${widget.listplant['Planted']}',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(width: 0.3, color: Colors.grey),
+                    bottom: BorderSide(width: 0.3, color: Colors.grey),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  left: 30,
-                ),
-                child: Text(
-                  'Photos',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  left: 30,
-                  right: 30,
-                  bottom: 20,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 100,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 1,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {},
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.asset(
-                                  '${widget.listplant['picture']}',
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 35,
+                        height: 35,
+                        margin: EdgeInsets.only(
+                          right: 20,
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                  bottom: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      padding: EdgeInsets.all(0),
-                      onPressed: () {},
-                      icon: Container(
-                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           border: Border.all(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(35),
                         ),
-                        child: Icon(Icons.favorite_border_outlined),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10),
-                        ),
-                        elevation: 5,
-                        primary: gbase,
-                        minimumSize: Size(270, 50),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          showBotton_sheet = true;
-                        });
-                      },
-                      child: Text(
-                        'Order',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                        child: Icon(
+                          Icons.person,
+                          size: 27,
+                          color: Colors.grey,
                         ),
                       ),
-                    ),
-                  ],
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${widget.listplant['Owner']}',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Planted: ${widget.listplant['Planted']}',
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 30,
+              ),
+              child: Text(
+                'Photos',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 30,
+                right: 30,
+                bottom: 20,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 100,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {},
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(13),
+                              child: Image.asset(
+                                '${widget.listplant['picture']}',
+                                width: 150,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 30,
+                bottom: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {},
+                    icon: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(Icons.favorite_border_outlined),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10),
+                      ),
+                      elevation: 5,
+                      primary: gbase,
+                      minimumSize: Size(270, 50),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        showBotton_sheet = true;
+                      });
+                    },
+                    child: Text(
+                      'Order',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       bottomSheet: showBotton_sheet
