@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:wanna_plant/bottomBar.dart';
-import 'package:wanna_plant/chatScreen.dart';
+import 'package:wanna_plant/History/historyScreen.dart';
+import 'package:wanna_plant/area/regis_land_Screen.dart';
+import 'package:wanna_plant/area/upload_imageScreen.dart';
 import 'package:wanna_plant/favorite/favoriteScreen.dart';
-import 'package:wanna_plant/history.dart';
-import 'package:wanna_plant/homepage/homeScreen.dart';
-import 'package:wanna_plant/landScreen.dart';
-import 'package:wanna_plant/loginScreen.dart';
-import 'package:wanna_plant/signupScreen.dart';
+import 'package:wanna_plant/identify/identifyScreen.dart';
+import 'package:wanna_plant/identify/waitIdentifyScreen.dart';
+import 'package:wanna_plant/login/forgot_passwordScreen.dart';
+import 'package:wanna_plant/login/loginScreen.dart';
+import 'package:wanna_plant/manage_account/edit_acc_screen.dart';
+import 'package:wanna_plant/signup/signupScreen.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
 
 void main() {
@@ -18,13 +20,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      //title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Home(),
+      home: HistoryScreen(),
       debugShowCheckedModeBanner: false,
+      // initialRoute: '/welcome',
+      // routes: {
+      //   '/welcome': (context) => WelcomeScreen(),
+      //   '/login': (context) => LoginScreen(),
+      //   '/forgot_password': (context) => Forgot_passwordScreen(),
+      //   '/signup': (context) => SignUpScreen(),
+      //   '/Register_land': (context) => Regis_land_Screen(),
+      //   '/Identity': (context) => IdentifyScreen(),
+      //   '/Wait_identity': (context) => WaitIdentifyScreen(),
+      // },
     );
   }
 }
