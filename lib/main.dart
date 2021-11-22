@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/HistoryDetailCustomer.dart';
+import 'package:wanna_plant/HistoryDetailPlanter.dart';
+import 'package:wanna_plant/TrackCustomer.dart';
+import 'package:wanna_plant/TrackingSuccess.dart';
 import 'package:wanna_plant/bottomBar.dart';
 import 'package:wanna_plant/chatScreen.dart';
 import 'package:wanna_plant/favorite/favoriteScreen.dart';
@@ -7,7 +11,9 @@ import 'package:wanna_plant/homepage/homeScreen.dart';
 import 'package:wanna_plant/landScreen.dart';
 import 'package:wanna_plant/loginScreen.dart';
 import 'package:wanna_plant/signupScreen.dart';
+import 'package:wanna_plant/trackplanter.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -22,8 +28,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins',
         scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.green,
       ),
-      home: Home(),
+      home: HistoryPlanter(),
       debugShowCheckedModeBanner: false,
     );
   }
