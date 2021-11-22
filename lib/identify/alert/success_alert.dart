@@ -26,12 +26,7 @@ Future successAlert(BuildContext context) async {
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WaitIdentifyScreen(),
-                      ),
-                    );
+                    Navigator.pushReplacementNamed(context, '/Homepage');
                   },
                   child: Text(
                     'OK',

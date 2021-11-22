@@ -90,15 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-  flutter_rating_bar:
-    dependency: "direct main"
-    description:
-      name: flutter_rating_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
-=======
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -106,7 +97,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
->>>>>>> dev-aim
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -311,8 +308,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.2"
-<<<<<<< HEAD
-<<<<<<< HEAD
   timeline_tile:
     dependency: "direct main"
     description:
@@ -327,10 +322,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
-=======
->>>>>>> origin/dev-pun
-=======
->>>>>>> dev-aim
   typed_data:
     dependency: transitive
     description:

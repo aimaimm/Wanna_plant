@@ -15,10 +15,13 @@ class _HistoryCustomer extends State<HistoryCustomer> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail History',
+          'Detail Activity',
           style: TextStyle(
             color: Colors.black,
           ),
+        ),
+        leading: BackButton(
+          color: Colors.grey[300],
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -567,11 +570,14 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                         print(rating);
                                       }),
                                   SizedBox(width: 100),
-                                  Text('Jan Jukoo',style: TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),),
+                                  Text(
+                                    'Jan Jukoo',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined,color: Color(0xff606060),size: 30)
+                                  Icon(Icons.account_circle_outlined,
+                                      color: Color(0xff606060), size: 30)
                                 ],
                               ),
                             )
@@ -602,7 +608,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                     backgroundColor: Color(0xFF7CC671),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                    ),                  
+                    ),
                   ),
                 ),
               ),

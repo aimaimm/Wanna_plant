@@ -15,7 +15,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail History',
+          'Detail Activity',
           style: TextStyle(
             color: Colors.black,
           ),

@@ -23,18 +23,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Color(0xFFDEDEDE),
-            ),
-          ),
           centerTitle: true,
           title: Text(
-            'History',
+            'My Activity',
             style: TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
           ),
@@ -62,12 +53,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   physics: ClampingScrollPhysics(),
                   itemCount: data.length,
                   itemBuilder: (context, index) {
-                    return myCard_history(
-                      image: data[index]['image'],
-                      name: data[index]['name'],
-                      price: data[index]['price'],
-                      plant: data[index]['plant'],
-                      rate: data[index]['rate'],
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/History_planter');
+                      },
+                      child: myCard_history(
+                        image: data[index]['image'],
+                        name: data[index]['name'],
+                        price: data[index]['price'],
+                        plant: data[index]['plant'],
+                        rate: data[index]['rate'],
+                      ),
                     );
                   }),
             ),
@@ -77,12 +73,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   physics: ClampingScrollPhysics(),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    return myCard_favorite(
-                      image: items[index]['image'],
-                      location: items[index]['location'],
-                      land: items[index]['land'],
-                      plant: items[index]['plant'],
-                      rate: items[index]['rate'],
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/History_Customer');
+                      },
+                      child: myCard_favorite(
+                        image: items[index]['image'],
+                        location: items[index]['location'],
+                        land: items[index]['land'],
+                        plant: items[index]['plant'],
+                        rate: items[index]['rate'],
+                      ),
                     );
                   }),
             ),

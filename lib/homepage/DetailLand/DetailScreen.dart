@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
-
-import '../constants.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key, required this.listplant}) : super(key: key);
@@ -27,7 +26,9 @@ class _DetailScreenState extends State<DetailScreen> {
         actions: [
           IconButton(
             padding: EdgeInsets.all(0),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/Cart');
+            },
             icon: Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(

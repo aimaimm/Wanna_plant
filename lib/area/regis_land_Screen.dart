@@ -5,7 +5,6 @@ import 'package:wanna_plant/area/upload_imageScreen.dart';
 import 'package:wanna_plant/area/wigget/Description_input.dart';
 import 'package:wanna_plant/area/wigget/Text_header.dart';
 import 'package:wanna_plant/area/wigget/enter_text.dart';
-
 import 'package:wanna_plant/constants.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -28,6 +27,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
   var priceTEC = <TextEditingController>[];
   var rowCard = [];
   bool add = true;
+
   final ImagePicker _picker = ImagePicker();
   List<XFile> _imageFileList = [];
   String files = '';

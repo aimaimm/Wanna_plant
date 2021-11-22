@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wanna_plant/DetailLand/DetailScreen.dart';
+import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
+
 
 class Seeallscreen extends StatefulWidget {
   const Seeallscreen({Key? key}) : super(key: key);
