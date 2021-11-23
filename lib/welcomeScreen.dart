@@ -56,7 +56,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: 218,
             height: 44,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              }, //go to Home
               child: Text('LOGIN'),
               style: TextButton.styleFrom(
                 primary: Colors.white,
@@ -76,7 +78,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: 218,
             height: 44,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/signup');
+              },
               child: Text('SIGNUP'),
               style: TextButton.styleFrom(
                 primary: Colors.black,

@@ -44,7 +44,14 @@ class _WaitIdentifyScreenState extends State<WaitIdentifyScreen> {
               width: MediaQuery.of(context).size.width,
               height: 44,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => HomepageScreen(),
+                  //   ),
+                  // );
+                },
                 child: Text(
                   'GO TO HOME',
                   style: TextStyle(fontWeight: FontWeight.bold),

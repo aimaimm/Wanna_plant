@@ -21,7 +21,7 @@ class _chatPageState extends State<chatPage> {
             child: Text(
               'Chat',
               style: TextStyle(
-                fontSize: 24.0,
+                fontSize: 24.0, 
                 fontWeight: FontWeight.bold,
               ),
             ),

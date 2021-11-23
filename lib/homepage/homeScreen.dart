@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:wanna_plant/DetailLand/DetailScreen.dart';
+
+import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
 import '../CustomBottomBar.dart';
@@ -164,9 +165,10 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           elevation: 0,
           toolbarHeight: 170,
+          titleSpacing: 0,
           backgroundColor: Colors.white,
           title: Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: 35, right: 30),
             child: Column(
               children: [
                 Row(
@@ -196,13 +198,20 @@ class _HomeState extends State<Home> {
                       children: [
                         Stack(
                           children: [
-                            Icon(
-                              Icons.notifications,
-                              color: Colors.grey[350],
-                              size: 35,
+                            IconButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/Tracking_planter');
+                              },
+                              icon: Icon(
+                                Icons.notifications,
+                                color: Colors.grey[350],
+                                size: 35,
+                              ),
                             ),
                             Positioned(
-                              right: 6,
+                              right: 8,
+                              top: 10,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.red,
@@ -216,7 +225,9 @@ class _HomeState extends State<Home> {
                         ),
                         IconButton(
                           padding: EdgeInsets.all(0),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/Cart');
+                          },
                           icon: Container(
                             padding: EdgeInsets.all(8),
                             decoration: BoxDecoration(

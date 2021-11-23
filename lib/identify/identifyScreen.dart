@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wanna_plant/constants.dart';
+import 'package:wanna_plant/identify/IdentifyCard.dart';
+import 'package:wanna_plant/identify/alert/Unsuccess_alert.dart';
+import 'package:wanna_plant/identify/alert/success_alert.dart';
 
 class IdentifyScreen extends StatefulWidget {
-  //const IdentifyScreen({ Key? key }) : super(key: key);
+  const IdentifyScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _IdentifyScreenState createState() => _IdentifyScreenState();
@@ -11,15 +16,33 @@ class IdentifyScreen extends StatefulWidget {
 
 class _IdentifyScreenState extends State<IdentifyScreen> {
   bool _checkbox = false;
+
+  Submit() {
+    if (_checkbox == false) {
+      Unsuccess(context);
+    } else {
+      successAlert(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var sizeH = MediaQuery.of(context).size.height;
+    var sizeW = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
           Positioned(
-            top: 0,
-            left: 120,
-            child: SvgPicture.asset('assets/images/identify_top_right.svg'),
+            top: -120,
+            right: -20,
+            child: Container(
+              width: 210,
+              height: 210,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(200),
+                color: gbase.withOpacity(0.2),
+              ),
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +50,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               IconButton(
                 padding: EdgeInsets.only(top: 40),
                 onPressed: () {
-                  setState(() {});
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back,
@@ -43,70 +66,24 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                       'Identity Verification',
                       style: TextStyle(
                         color: gbase,
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: sizeH / 60,
                     ),
-                    Text('we need to vertify Information'),
-                    Text('Please submit the document'),
-                    Text('below to process you application'),
+                    Text(
+                      'we need to vertify Information \nPlease submit the document \nbelow to process you application',
+                      style: TextStyle(fontSize: 12),
+                    ),
                     SizedBox(
-                      height: 20,
+                      height: sizeH * 0.05,
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      elevation: 0,
-                      color: txtg,
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(10),
-                        leading: Image.asset('assets/images/scan.png'),
-                        title: Text('Face Photo'),
-                        trailing: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: gbase,
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    IdentifyCard(),
+                    SizedBox(
+                      height: sizeH * 0.02,
                     ),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      elevation: 0,
-                      color: txtg,
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(10),
-                        leading: Image.asset('assets/images/idCard.png'),
-                        title: Text('ID Card'),
-                        trailing: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: gbase,
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 15),
                     Row(
                       children: [
                         Checkbox(
@@ -128,10 +105,10 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                       height: 15,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      width: sizeW,
                       height: 44,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: Submit,
                         child: Text('SUBMIT'),
                         style: TextButton.styleFrom(
                           primary: Colors.white,
@@ -152,5 +129,16 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
         ],
       ),
     );
+  }
+}
+
+class image {
+  final String face;
+  final String id_card;
+
+  image(this.face, this.id_card);
+  @override
+  String toString() {
+    return 'Kind of Plant: name=';
   }
 }
