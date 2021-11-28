@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:wanna_plant/constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
@@ -145,8 +148,31 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> test() async {
+    Uri uri_login = Uri.http(url, '/allland');
+    // TODO: implement initState
+    try {
+      http.Response respons = await http.get(uri_login);
+      if (respons.statusCode == 200) {
+        print(respons.body);
+        print(respons.body.runtimeType);
+      }
+    } catch (e) {
+      print(e);
+      print('connection error');
+    }
+  }
+
+  @override
+  void initState() {
+    test();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context)!.settings.arguments;
+
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (hide_pop == false) {
       if (currentFocus.hasPrimaryFocus) {
@@ -168,7 +194,7 @@ class _HomeState extends State<Home> {
           titleSpacing: 0,
           backgroundColor: Colors.white,
           title: Container(
-            margin: EdgeInsets.only(top: 35, right: 30),
+            margin: EdgeInsets.only(top: 35, right: 30, left: 30),
             child: Column(
               children: [
                 Row(

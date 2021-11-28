@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   //const LoginScreen({ Key? key }) : super(key: key);
@@ -15,15 +16,26 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   String error = '';
 
-  Map<String, dynamic> login = {'username': 'aimaim', 'password': '1234'};
+  // Map<String, dynamic> login = {'username': 'aimaim', 'password': '1234'};
 
-  _login() {
-    if (username.text != login['name'] || password.text != login['password']) {
-      error = 'username or password went wrong';
-    } else {
-      setState(() {
-        Navigator.pushNamed(context, '/'); //Home
+  _login() async {
+    Uri uri_login = Uri.http(url, '/login');
+    try {
+      http.Response respons = await http.post(uri_login, body: {
+        "username": username.text,
+        "password": password.text,
       });
+      if (respons.statusCode == 200) {
+        print(respons.body);
+        setState(() {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/Homepage', ModalRoute.withName('/Homepage'),
+              arguments: respons.body); //Home
+        });
+      }
+    } catch (e) {
+      print(e);
+      print("connection error");
     }
   }
 

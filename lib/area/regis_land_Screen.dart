@@ -10,33 +10,41 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:wanna_plant/identify/identifyScreen.dart';
+
+String? size;
+String? descrip;
+String? val;
+List<XFile> imageFileList = [];
+List entries = [];
+bool infoland = true;
 
 class Regis_land_Screen extends StatefulWidget {
-  const Regis_land_Screen({Key? key}) : super(key: key);
+  const Regis_land_Screen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _Regis_land_ScreenState createState() => _Regis_land_ScreenState();
 }
 
 class _Regis_land_ScreenState extends State<Regis_land_Screen> {
-  String _val = 'Square Centimeter';
-
   TextEditingController description = TextEditingController();
   TextEditingController size_area = TextEditingController();
-  var plantTEC = <TextEditingController>[];
-  var priceTEC = <TextEditingController>[];
+  List plantTEC = [];
+  List priceTEC = [];
   var rowCard = [];
   bool add = true;
 
   final ImagePicker _picker = ImagePicker();
-  List<XFile> _imageFileList = [];
+
   String files = '';
 
 //------------------------add image-----------------------------------------------
   void selectImage() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
     if (selectedImages!.isNotEmpty) {
-      _imageFileList.addAll(selectedImages);
+      imageFileList.addAll(selectedImages);
     }
 
     //  print('Image list lenght :${_imageFileList!.length.toString()}');
@@ -47,8 +55,8 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
 
   //---------------------what kind of plant?------------------------------------
   addPlant() {
-    var plantController = TextEditingController();
-    var priceController = TextEditingController();
+    TextEditingController plantController = TextEditingController();
+    TextEditingController priceController = TextEditingController();
     plantTEC.add(plantController);
     priceTEC.add(priceController);
     return Padding(
@@ -99,27 +107,58 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
 
 //----------------------confirm button------------------------------------------
   _Next() {
-    List<PlantEntry> entries = [];
-    for (int i = 0; i < rowCard.length; i++) {
-      var name = plantTEC[i].text;
-      var price = priceTEC[i].text;
-      var size = size_area.text;
-      var descrip = description.text;
+    size = size_area.text;
+    descrip = description.text;
+    int? size_check = int.tryParse(size!);
 
-      entries.add(
-        PlantEntry(name, price, _val, size, descrip),
-      );
+    if (size == "" || descrip == "" || imageFileList.length == 0) {
+      infoland = false;
+      setState(() {
+        Navigator.pushNamed(context, '/Identity');
+      });
+    } else {
+      int countcheck = 0;
+
+      // check "" in list kind of plant
+      for (int i = 0; i < plantTEC.length; i++) {
+        if (plantTEC[i].text != "" && priceTEC[i].text != "") {
+          countcheck++;
+        }
+      }
+      if (countcheck == plantTEC.length) {
+        for (int i = 0; i < rowCard.length; i++) {
+          var namecon = plantTEC[i].text;
+          var price = priceTEC[i].text;
+          int? price_check = int.tryParse(price);
+          if (price_check != null) {
+            entries.add({'plantname': namecon, 'price': price});
+            if ((i + 1) == rowCard.length && size_check != null) {
+              setState(() {
+                print(entries);
+                Navigator.pushNamed(context, '/Identity');
+              });
+            }
+          }
+        }
+
+        // print(_imageFileList);
+        //Navigator.pop(context, entries);
+        // print(entries);
+
+      } else {
+        infoland = false;
+        setState(() {
+          Navigator.pushNamed(context, '/Identity');
+        });
+      }
     }
-    //Navigator.pop(context, entries);
-    print(entries);
-    setState(() {
-      Navigator.pushNamed(context, '/Identity');
-    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
+    val = 'Square Centimeter';
+
     super.initState();
     rowCard.add(addPlant());
   }
@@ -202,11 +241,11 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: _val,
+                          value: val,
                           items: createDD(),
                           onChanged: (String? newvalue) {
                             setState(() {
-                              _val = newvalue!;
+                              val = newvalue!;
                             });
                           },
                         ),
@@ -222,7 +261,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                 children: [
                   InkWell(
                     onTap: selectImage,
-                    child: _imageFileList.length == 0
+                    child: imageFileList.length == 0
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(4.0),
                             child: Container(
@@ -286,7 +325,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                     child: ListView.builder(
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemCount: _imageFileList.length,
+                      itemCount: imageFileList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 5),
@@ -297,7 +336,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                                 borderRadius: BorderRadius.circular(4.0),
                                 child: Image.file(
                                   File(
-                                    _imageFileList[index].path,
+                                    imageFileList[index].path,
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -307,7 +346,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                                 top: -10,
                                 child: IconButton(
                                   onPressed: () {
-                                    _imageFileList.removeAt(index);
+                                    imageFileList.removeAt(index);
                                     setState(() {});
                                   },
                                   icon: Icon(
@@ -326,12 +365,12 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: _imageFileList.length == 0
+                child: imageFileList.length == 0
                     ? Text(
                         '',
                       )
                     : Text(
-                        'image = ${_imageFileList.length.toString()}',
+                        'image = ${imageFileList.length.toString()}',
                         style: TextStyle(color: gbase, fontSize: 8),
                       ),
               ),

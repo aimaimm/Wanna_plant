@@ -414,7 +414,13 @@ class _profileScreenState extends State<profileScreen> {
                           Expanded(
                             child: Container(
                               child: TextButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    '/welcome',
+                                    ModalRoute.withName('/welcome'),
+                                  ); //Home
+                                },
                                 icon: Icon(
                                   Icons.logout_outlined,
                                   color: Colors.grey.shade600,

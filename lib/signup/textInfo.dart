@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_plant/constants.dart';
 
+TextEditingController name = TextEditingController();
+TextEditingController username = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController phonenumber = TextEditingController();
+TextEditingController address = TextEditingController();
+TextEditingController protmptpay = TextEditingController();
+
 class textInfo extends StatefulWidget {
   const textInfo({
     Key? key,
@@ -13,15 +20,6 @@ class textInfo extends StatefulWidget {
 class _textInfoState extends State<textInfo> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController name = TextEditingController();
-    TextEditingController username = TextEditingController();
-    TextEditingController password = TextEditingController();
-    TextEditingController number = TextEditingController();
-    TextEditingController address = TextEditingController();
-    TextEditingController transfer = TextEditingController();
-    List signup = [];
-   
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,6 +39,7 @@ class _textInfoState extends State<textInfo> {
         ),
         TextField(
           obscureText: true,
+          controller: password,
           style: TextStyle(fontSize: 12),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(10),
@@ -75,7 +74,7 @@ class _textInfoState extends State<textInfo> {
           height: 13,
         ),
         Style_txtFie(
-          control: number,
+          control: phonenumber,
           hintText: 'Phone number',
         ),
         SizedBox(
@@ -124,7 +123,7 @@ class _textInfoState extends State<textInfo> {
           height: 13,
         ),
         Style_txtFie(
-          control: transfer,
+          control: protmptpay,
           hintText: 'Protmptpay',
         ),
       ],

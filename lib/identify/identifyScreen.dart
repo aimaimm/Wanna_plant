@@ -1,14 +1,45 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/identify/IdentifyCard.dart';
 import 'package:wanna_plant/identify/alert/Unsuccess_alert.dart';
 import 'package:wanna_plant/identify/alert/success_alert.dart';
+import 'package:http/http.dart' as http;
+import 'package:wanna_plant/signup/textInfo.dart';
 
 class IdentifyScreen extends StatefulWidget {
   const IdentifyScreen({
     Key? key,
+    required this.imageFileList,
+    required this.name,
+    required this.username,
+    required this.password,
+    required this.phonenumber,
+    required this.address,
+    required this.protmptpay,
+    required this.size,
+    required this.descrip,
+    required this.val,
+    required this.entries,
+    required this.infoland,
   }) : super(key: key);
+
+  final String name;
+  final String username;
+  final String password;
+  final String phonenumber;
+  final String address;
+  final String protmptpay;
+  final String size;
+  final String descrip;
+  final String val;
+  final List entries;
+  final List<XFile> imageFileList;
+  final bool infoland;
 
   @override
   _IdentifyScreenState createState() => _IdentifyScreenState();
@@ -17,12 +48,83 @@ class IdentifyScreen extends StatefulWidget {
 class _IdentifyScreenState extends State<IdentifyScreen> {
   bool _checkbox = false;
 
-  Submit() {
+  Submit() async {
     if (_checkbox == false) {
       Unsuccess(context);
     } else {
-      successAlert(context);
+      if (face != null && id_card != null) {
+        Uri uri = Uri.http(url, '/register');
+        Uri uri_land = Uri.http(url, '/registerland');
+        // Uri uri_land_picture = Uri.http(url, '/registerlandpicture');
+
+        try {
+          if (widget.imageFileList.length != 0 && widget.infoland == true) {
+            http.Response response = await http.post(
+              uri,
+              body: {
+                'name': widget.name,
+                'username': widget.username,
+                'password': widget.password,
+                'phonenumber': widget.phonenumber,
+                'address': widget.address,
+                'protmptpay': widget.protmptpay,
+                'identify': "1",
+                'role': "2",
+                'check_role': "guest",
+              },
+            );
+            if (response.statusCode == 200) {
+              http.MultipartRequest requestlandpicture =
+                  http.MultipartRequest('POST', uri_land);
+              List iduser = jsonDecode(response.body);
+
+              requestlandpicture.fields['size'] = widget.size;
+              requestlandpicture.fields['val'] = widget.val;
+              requestlandpicture.fields['descrip'] = widget.descrip;
+              requestlandpicture.fields['user_id'] = jsonEncode(iduser);
+              requestlandpicture.fields['entries'] = jsonEncode(widget.entries);
+              requestlandpicture.fields['check_role'] = "guest";
+              for (int i = 0; i < widget.imageFileList.length; i++) {
+                requestlandpicture.files.add(await http.MultipartFile.fromPath(
+                    'fileupload', widget.imageFileList[i].path));
+              }
+              var res = await requestlandpicture.send();
+              if (res.statusCode == 200) {
+                successAlert(context);
+              }
+            }
+          } else {
+            http.Response response = await http.post(
+              uri,
+              body: {
+                'name': widget.name,
+                'username': widget.username,
+                'password': widget.password,
+                'phonenumber': widget.phonenumber,
+                'address': widget.address,
+                'protmptpay': widget.protmptpay,
+                'identify': "1",
+                'role': "1",
+                'check_user': "guest",
+              },
+            );
+            if (response.statusCode == 200) {
+              successAlert(context);
+            } else {
+              print('Connection down');
+            }
+          }
+        } catch (e) {
+          print(e);
+          print('Connection error');
+        }
+      }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -50,6 +152,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               IconButton(
                 padding: EdgeInsets.only(top: 40),
                 onPressed: () {
+                  entries.clear();
                   Navigator.pop(context);
                 },
                 icon: Icon(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/signup/textInfo.dart';
 
@@ -91,7 +92,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 44,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/Register_land');
+                    if (name.text != "" &&
+                        username.text != "" &&
+                        password.text != "" &&
+                        phonenumber.text != "" &&
+                        address.text != "" &&
+                        protmptpay.text != "") {
+                      int? phonenumber_check = int.tryParse(phonenumber.text);
+                      int? promptpay_check = int.tryParse(protmptpay.text);
+                      if (phonenumber_check != null &&
+                          promptpay_check != null) {
+                        Navigator.pushNamed(context, '/Register_land');
+                      }
+                    }
+
+                    // String email = "ton.com";
+                    // bool emailValid = RegExp(
+                    //         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                    //     .hasMatch(email);
                   },
                   child: Text('Next'),
                   style: TextButton.styleFrom(

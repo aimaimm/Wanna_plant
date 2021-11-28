@@ -5,6 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:image_picker/image_picker.dart';
 
+XFile? face;
+XFile? id_card;
+
 class IdentifyCard extends StatefulWidget {
   const IdentifyCard({
     Key? key,
@@ -16,8 +19,6 @@ class IdentifyCard extends StatefulWidget {
 
 class _IdentifyCardState extends State<IdentifyCard> {
   final ImagePicker _picker = ImagePicker();
-  XFile? face;
-  XFile? id_card;
 
 //---------------------face photo-------------------------------------------
   Future Face() async {

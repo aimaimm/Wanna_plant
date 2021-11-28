@@ -5,6 +5,7 @@ import 'package:wanna_plant/History/HistoryDetailPlanter.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:wanna_plant/profile/profileScreen.dart';
+import 'package:wanna_plant/signup/textInfo.dart';
 import 'package:wanna_plant/tracking/TrackCustomer.dart';
 import 'package:wanna_plant/tracking/TrackingSuccess.dart';
 
@@ -50,7 +51,20 @@ class MyApp extends StatelessWidget {
         '/forgot_password': (context) => Forgot_passwordScreen(),
         '/signup': (context) => SignUpScreen(),
         '/Register_land': (context) => Regis_land_Screen(),
-        '/Identity': (context) => IdentifyScreen(),
+        '/Identity': (context) => IdentifyScreen(
+              name: name.text,
+              username: username.text,
+              password: password.text,
+              phonenumber: phonenumber.text,
+              address: address.text,
+              protmptpay: protmptpay.text,
+              size: size!,
+              descrip: descrip!,
+              val: val!,
+              entries: entries,
+              imageFileList: imageFileList,
+              infoland: infoland,
+            ),
         '/Wait_identity': (context) => WaitIdentifyScreen(),
         '/Favorite': (context) => FavoriteScreen(),
         '/History': (context) => HistoryScreen(),
