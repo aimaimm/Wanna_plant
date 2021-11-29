@@ -56,7 +56,7 @@ class _profileScreenState extends State<profileScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15, right: 15 ),
+              padding: EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 children: [
                   SizedBox(
@@ -66,12 +66,11 @@ class _profileScreenState extends State<profileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        
                         Column(
                           children: [
                             Container(
                               child: ClipRRect(
-                                borderRadius:BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(15),
                                 child: Image.asset(
                                   'assets/images/man-square.jpg',
                                   width: 95,
@@ -125,7 +124,8 @@ class _profileScreenState extends State<profileScreen> {
                             ),
                             Container(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Column(
                                     children: [
@@ -144,8 +144,8 @@ class _profileScreenState extends State<profileScreen> {
                                     ],
                                   ),
                                   Container(
-                                    padding:
-                                        EdgeInsets.only(right: 16.0, left: 16.0),
+                                    padding: EdgeInsets.only(
+                                        right: 16.0, left: 16.0),
                                     child: Container(
                                       height: 45,
                                       decoration: BoxDecoration(
@@ -414,7 +414,13 @@ class _profileScreenState extends State<profileScreen> {
                           Expanded(
                             child: Container(
                               child: TextButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    '/welcome',
+                                    ModalRoute.withName('/welcome'),
+                                  ); //Home
+                                },
                                 icon: Icon(
                                   Icons.logout_outlined,
                                   color: Colors.grey.shade600,
