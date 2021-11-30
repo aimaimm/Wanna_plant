@@ -404,12 +404,6 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
             ),
-
-
-
-
-
-
             bottomSheet: showBotton_sheet
                 ? Container(
                     height: 350,
@@ -439,93 +433,43 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ),
                                 ],
                               ),
-
-
-
-
-
-
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 2),
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: 3,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Container(
-                                        margin:
-                                            EdgeInsets.symmetric(vertical: 15),
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1, color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: TextButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              'Carrot 1200 baht/kg',
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.black,
-                                              ),
+                              Expanded(
+                                child: GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2),
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: 3,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 15),
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1, color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: TextButton(
+                                          onPressed: () {},
+                                          child: Text(
+                                            'Carrot 1200 baht/kg',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
-                                  // Column(
-                                  //   children: [
-                                  //     Container(
-                                  //       height: 35,
-                                  //       decoration: BoxDecoration(
-                                  //         border: Border.all(
-                                  //             width: 1, color: Colors.grey),
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(10),
-                                  //       ),
-                                  //       child: Padding(
-                                  //         padding: const EdgeInsets.symmetric(
-                                  //             horizontal: 20),
-                                  //         child: TextButton(
-                                  //           onPressed: () {},
-                                  //           child: Text(
-                                  //             'Carrot 1200 baht/kg',
-                                  //             style: TextStyle(
-                                  //               fontSize: 13,
-                                  //               color: Colors.black,
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                ],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-
-
-
-
-
-
-
-
-
-
-
                             ],
                           ),
                         ),
@@ -624,12 +568,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   )
                 : null,
           )
-
-
-
-
-
-          
         : Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
