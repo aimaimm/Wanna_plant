@@ -213,9 +213,7 @@ class _textInfoState extends State<textInfo> {
           height: 16,
         ),
         Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 12,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 12),
           //height: 48,
           decoration: BoxDecoration(
             color: txtg,
@@ -223,6 +221,12 @@ class _textInfoState extends State<textInfo> {
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
+              hint: Container(
+                child: Text(
+                  'Select province',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ),
               value: val_province,
               items: createDD(),
               onChanged: (String? newvalue) {
