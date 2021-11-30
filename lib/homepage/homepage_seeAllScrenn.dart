@@ -1,126 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 
-
 class Seeallscreen extends StatefulWidget {
-  const Seeallscreen({Key? key}) : super(key: key);
+  const Seeallscreen({Key? key, required this.data_land}) : super(key: key);
+
+  final List data_land;
 
   @override
   _SeeallscreenState createState() => _SeeallscreenState();
 }
 
-List Listplant = [
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-  {
-    'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-    'localtion': 'Chiang Rai',
-    'land': '170 accur',
-    'plant': 'Carrot, tree..',
-    'Description': 'Please wait for 50 day after plant',
-    'Owner': 'John John',
-    'Planted': '2 items',
-  },
-];
-
 class _SeeallscreenState extends State<Seeallscreen> {
+  String plant_text(datatext) {
+    if (datatext.length < 2) {
+      return "${datatext[0]}";
+    } else {
+      return "${datatext[0]}, ${datatext[1]}...";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,14 +103,14 @@ class _SeeallscreenState extends State<Seeallscreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('${Listplant.length.toString()} Items'),
+                    Text('${widget.data_land.length.toString()} Items'),
                   ],
                 ),
                 ListView.builder(
                   padding: EdgeInsets.all(0),
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: Listplant.length,
+                  itemCount: widget.data_land.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -220,7 +118,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetailScreen(
-                              listplant: Listplant[index],
+                              listplant: [],
                             ),
                           ),
                         );
@@ -238,8 +136,8 @@ class _SeeallscreenState extends State<Seeallscreen> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
-                                child: Image.asset(
-                                  '${Listplant[index]['picture']}',
+                                child: Image.network(
+                                  '${widget.data_land[index]['pic_name']}',
                                   width: 150,
                                   height: 100,
                                   fit: BoxFit.cover,
@@ -251,43 +149,62 @@ class _SeeallscreenState extends State<Seeallscreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${Listplant[index]['localtion']}',
+                                      '${widget.data_land[index]['province']}',
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     SizedBox(
                                       height: 20,
                                     ),
                                     Text(
-                                      'Land: ${Listplant[index]['land']}',
+                                      'Land: ${widget.data_land[index]['land_area']} ${widget.data_land[index]['land_unit']}',
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     SizedBox(
                                       height: 20,
                                     ),
                                     Text(
-                                      '${Listplant[index]['plant']}',
+                                      plant_text(widget.data_land[index]
+                                          ['plants_name']),
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ],
                                 ),
                               ),
-                              Center(
-                                child: Column(
-                                  children: [
-                                    Icon(
-                                      Icons.star_rate,
-                                      color: Colors.amber,
-                                      size: 25,
-                                    ),
-                                    Text(
-                                      '4.7 rate',
-                                      style: TextStyle(
-                                        fontSize: 12,
+                              widget.data_land[index]['rating'] == 0
+                                  ? Center(
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.star_rate,
+                                            color: Colors.grey,
+                                            size: 25,
+                                          ),
+                                          Text(
+                                            '${widget.data_land[index]['rating']} rate',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )
+                                    )
+                                  : Center(
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.star_rate,
+                                            color: Colors.amber,
+                                            size: 25,
+                                          ),
+                                          Text(
+                                            '${widget.data_land[index]['rating']} rate',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
                             ],
                           ),
                         ),

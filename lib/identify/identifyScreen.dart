@@ -20,6 +20,7 @@ class IdentifyScreen extends StatefulWidget {
     required this.password,
     required this.phonenumber,
     required this.address,
+    required this.province,
     required this.protmptpay,
     required this.size,
     required this.descrip,
@@ -33,6 +34,7 @@ class IdentifyScreen extends StatefulWidget {
   final String password;
   final String phonenumber;
   final String address;
+  final String province;
   final String protmptpay;
   final String size;
   final String descrip;
@@ -67,6 +69,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                 'password': widget.password,
                 'phonenumber': widget.phonenumber,
                 'address': widget.address,
+                'province': widget.province,
                 'protmptpay': widget.protmptpay,
                 'identify': "1",
                 'role': "2",
@@ -102,6 +105,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                 'password': widget.password,
                 'phonenumber': widget.phonenumber,
                 'address': widget.address,
+                'province': widget.province,
                 'protmptpay': widget.protmptpay,
                 'identify': "1",
                 'role': "1",

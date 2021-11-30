@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
+import 'package:wanna_plant/data/province.dart';
 import 'package:wanna_plant/signup/textInfo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -98,6 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           password.text != "" &&
                           phonenumber.text != "" &&
                           address.text != "" &&
+                          val_province != null &&
                           protmptpay.text != "") {
                         int? phonenumber_check = int.tryParse(phonenumber.text);
                         int? promptpay_check = int.tryParse(protmptpay.text);

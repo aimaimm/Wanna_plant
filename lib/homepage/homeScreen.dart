@@ -11,6 +11,8 @@ import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
 import '../CustomBottomBar.dart';
 
+List data_land = [];
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -22,116 +24,7 @@ class _HomeState extends State<Home> {
   bool hide_pop = true;
   double animation_search = 1;
   bool show_items_count = false;
-  List Listplant = [
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1559628233-eb1b1a45564b.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-    {
-      'picture': 'assets/images/photo-1463320898484-cdee8141c787.jpg',
-      'localtion': 'Chiang Rai',
-      'land': '170 accur',
-      'plant': 'Carrot, tree..',
-      'Description': 'Please wait for 50 day after plant',
-      'Owner': 'John John',
-      'Planted': '2 items',
-    },
-  ];
+
   List? rawdata_land;
   bool build_ui = false;
 
@@ -151,7 +44,13 @@ class _HomeState extends State<Home> {
     }
   }
 
-  List data_land = [];
+  String plant_text(datatext) {
+    if (datatext.length < 2) {
+      return "${datatext[0]}";
+    } else {
+      return "${datatext[0]}, ${datatext[1]}...";
+    }
+  }
 
   Future<void> dataland() async {
     Uri uri_login = Uri.http(url, '/allland');
@@ -174,6 +73,10 @@ class _HomeState extends State<Home> {
             rawdata_land![i]['rating'] = 0;
           }
 
+          if (rawdata_land![i]['popular_counting'] == null) {
+            rawdata_land![i]['popular_counting'] = 0;
+          }
+
           if (data_land.length == 0) {
             data_land.add(
               {
@@ -184,14 +87,16 @@ class _HomeState extends State<Home> {
                 'land_unit': rawdata_land![i]['land_unit'],
                 'plants_name': rawdata_land![i]['plants_name'],
                 'address': rawdata_land![i]['address'],
+                'province': rawdata_land![i]['province'],
                 'rating': rawdata_land![i]['rating'],
+                'popular_counting': rawdata_land![i]['popular_counting'],
               },
             );
           } else if (data_land[data_land.length - 1]['land_id'] ==
               rawdata_land![i]['land_id']) {
             List stack_plant = [];
-            stack_plant.add({data_land[i - 1]['plants_name']});
-            stack_plant.add({rawdata_land![i]['plants_name']});
+            stack_plant.add(data_land[i - 1]['plants_name']);
+            stack_plant.add(rawdata_land![i]['plants_name']);
             data_land[i - 1]['plants_name'] = stack_plant;
           } else {
             data_land.add(
@@ -203,12 +108,15 @@ class _HomeState extends State<Home> {
                 'land_unit': rawdata_land![i]['land_unit'],
                 'plants_name': [rawdata_land![i]['plants_name']],
                 'address': rawdata_land![i]['address'],
+                'province': rawdata_land![i]['province'],
                 'rating': rawdata_land![i]['rating'],
+                'popular_counting': rawdata_land![i]['popular_counting'],
               },
             );
           }
         }
         setState(() {
+          print(data_land);
           if (rawdata_land != null) {
             build_ui = true;
           }
@@ -414,7 +322,7 @@ class _HomeState extends State<Home> {
                                           child: ListView.builder(
                                             physics: BouncingScrollPhysics(),
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: Listplant.length,
+                                            itemCount: data_land.length,
                                             itemBuilder: (context, index) {
                                               return InkWell(
                                                 onTap: () {
@@ -424,8 +332,7 @@ class _HomeState extends State<Home> {
                                                     MaterialPageRoute(
                                                       builder: (context) =>
                                                           DetailScreen(
-                                                        listplant:
-                                                            Listplant[index],
+                                                        listplant: [],
                                                       ),
                                                     ),
                                                   );
@@ -452,8 +359,8 @@ class _HomeState extends State<Home> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(20),
-                                                          child: Image.asset(
-                                                            "${Listplant[index]['picture']}",
+                                                          child: Image.network(
+                                                            "${data_land[index]['pic_name']}",
                                                             width: 150,
                                                             height: 100,
                                                             fit: BoxFit.cover,
@@ -473,19 +380,22 @@ class _HomeState extends State<Home> {
                                                                       .start,
                                                               children: [
                                                                 Text(
-                                                                  '${Listplant[index]['localtion']}',
+                                                                  '${data_land[index]['province']}',
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           10),
                                                                 ),
                                                                 Text(
-                                                                  '${Listplant[index]['land']}',
+                                                                  '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           10),
                                                                 ),
                                                                 Text(
-                                                                  '${Listplant[index]['plant']}',
+                                                                  plant_text(data_land[
+                                                                          index]
+                                                                      [
+                                                                      'plants_name']),
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           10),
@@ -495,25 +405,49 @@ class _HomeState extends State<Home> {
                                                             SizedBox(
                                                               width: 40,
                                                             ),
-                                                            Column(
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .star_rate,
-                                                                  color: Colors
-                                                                      .amber,
-                                                                  size: 20,
-                                                                ),
-                                                                Text(
-                                                                  '4.7 rate',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        10,
+                                                            data_land[index][
+                                                                        'rating'] ==
+                                                                    0
+                                                                ? Column(
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .star_rate,
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        size:
+                                                                            20,
+                                                                      ),
+                                                                      Text(
+                                                                        '${data_land[index]['rating']} rate',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              10,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                : Column(
+                                                                    children: [
+                                                                      Icon(
+                                                                        Icons
+                                                                            .star_rate,
+                                                                        color: Colors
+                                                                            .amber,
+                                                                        size:
+                                                                            20,
+                                                                      ),
+                                                                      Text(
+                                                                        '${data_land[index]['rating']} rate',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              10,
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
                                                           ],
                                                         ),
                                                       ],
@@ -538,7 +472,7 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text('${Listplant.length.toString()} Items'),
+                            Text('${data_land.length.toString()} Items'),
                           ],
                         ),
                       ),
@@ -556,12 +490,8 @@ class _HomeState extends State<Home> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Seeallscreen(),
-                                  ),
-                                );
+                                Navigator.pushNamed(
+                                    context, "/Homepage_seeall");
                               },
                               child: Text(
                                 'see all',
@@ -575,7 +505,7 @@ class _HomeState extends State<Home> {
                         padding: EdgeInsets.all(0),
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: Listplant.length,
+                        itemCount: data_land.length,
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
@@ -591,7 +521,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
-                                        listplant: Listplant[index],
+                                        listplant: [],
                                       ),
                                     ),
                                   );
@@ -600,7 +530,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
-                                        listplant: Listplant[index],
+                                        listplant: [],
                                       ),
                                     ),
                                   );
@@ -610,7 +540,7 @@ class _HomeState extends State<Home> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => DetailScreen(
-                                      listplant: Listplant[index],
+                                      listplant: [],
                                     ),
                                   ),
                                 );
@@ -630,8 +560,8 @@ class _HomeState extends State<Home> {
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(18),
-                                      child: Image.asset(
-                                        '${Listplant[index]['picture']}',
+                                      child: Image.network(
+                                        '${data_land[index]['pic_name']}',
                                         width: 150,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -644,43 +574,62 @@ class _HomeState extends State<Home> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '${Listplant[index]['localtion']}',
+                                            '${data_land[index]['province']}',
                                             style: TextStyle(fontSize: 10),
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Text(
-                                            'Land: ${Listplant[index]['land']}',
+                                            'Land: ${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
                                             style: TextStyle(fontSize: 10),
                                           ),
                                           SizedBox(
                                             height: 20,
                                           ),
                                           Text(
-                                            '${Listplant[index]['plant']}',
+                                            plant_text(data_land[index]
+                                                ['plants_name']),
                                             style: TextStyle(fontSize: 10),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Center(
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.star_rate,
-                                            color: Colors.amber,
-                                            size: 25,
-                                          ),
-                                          Text(
-                                            '4.7 rate',
-                                            style: TextStyle(
-                                              fontSize: 12,
+                                    data_land[index]['rating'] == 0
+                                        ? Center(
+                                            child: Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.star_rate,
+                                                  color: Colors.grey,
+                                                  size: 25,
+                                                ),
+                                                Text(
+                                                  '${data_land[index]['rating']} rate',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                                          )
+                                        : Center(
+                                            child: Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.star_rate,
+                                                  color: Colors.amber,
+                                                  size: 25,
+                                                ),
+                                                Text(
+                                                  '${data_land[index]['rating']} rate',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
                                   ],
                                 ),
                               ),

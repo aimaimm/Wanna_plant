@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
               password: password.text,
               phonenumber: phonenumber.text,
               address: address.text,
+              province: val_province!,
               protmptpay: protmptpay.text,
               size: size!,
               descrip: descrip!,
@@ -71,7 +72,9 @@ class MyApp extends StatelessWidget {
         '/History_Customer': (context) => HistoryCustomer(),
         '/History_planter': (context) => HistoryPlanter(),
         '/Homepage': (context) => Home(),
-        '/Homepage_seeall': (context) => Seeallscreen(),
+        '/Homepage_seeall': (context) => Seeallscreen(
+              data_land: data_land,
+            ),
         '/Profile': (context) => profileScreen(),
         '/Cart': (context) => cartScreen(),
         '/Tracking_customer': (context) => TrackCustomer(),
