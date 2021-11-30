@@ -118,7 +118,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetailScreen(
-                              listplant: [],
+                              idland: widget.data_land[index]['land_id'],
                             ),
                           ),
                         );

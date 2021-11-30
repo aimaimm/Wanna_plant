@@ -54,10 +54,9 @@ class _HomeState extends State<Home> {
 
   Future<void> dataland() async {
     Uri uri_login = Uri.http(url, '/allland');
-    // TODO: implement initState
     try {
       http.Response respons =
-          await http.post(uri_login, body: {'user_check': "guest"});
+          await http.post(uri_login, body: {'user_check': "user"});
       if (respons.statusCode == 200) {
         rawdata_land = jsonDecode(respons.body);
         for (int i = 0; i < rawdata_land!.length; i++) {
@@ -80,8 +79,7 @@ class _HomeState extends State<Home> {
           if (data_land.length == 0) {
             data_land.add(
               {
-                'pic_name': rawdata_land![i]['pic_name'] =
-                    "http://$url/${rawdata_land![i]['pic_name']}",
+                'pic_name': "http://$url/${rawdata_land![i]['pic_name']}",
                 'land_id': rawdata_land![i]['land_id'],
                 'land_area': rawdata_land![i]['land_area'],
                 'land_unit': rawdata_land![i]['land_unit'],
@@ -116,7 +114,6 @@ class _HomeState extends State<Home> {
           }
         }
         setState(() {
-          print(data_land);
           if (rawdata_land != null) {
             build_ui = true;
           }
@@ -332,7 +329,8 @@ class _HomeState extends State<Home> {
                                                     MaterialPageRoute(
                                                       builder: (context) =>
                                                           DetailScreen(
-                                                        listplant: [],
+                                                        idland: data_land[index]
+                                                            ['land_id'],
                                                       ),
                                                     ),
                                                   );
@@ -521,7 +519,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
-                                        listplant: [],
+                                        idland: data_land[index]['land_id'],
                                       ),
                                     ),
                                   );
@@ -530,7 +528,7 @@ class _HomeState extends State<Home> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
-                                        listplant: [],
+                                        idland: data_land[index]['land_id'],
                                       ),
                                     ),
                                   );
@@ -540,7 +538,7 @@ class _HomeState extends State<Home> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => DetailScreen(
-                                      listplant: [],
+                                      idland: data_land[index]['land_id'],
                                     ),
                                   ),
                                 );
