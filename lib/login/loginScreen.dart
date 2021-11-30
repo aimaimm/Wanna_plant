@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         "password": password.text,
       });
       if (respons.statusCode == 200) {
-        print(respons.body);
+        
         setState(() {
           Navigator.pushNamedAndRemoveUntil(
               context, '/Homepage', ModalRoute.withName('/Homepage'),

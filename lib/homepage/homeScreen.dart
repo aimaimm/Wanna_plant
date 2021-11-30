@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:wanna_plant/data/data_planter.dart';
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
@@ -131,6 +132,8 @@ class _HomeState extends State<Home> {
       'Planted': '2 items',
     },
   ];
+  List? rawdata_land;
+  bool build_ui = false;
 
   void animationFade_search(context) {
     if (hide_pop) {
@@ -148,14 +151,68 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Future<void> test() async {
+  List data_land = [];
+
+  Future<void> dataland() async {
     Uri uri_login = Uri.http(url, '/allland');
     // TODO: implement initState
     try {
-      http.Response respons = await http.get(uri_login);
+      http.Response respons =
+          await http.post(uri_login, body: {'user_check': "guest"});
       if (respons.statusCode == 200) {
-        print(respons.body);
-        print(respons.body.runtimeType);
+        rawdata_land = jsonDecode(respons.body);
+        for (int i = 0; i < rawdata_land!.length; i++) {
+          if (rawdata_land![i]['land_unit'] == "Square Centimeter") {
+            rawdata_land![i]['land_unit'] = "Square CM";
+          } else if (rawdata_land![i]['land_unit'] == "Square Meter") {
+            rawdata_land![i]['land_unit'] = "Square M";
+          } else {
+            rawdata_land![i]['land_unit'] = "Square KM";
+          }
+
+          if (rawdata_land![i]['rating'] == null) {
+            rawdata_land![i]['rating'] = 0;
+          }
+
+          if (data_land.length == 0) {
+            data_land.add(
+              {
+                'pic_name': rawdata_land![i]['pic_name'] =
+                    "http://$url/${rawdata_land![i]['pic_name']}",
+                'land_id': rawdata_land![i]['land_id'],
+                'land_area': rawdata_land![i]['land_area'],
+                'land_unit': rawdata_land![i]['land_unit'],
+                'plants_name': rawdata_land![i]['plants_name'],
+                'address': rawdata_land![i]['address'],
+                'rating': rawdata_land![i]['rating'],
+              },
+            );
+          } else if (data_land[data_land.length - 1]['land_id'] ==
+              rawdata_land![i]['land_id']) {
+            List stack_plant = [];
+            stack_plant.add({data_land[i - 1]['plants_name']});
+            stack_plant.add({rawdata_land![i]['plants_name']});
+            data_land[i - 1]['plants_name'] = stack_plant;
+          } else {
+            data_land.add(
+              {
+                'pic_name': rawdata_land![i]['pic_name'] =
+                    "http://$url/${rawdata_land![i]['pic_name']}",
+                'land_id': rawdata_land![i]['land_id'],
+                'land_area': rawdata_land![i]['land_area'],
+                'land_unit': rawdata_land![i]['land_unit'],
+                'plants_name': [rawdata_land![i]['plants_name']],
+                'address': rawdata_land![i]['address'],
+                'rating': rawdata_land![i]['rating'],
+              },
+            );
+          }
+        }
+        setState(() {
+          if (rawdata_land != null) {
+            build_ui = true;
+          }
+        });
       }
     } catch (e) {
       print(e);
@@ -165,7 +222,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    test();
+    dataland();
     super.initState();
   }
 
@@ -187,435 +244,461 @@ class _HomeState extends State<Home> {
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 170,
-          titleSpacing: 0,
-          backgroundColor: Colors.white,
-          title: Container(
-            margin: EdgeInsets.only(top: 35, right: 30, left: 30),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'Will you have',
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        Text(
-                          'Wanna plant?',
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Stack(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/Tracking_planter');
-                              },
-                              icon: Icon(
-                                Icons.notifications,
-                                color: Colors.grey[350],
-                                size: 35,
+      child: build_ui
+          ? Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                toolbarHeight: 170,
+                titleSpacing: 0,
+                backgroundColor: Colors.white,
+                title: Container(
+                  margin: EdgeInsets.only(top: 35, right: 30, left: 30),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'Will you have',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                            ),
-                            Positioned(
-                              right: 8,
-                              top: 10,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
+                              Text(
+                                'Wanna plant?',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Stack(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/Tracking_planter');
+                                    },
+                                    icon: Icon(
+                                      Icons.notifications,
+                                      color: Colors.grey[350],
+                                      size: 35,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 8,
+                                    top: 10,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      width: 10,
+                                      height: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              IconButton(
+                                padding: EdgeInsets.all(0),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/Cart');
+                                },
+                                icon: Container(
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.grey.withOpacity(0.5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(
+                                    Icons.shopping_cart_outlined,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                                width: 10,
-                                height: 10,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 20,
                         ),
-                        IconButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/Cart');
-                          },
-                          icon: Container(
-                            padding: EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.grey.withOpacity(0.5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: 50,
+                          child: TextField(
+                            onTap: () {
+                              setState(() {
+                                animation_search = 0;
+                                animationFade_search(context);
+                              });
+                            },
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Icon(
-                              Icons.shopping_cart_outlined,
-                              color: Colors.black,
+                              filled: true,
+                              fillColor: Color(0xffF0F0F0),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              hintText: 'Search',
+                              contentPadding: EdgeInsets.only(
+                                  left: 15, bottom: 11, top: 11, right: 15),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15),
-                    ),
-                  ),
-                  child: SizedBox(
-                    height: 50,
-                    child: TextField(
-                      onTap: () {
-                        setState(() {
-                          animation_search = 0;
-                          animationFade_search(context);
-                        });
-                      },
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: Color(0xffF0F0F0),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                        ),
-                        hintText: 'Search',
-                        contentPadding: EdgeInsets.only(
-                            left: 15, bottom: 11, top: 11, right: 15),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [],
-                    ),
-                    AnimatedOpacity(
-                      opacity: animation_search,
-                      duration: const Duration(milliseconds: 300),
-                      child: Visibility(
-                        visible: hide_pop,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 20),
-                              child: Text(
-                                'Popular proeperty',
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 200,
-                                    child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: Listplant.length,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            // print(index);
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DetailScreen(
-                                                  listplant: Listplant[index],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0XFFF9F9F9),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  ClipRRect(
+              ),
+              body: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [],
+                          ),
+                          AnimatedOpacity(
+                            opacity: animation_search,
+                            duration: const Duration(milliseconds: 300),
+                            child: Visibility(
+                              visible: hide_pop,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 20),
+                                    child: Text(
+                                      'Popular proeperty',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: 200,
+                                          child: ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: Listplant.length,
+                                            itemBuilder: (context, index) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  // print(index);
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetailScreen(
+                                                        listplant:
+                                                            Listplant[index],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0XFFF9F9F9),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20),
-                                                    child: Image.asset(
-                                                      '${Listplant[index]['picture']}',
-                                                      width: 150,
-                                                      height: 100,
-                                                      fit: BoxFit.cover,
+                                                  ),
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          child: Image.asset(
+                                                            "${Listplant[index]['picture']}",
+                                                            width: 150,
+                                                            height: 100,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  '${Listplant[index]['localtion']}',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          10),
+                                                                ),
+                                                                Text(
+                                                                  '${Listplant[index]['land']}',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          10),
+                                                                ),
+                                                                Text(
+                                                                  '${Listplant[index]['plant']}',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          10),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              width: 40,
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons
+                                                                      .star_rate,
+                                                                  color: Colors
+                                                                      .amber,
+                                                                  size: 20,
+                                                                ),
+                                                                Text(
+                                                                  '4.7 rate',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        10,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            '${Listplant[index]['localtion']}',
-                                                            style: TextStyle(
-                                                                fontSize: 10),
-                                                          ),
-                                                          Text(
-                                                            '${Listplant[index]['land']}',
-                                                            style: TextStyle(
-                                                                fontSize: 10),
-                                                          ),
-                                                          Text(
-                                                            '${Listplant[index]['plant']}',
-                                                            style: TextStyle(
-                                                                fontSize: 10),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 40,
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Icon(
-                                                            Icons.star_rate,
-                                                            color: Colors.amber,
-                                                            size: 20,
-                                                          ),
-                                                          Text(
-                                                            '4.7 rate',
-                                                            style: TextStyle(
-                                                              fontSize: 10,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                ),
+                                              );
+                                            },
                                           ),
-                                        );
-                                      },
-                                    ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Visibility(
+                        visible: show_items_count,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text('${Listplant.length.toString()} Items'),
+                          ],
+                        ),
+                      ),
+                      Visibility(
+                        visible: hide_pop,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'All',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Seeallscreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'see all',
+                                style: TextStyle(color: Colors.black),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Visibility(
-                  visible: show_items_count,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text('${Listplant.length.toString()} Items'),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: hide_pop,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'All',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Seeallscreen(),
+                      ListView.builder(
+                        padding: EdgeInsets.all(0),
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: Listplant.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              if (hide_pop == false) {
+                                if (!currentFocus.hasPrimaryFocus) {
+                                  currentFocus.unfocus();
+                                  setState(() {
+                                    hide_pop = true;
+                                    show_items_count = false;
+                                    animation_search = 1;
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailScreen(
+                                        listplant: Listplant[index],
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailScreen(
+                                        listplant: Listplant[index],
+                                      ),
+                                    ),
+                                  );
+                                }
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailScreen(
+                                      listplant: Listplant[index],
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0XFFF9F9F9),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(18),
+                                      child: Image.asset(
+                                        '${Listplant[index]['picture']}',
+                                        width: 150,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(right: 30),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${Listplant[index]['localtion']}',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            'Land: ${Listplant[index]['land']}',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            '${Listplant[index]['plant']}',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.star_rate,
+                                            color: Colors.amber,
+                                            size: 25,
+                                          ),
+                                          Text(
+                                            '4.7 rate',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         },
-                        child: Text(
-                          'see all',
-                          style: TextStyle(color: Colors.black),
-                        ),
                       ),
                     ],
                   ),
                 ),
-                ListView.builder(
-                  padding: EdgeInsets.all(0),
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: Listplant.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        if (hide_pop == false) {
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
-                            setState(() {
-                              hide_pop = true;
-                              show_items_count = false;
-                              animation_search = 1;
-                            });
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailScreen(
-                                  listplant: Listplant[index],
-                                ),
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailScreen(
-                                  listplant: Listplant[index],
-                                ),
-                              ),
-                            );
-                          }
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                listplant: Listplant[index],
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0XFFF9F9F9),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        margin: EdgeInsets.only(bottom: 10),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Image.asset(
-                                  '${Listplant[index]['picture']}',
-                                  width: 150,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(right: 30),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${Listplant[index]['localtion']}',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Text(
-                                      'Land: ${Listplant[index]['land']}',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Text(
-                                      '${Listplant[index]['plant']}',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Center(
-                                child: Column(
-                                  children: [
-                                    Icon(
-                                      Icons.star_rate,
-                                      color: Colors.amber,
-                                      size: 25,
-                                    ),
-                                    Text(
-                                      '4.7 rate',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+              ),
+              bottomNavigationBar: CustomBottomBar(),
+            )
+          : Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
-          ),
-        ),
-        bottomNavigationBar: CustomBottomBar(),
-      ),
     );
   }
 }
