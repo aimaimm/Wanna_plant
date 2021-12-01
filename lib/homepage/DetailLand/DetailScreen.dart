@@ -144,7 +144,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
         setState(() {
           // print(detail_land[0]['plants_name']);
-          print(detail_land);
+          // print(detail_land);
           // print(detail_land[0]['plants_name'].length);
           build_check = true;
         });
@@ -158,7 +158,7 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    if (widget.datauser[0]['role'] == 1) {
+    if (widget.datauser[0]['identify'] == 1) {
       disable_orderBottom = true;
     }
     infoland();
@@ -436,8 +436,8 @@ class _DetailScreenState extends State<DetailScreen> {
                             minimumSize: Size(270, 50),
                           ),
                           onPressed: disable_orderBottom
-                              ? null
-                              : () {
+                              ? 
+                              () {
                                   setState(() {
                                     showModalBottomSheet<void>(
                                       shape: RoundedRectangleBorder(
@@ -638,7 +638,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     );
                                     // showBotton_sheet = true;
                                   });
-                                },
+                                } : null,
                           child: Text(
                             'Order',
                             style: TextStyle(

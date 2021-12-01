@@ -78,7 +78,9 @@ class MyApp extends StatelessWidget {
               data_land: data_land,
               userdata: userdata,
             ),
-        '/Profile': (context) => profileScreen(),
+        '/Profile': (context) => profileScreen(
+              datauser: userdata,
+            ),
         '/Cart': (context) => cartScreen(),
         '/Tracking_customer': (context) => TrackCustomer(),
         '/Tracking_planter': (context) => TrackPlanter(),

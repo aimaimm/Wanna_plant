@@ -38,6 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ModalRoute.withName('/Homepage'),
           ); //Home
         });
+      } else {
+        print(respons.body);
+        print(respons.statusCode);
       }
     } catch (e) {
       print(e);
