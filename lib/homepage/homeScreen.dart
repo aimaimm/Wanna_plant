@@ -14,7 +14,9 @@ import '../CustomBottomBar.dart';
 List data_land = [];
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, required this.userdata}) : super(key: key);
+
+  final List userdata;
 
   @override
   _HomeState createState() => _HomeState();
@@ -45,10 +47,14 @@ class _HomeState extends State<Home> {
   }
 
   String plant_text(datatext) {
-    if (datatext.length < 2) {
-      return "${datatext[0]}";
+    if (datatext is List) {
+      if (datatext.length < 2) {
+        return "${datatext[0]}";
+      } else {
+        return "${datatext[0]}, ${datatext[1]}...";
+      }
     } else {
-      return "${datatext[0]}, ${datatext[1]}...";
+      return "$datatext";
     }
   }
 
@@ -57,8 +63,10 @@ class _HomeState extends State<Home> {
     try {
       http.Response respons =
           await http.post(uri_login, body: {'user_check': "user"});
+
       if (respons.statusCode == 200) {
         rawdata_land = jsonDecode(respons.body);
+
         for (int i = 0; i < rawdata_land!.length; i++) {
           if (rawdata_land![i]['land_unit'] == "Square Centimeter") {
             rawdata_land![i]['land_unit'] = "Square CM";
@@ -93,9 +101,23 @@ class _HomeState extends State<Home> {
           } else if (data_land[data_land.length - 1]['land_id'] ==
               rawdata_land![i]['land_id']) {
             List stack_plant = [];
-            stack_plant.add(data_land[i - 1]['plants_name']);
+
+            // print(i);
+            if (data_land[data_land.length - 1]['plants_name'] is List) {
+              for (int p = 0;
+                  p < data_land[data_land.length - 1]['plants_name'].length;
+                  p++) {
+                stack_plant
+                    .add(data_land[data_land.length - 1]['plants_name'][p]);
+              }
+            } else {
+              stack_plant.add(data_land[data_land.length - 1]['plants_name']);
+            }
+            // print(stack_plant);
+            // print(data_land[data_land.length - 1]['plants_name']);
             stack_plant.add(rawdata_land![i]['plants_name']);
-            data_land[i - 1]['plants_name'] = stack_plant;
+            // print(stack_plant);
+            data_land[data_land.length - 1]['plants_name'] = stack_plant;
           } else {
             data_land.add(
               {
@@ -104,7 +126,7 @@ class _HomeState extends State<Home> {
                 'land_id': rawdata_land![i]['land_id'],
                 'land_area': rawdata_land![i]['land_area'],
                 'land_unit': rawdata_land![i]['land_unit'],
-                'plants_name': [rawdata_land![i]['plants_name']],
+                'plants_name': rawdata_land![i]['plants_name'],
                 'address': rawdata_land![i]['address'],
                 'province': rawdata_land![i]['province'],
                 'rating': rawdata_land![i]['rating'],
@@ -113,11 +135,14 @@ class _HomeState extends State<Home> {
             );
           }
         }
+
         setState(() {
           if (rawdata_land != null) {
             build_ui = true;
           }
         });
+      } else {
+        print("connection down");
       }
     } catch (e) {
       print(e);
@@ -127,14 +152,15 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    // print(widget.userdata);
+    index_bottombar = 0;
+    data_land.clear();
     dataland();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)!.settings.arguments;
-
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (hide_pop == false) {
       if (currentFocus.hasPrimaryFocus) {
@@ -331,6 +357,8 @@ class _HomeState extends State<Home> {
                                                           DetailScreen(
                                                         idland: data_land[index]
                                                             ['land_id'],
+                                                        datauser:
+                                                            widget.userdata,
                                                       ),
                                                     ),
                                                   );
@@ -520,6 +548,7 @@ class _HomeState extends State<Home> {
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
                                         idland: data_land[index]['land_id'],
+                                        datauser: widget.userdata,
                                       ),
                                     ),
                                   );
@@ -529,6 +558,7 @@ class _HomeState extends State<Home> {
                                     MaterialPageRoute(
                                       builder: (context) => DetailScreen(
                                         idland: data_land[index]['land_id'],
+                                        datauser: widget.userdata,
                                       ),
                                     ),
                                   );
@@ -539,6 +569,7 @@ class _HomeState extends State<Home> {
                                   MaterialPageRoute(
                                     builder: (context) => DetailScreen(
                                       idland: data_land[index]['land_id'],
+                                      datauser: widget.userdata,
                                     ),
                                   ),
                                 );

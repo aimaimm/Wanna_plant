@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/bottomsheet.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key, required this.idland}) : super(key: key);
+  const DetailScreen({
+    Key? key,
+    required this.idland,
+    required this.datauser,
+  }) : super(key: key);
 
   final int idland;
+  final List datauser;
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -15,6 +21,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   bool showBotton_sheet = false;
+  bool disable_orderBottom = false;
   bool build_check = false;
   String main_picture = "";
 
@@ -65,20 +72,62 @@ class _DetailScreenState extends State<DetailScreen> {
             // if (detail_land[detail_land.length - 1]['pic_name'] !=
             //     rawdata_land[i]['pic_name']) {
             //   List stack_plant = [];
-            //   stack_plant.add(detail_land[i - 1]['pic_name']);
+
+            //   if (detail_land[detail_land.length - 1]['pic_name'] is List) {
+            //     for (int p = 0;
+            //         p < detail_land[detail_land.length - 1]['pic_name'].length;
+            //         p++) {
+            //       stack_plant
+            //           .add(detail_land[detail_land.length - 1]['pic_name'][p]);
+            //     }
+            //   } else {
+            //     stack_plant
+            //         .add(detail_land[detail_land.length - 1]['pic_name']);
+            //   }
+
             //   stack_plant.add(rawdata_land[i]['pic_name']);
-            //   detail_land[i - 1]['pic_name'] = stack_plant;
+            //   detail_land[detail_land.length - 1]['pic_name'] = stack_plant;
             // }
             if (detail_land[detail_land.length - 1]['plants_name'] !=
                 rawdata_land[i]['plants_name']) {
               List stack_plant_name = [];
-              stack_plant_name.add(detail_land[i - 1]['plants_name']);
+
+              if (detail_land[detail_land.length - 1]['plants_name'] is List) {
+                for (int p = 0;
+                    p <
+                        detail_land[detail_land.length - 1]['plants_name']
+                            .length;
+                    p++) {
+                  stack_plant_name.add(
+                      detail_land[detail_land.length - 1]['plants_name'][p]);
+                }
+              } else {
+                stack_plant_name
+                    .add(detail_land[detail_land.length - 1]['plants_name']);
+              }
+
               stack_plant_name.add(rawdata_land[i]['plants_name']);
-              detail_land[i - 1]['plants_name'] = stack_plant_name;
+              detail_land[detail_land.length - 1]['plants_name'] =
+                  stack_plant_name;
               List stack_plant_price = [];
-              stack_plant_price.add(detail_land[i - 1]['plants_price']);
+
+              if (detail_land[detail_land.length - 1]['plants_price'] is List) {
+                for (int p = 0;
+                    p <
+                        detail_land[detail_land.length - 1]['plants_price']
+                            .length;
+                    p++) {
+                  stack_plant_price.add(
+                      detail_land[detail_land.length - 1]['plants_price'][p]);
+                }
+              } else {
+                stack_plant_price
+                    .add(detail_land[detail_land.length - 1]['plants_price']);
+              }
+
               stack_plant_price.add(rawdata_land[i]['plants_price']);
-              detail_land[i - 1]['plants_price'] = stack_plant_price;
+              detail_land[detail_land.length - 1]['plants_price'] =
+                  stack_plant_price;
             }
           }
         }
@@ -94,7 +143,9 @@ class _DetailScreenState extends State<DetailScreen> {
         main_picture = detail_land[0]['pic_name'][0]['pic_name'];
 
         setState(() {
+          // print(detail_land[0]['plants_name']);
           print(detail_land);
+          // print(detail_land[0]['plants_name'].length);
           build_check = true;
         });
       }
@@ -107,6 +158,9 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    if (widget.datauser[0]['role'] == 1) {
+      disable_orderBottom = true;
+    }
     infoland();
     super.initState();
   }
@@ -218,10 +272,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [],
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
@@ -385,11 +435,210 @@ class _DetailScreenState extends State<DetailScreen> {
                             primary: gbase,
                             minimumSize: Size(270, 50),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              showBotton_sheet = true;
-                            });
-                          },
+                          onPressed: disable_orderBottom
+                              ? null
+                              : () {
+                                  setState(() {
+                                    showModalBottomSheet<void>(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(13.0))),
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        Navigator.pop(context);
+                                                      });
+                                                    },
+                                                    icon: Icon(Icons.close),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(
+                                                height: 210,
+                                                child: GridView.builder(
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    shrinkWrap: true,
+                                                    gridDelegate:
+                                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                                      // mainAxisExtent: 28,
+                                                      crossAxisCount: 2,
+                                                      childAspectRatio:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              (MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  7),
+                                                    ),
+                                                    itemCount: detail_land[0]
+                                                            ['plants_name']
+                                                        .length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return Container(
+                                                        //  margin: EdgeInsets.symmetric(vertical: 15),
+                                                        margin:
+                                                            EdgeInsets.all(8),
+                                                        //height: 10,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                              width: 1,
+                                                              color:
+                                                                  Colors.grey),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: TextButton(
+                                                          onPressed: () {},
+                                                          child: Text(
+                                                            '${detail_land[0]['plants_name'][index]} ${detail_land[0]['plants_price'][index]} Baht/Kg',
+                                                            style: TextStyle(
+                                                              fontSize: 13,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                              ),
+                                              const Divider(
+                                                height: 50,
+                                                thickness: 1,
+                                              ),
+                                              Container(
+                                                // decoration: BoxDecoration(color: Colors.red),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        'Amount',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          IconButton(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    0),
+                                                            onPressed: () {},
+                                                            icon: Container(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                vertical: 2,
+                                                                horizontal: 7,
+                                                              ),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border: Border.all(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .grey),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
+                                                              ),
+                                                              child: Text('-'),
+                                                            ),
+                                                          ),
+                                                          Text('0'),
+                                                          IconButton(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    0),
+                                                            onPressed: () {},
+                                                            icon: Container(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                vertical: 2,
+                                                                horizontal: 7,
+                                                              ),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border: Border.all(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .grey),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
+                                                              ),
+                                                              child: Text('+'),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          new BorderRadius
+                                                              .circular(10),
+                                                    ),
+                                                    primary: gbase,
+                                                    minimumSize: Size(
+                                                        double.infinity, 50),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      // showBotton_sheet = true;
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    'Add to cart',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                    // showBotton_sheet = true;
+                                  });
+                                },
                           child: Text(
                             'Order',
                             style: TextStyle(
@@ -404,169 +653,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
             ),
-            bottomSheet: showBotton_sheet
-                ? Container(
-                    height: 350,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 30),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(width: 1, color: Colors.grey),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        showBotton_sheet = false;
-                                      });
-                                    },
-                                    icon: Icon(Icons.close),
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2),
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: 3,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 15),
-                                      height: 35,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 1, color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: TextButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            'Carrot 1200 baht/kg',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20,
-                            left: 30,
-                            right: 30,
-                            bottom: 20,
-                          ),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Amount',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          onPressed: () {},
-                                          icon: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              vertical: 2,
-                                              horizontal: 7,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1, color: Colors.grey),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Text('-'),
-                                          ),
-                                        ),
-                                        Text('0'),
-                                        IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          onPressed: () {},
-                                          icon: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              vertical: 2,
-                                              horizontal: 7,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1, color: Colors.grey),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Text('+'),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(10),
-                                    ),
-                                    primary: gbase,
-                                    minimumSize: Size(double.infinity, 50),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      showBotton_sheet = true;
-                                    });
-                                  },
-                                  child: Text(
-                                    'Add to cart',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : null,
+            // bottomSheet: showBotton_sheet
+            //     ?
+            //     : null,
           )
         : Scaffold(
             body: Center(

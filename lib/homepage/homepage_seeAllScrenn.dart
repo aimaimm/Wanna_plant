@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 
 class Seeallscreen extends StatefulWidget {
-  const Seeallscreen({Key? key, required this.data_land}) : super(key: key);
+  const Seeallscreen(
+      {Key? key, required this.data_land, required this.userdata})
+      : super(key: key);
 
   final List data_land;
+  final List userdata;
 
   @override
   _SeeallscreenState createState() => _SeeallscreenState();
@@ -119,6 +122,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                           MaterialPageRoute(
                             builder: (context) => DetailScreen(
                               idland: widget.data_land[index]['land_id'],
+                              datauser: widget.userdata,
                             ),
                           ),
                         );

@@ -45,7 +45,7 @@ import 'package:wanna_plant/profile/profileScreen.dart';
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //      // body: screens[index],
-//       bottomNavigationBar: 
+//       bottomNavigationBar:
 //       SizedBox(
 //         height: 75,
 //         child: ClipRRect(
@@ -131,6 +131,7 @@ import 'package:wanna_plant/profile/profileScreen.dart';
 //     );
 //   }
 // }
+int index_bottombar = 0;
 
 class CustomBottomBar extends StatefulWidget {
   const CustomBottomBar({Key? key}) : super(key: key);
@@ -140,7 +141,6 @@ class CustomBottomBar extends StatefulWidget {
 }
 
 class _CustomBottomBarState extends State<CustomBottomBar> {
-  var index = 0;
   // final screens = [
   //   Home(),
   //   FavoriteScreen(),
@@ -149,23 +149,34 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   // ];
 
   void _onItemTapped(int val) {
-    setState(
-      () {
-        index = val;
-        if (val == 0) {
-          Navigator.pushNamed(context, '/Homepage');
-        }
-        if (val == 1) {
-          Navigator.pushNamed(context, '/Favorite');
-        }
-        if (val == 2) {
-          Navigator.pushNamed(context, '/History');
-        }
-        if (val == 3) {
-          Navigator.pushNamed(context, '/Profile');
-        }
-      },
-    );
+    setState(() {
+      index_bottombar = val;
+      if (index_bottombar == 0) {
+        // Navigator.pushNamed(context, '/Homepage');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/Homepage', (route) => false);
+      }
+      if (index_bottombar == 1) {
+        // Navigator.pushNamed(context, '/Favorite');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/Favorite', (route) => false);
+      }
+      if (index_bottombar == 2) {
+        // Navigator.pushNamed(context, '/History');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/History', (route) => false);
+      }
+      if (index_bottombar == 3) {
+        // Navigator.pushNamed(context, '/Profile');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/Profile', (route) => false);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -184,7 +195,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
           // unselectedIconTheme:
           //     IconThemeData(color: Colors.grey, size: 25, opacity: .8),
-          currentIndex: index,
+          currentIndex: index_bottombar,
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
@@ -195,7 +206,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: index == 0
+                    color: index_bottombar == 0
                         ? gbase.withOpacity(0.3)
                         : Colors.transparent),
                 child: Icon(Icons.home),
@@ -210,7 +221,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: index == 1
+                    color: index_bottombar == 1
                         ? gbase.withOpacity(0.3)
                         : Colors.transparent),
                 child: Icon(Icons.favorite),
@@ -225,7 +236,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: index == 2
+                    color: index_bottombar == 2
                         ? gbase.withOpacity(0.3)
                         : Colors.transparent),
                 child: Icon(Icons.local_activity_rounded),
@@ -240,7 +251,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     ),
-                    color: index == 3
+                    color: index_bottombar == 3
                         ? gbase.withOpacity(0.3)
                         : Colors.transparent),
                 child: Icon(Icons.person),

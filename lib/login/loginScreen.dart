@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
 import 'package:http/http.dart' as http;
+
+List userdata = [];
 
 class LoginScreen extends StatefulWidget {
   //const LoginScreen({ Key? key }) : super(key: key);
@@ -26,11 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
         "password": password.text,
       });
       if (respons.statusCode == 200) {
-        
+        userdata = jsonDecode(respons.body);
         setState(() {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/Homepage', ModalRoute.withName('/Homepage'),
-              arguments: respons.body); //Home
+            context,
+            '/Homepage',
+            ModalRoute.withName('/Homepage'),
+          ); //Home
         });
       }
     } catch (e) {

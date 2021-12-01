@@ -71,9 +71,12 @@ class MyApp extends StatelessWidget {
         '/History': (context) => HistoryScreen(),
         '/History_Customer': (context) => HistoryCustomer(),
         '/History_planter': (context) => HistoryPlanter(),
-        '/Homepage': (context) => Home(),
+        '/Homepage': (context) => Home(
+              userdata: userdata,
+            ),
         '/Homepage_seeall': (context) => Seeallscreen(
               data_land: data_land,
+              userdata: userdata,
             ),
         '/Profile': (context) => profileScreen(),
         '/Cart': (context) => cartScreen(),

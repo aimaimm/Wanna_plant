@@ -18,6 +18,9 @@ String? val;
 List<XFile> imageFileList = [];
 List entries = [];
 bool infoland = true;
+List plantTEC = [];
+List priceTEC = [];
+List rowCard = [];
 
 class Regis_land_Screen extends StatefulWidget {
   const Regis_land_Screen({
@@ -31,9 +34,7 @@ class Regis_land_Screen extends StatefulWidget {
 class _Regis_land_ScreenState extends State<Regis_land_Screen> {
   TextEditingController description = TextEditingController();
   TextEditingController size_area = TextEditingController();
-  List plantTEC = [];
-  List priceTEC = [];
-  var rowCard = [];
+
   bool add = true;
 
   final ImagePicker _picker = ImagePicker();
@@ -111,7 +112,10 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
     descrip = description.text;
     int? size_check = int.tryParse(size!);
 
-    if (size == "" || descrip == "" || imageFileList.length == 0) {
+    if (size == "" ||
+        descrip == "" ||
+        imageFileList.length == 0 ||
+        plantTEC.length == 0) {
       infoland = false;
       setState(() {
         Navigator.pushNamed(context, '/Identity');
@@ -125,6 +129,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
           countcheck++;
         }
       }
+      // print(countcheck);
       if (countcheck == plantTEC.length) {
         for (int i = 0; i < rowCard.length; i++) {
           var namecon = plantTEC[i].text;
@@ -134,7 +139,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
             entries.add({'plantname': namecon, 'price': price});
             if ((i + 1) == rowCard.length && size_check != null) {
               setState(() {
-                print(entries);
+                // print(entries);
                 Navigator.pushNamed(context, '/Identity');
               });
             }
@@ -429,6 +434,8 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                                 onTap: () {
                                   setState(() {
                                     rowCard.removeAt(index);
+                                    priceTEC.removeAt(index);
+                                    plantTEC.removeAt(index);
                                   });
                                 },
                                 child: CircleAvatar(

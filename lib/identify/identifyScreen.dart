@@ -9,6 +9,7 @@ import 'package:wanna_plant/identify/IdentifyCard.dart';
 import 'package:wanna_plant/identify/alert/Unsuccess_alert.dart';
 import 'package:wanna_plant/identify/alert/success_alert.dart';
 import 'package:http/http.dart' as http;
+import 'package:wanna_plant/login/loginScreen.dart';
 import 'package:wanna_plant/signup/textInfo.dart';
 
 class IdentifyScreen extends StatefulWidget {
@@ -109,12 +110,15 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                 'protmptpay': widget.protmptpay,
                 'identify': "1",
                 'role': "1",
-                'check_user': "guest",
+                'check_role': "guest",
               },
             );
             if (response.statusCode == 200) {
+              userdata = jsonDecode(response.body);
               successAlert(context);
             } else {
+              print(response.body);
+              print(response.statusCode);
               print('Connection down');
             }
           }
@@ -128,6 +132,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
 
   @override
   void initState() {
+    print(infoland);
     super.initState();
   }
 
@@ -156,8 +161,9 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               IconButton(
                 padding: EdgeInsets.only(top: 40),
                 onPressed: () {
-                  entries.clear();
-                  Navigator.pop(context);
+                  setState(() {
+                    Navigator.pop(context);
+                  });
                 },
                 icon: Icon(
                   Icons.arrow_back,
