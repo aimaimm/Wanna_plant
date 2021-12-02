@@ -22,6 +22,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   bool showBotton_sheet = false;
   bool disable_orderBottom = false;
+  bool fav = false;
   bool build_check = false;
   String main_picture = "";
 
@@ -59,6 +60,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 'user_id': rawdata_land[i]['user_id'],
                 'province': rawdata_land[i]['province'],
                 'name': rawdata_land[i]['name'],
+                'land_id': rawdata_land[i]['land_id'],
                 'land_area': rawdata_land[i]['land_area'],
                 'land_unit': rawdata_land[i]['land_unit'],
                 'land_description': rawdata_land[i]['land_description'],
@@ -413,15 +415,80 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: [
                         IconButton(
                           padding: EdgeInsets.all(0),
-                          onPressed: () {},
-                          icon: Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Icon(Icons.favorite_border_outlined),
-                          ),
+                          onPressed: fav
+                              ? () async {
+                                  try {
+                                    Uri uri_defav = Uri.http(url, "/defavland");
+                                    http.Response responseAddfav =
+                                        await http.post(uri_defav, body: {
+                                      "user_id": widget.datauser[0]['user_id']
+                                          .toString(),
+                                      'land_id':
+                                          detail_land[0]['land_id'].toString(),
+                                      "check_role": "user"
+                                    });
+                                    if (responseAddfav.statusCode == 200) {
+                                      setState(() {
+                                        fav = false;
+                                      });
+                                    } else {
+                                      print(responseAddfav.statusCode);
+                                      print(responseAddfav.body);
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                    print("connection error");
+                                  }
+                                }
+                              : () async {
+                                  // print(widget.datauser[0]);
+                                  // print(detail_land[0]);
+                                  try {
+                                    Uri uri_fav = Uri.http(url, "/addfavland");
+                                    http.Response responseAddfav =
+                                        await http.post(uri_fav, body: {
+                                      "user_id": widget.datauser[0]['user_id']
+                                          .toString(),
+                                      'land_id':
+                                          detail_land[0]['land_id'].toString(),
+                                      "check_role": "user"
+                                    });
+                                    if (responseAddfav.statusCode == 200) {
+                                      setState(() {
+                                        fav = true;
+                                      });
+                                    } else {
+                                      print(responseAddfav.statusCode);
+                                      print(responseAddfav.body);
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                    print("connection error");
+                                  }
+                                },
+                          icon: fav
+                              ? Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: gbase,
+                                    border: Border.all(
+                                        width: 1, color: Colors.white),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1, color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(Icons.favorite_border_outlined),
+                                ),
                         ),
                         SizedBox(
                           width: 10,
@@ -436,8 +503,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             minimumSize: Size(270, 50),
                           ),
                           onPressed: disable_orderBottom
-                              ? 
-                              () {
+                              ? () {
                                   setState(() {
                                     showModalBottomSheet<void>(
                                       shape: RoundedRectangleBorder(
@@ -638,7 +704,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                     );
                                     // showBotton_sheet = true;
                                   });
-                                } : null,
+                                }
+                              : null,
                           child: Text(
                             'Order',
                             style: TextStyle(

@@ -85,54 +85,59 @@ class _HomeState extends State<Home> {
           }
 
           if (data_land.length == 0) {
-            data_land.add(
-              {
-                'pic_name': "http://$url/${rawdata_land![i]['pic_name']}",
-                'land_id': rawdata_land![i]['land_id'],
-                'land_area': rawdata_land![i]['land_area'],
-                'land_unit': rawdata_land![i]['land_unit'],
-                'plants_name': rawdata_land![i]['plants_name'],
-                'address': rawdata_land![i]['address'],
-                'province': rawdata_land![i]['province'],
-                'rating': rawdata_land![i]['rating'],
-                'popular_counting': rawdata_land![i]['popular_counting'],
-              },
-            );
+            if (widget.userdata[0]['user_id'] != rawdata_land![i]['user_id']) {
+              data_land.add(
+                {
+                  'pic_name': "http://$url/${rawdata_land![i]['pic_name']}",
+                  'land_id': rawdata_land![i]['land_id'],
+                  'land_area': rawdata_land![i]['land_area'],
+                  'land_unit': rawdata_land![i]['land_unit'],
+                  'plants_name': rawdata_land![i]['plants_name'],
+                  'address': rawdata_land![i]['address'],
+                  'province': rawdata_land![i]['province'],
+                  'rating': rawdata_land![i]['rating'],
+                  'popular_counting': rawdata_land![i]['popular_counting'],
+                },
+              );
+            }
           } else if (data_land[data_land.length - 1]['land_id'] ==
               rawdata_land![i]['land_id']) {
             List stack_plant = [];
-
-            // print(i);
-            if (data_land[data_land.length - 1]['plants_name'] is List) {
-              for (int p = 0;
-                  p < data_land[data_land.length - 1]['plants_name'].length;
-                  p++) {
-                stack_plant
-                    .add(data_land[data_land.length - 1]['plants_name'][p]);
+            if (widget.userdata[0]['user_id'] != rawdata_land![i]['user_id']) {
+              // print(i);
+              if (data_land[data_land.length - 1]['plants_name'] is List) {
+                for (int p = 0;
+                    p < data_land[data_land.length - 1]['plants_name'].length;
+                    p++) {
+                  stack_plant
+                      .add(data_land[data_land.length - 1]['plants_name'][p]);
+                }
+              } else {
+                stack_plant.add(data_land[data_land.length - 1]['plants_name']);
               }
-            } else {
-              stack_plant.add(data_land[data_land.length - 1]['plants_name']);
+              // print(stack_plant);
+              // print(data_land[data_land.length - 1]['plants_name']);
+              stack_plant.add(rawdata_land![i]['plants_name']);
+              // print(stack_plant);
+              data_land[data_land.length - 1]['plants_name'] = stack_plant;
             }
-            // print(stack_plant);
-            // print(data_land[data_land.length - 1]['plants_name']);
-            stack_plant.add(rawdata_land![i]['plants_name']);
-            // print(stack_plant);
-            data_land[data_land.length - 1]['plants_name'] = stack_plant;
           } else {
-            data_land.add(
-              {
-                'pic_name': rawdata_land![i]['pic_name'] =
-                    "http://$url/${rawdata_land![i]['pic_name']}",
-                'land_id': rawdata_land![i]['land_id'],
-                'land_area': rawdata_land![i]['land_area'],
-                'land_unit': rawdata_land![i]['land_unit'],
-                'plants_name': rawdata_land![i]['plants_name'],
-                'address': rawdata_land![i]['address'],
-                'province': rawdata_land![i]['province'],
-                'rating': rawdata_land![i]['rating'],
-                'popular_counting': rawdata_land![i]['popular_counting'],
-              },
-            );
+            if (widget.userdata[0]['user_id'] != rawdata_land![i]['user_id']) {
+              data_land.add(
+                {
+                  'pic_name': rawdata_land![i]['pic_name'] =
+                      "http://$url/${rawdata_land![i]['pic_name']}",
+                  'land_id': rawdata_land![i]['land_id'],
+                  'land_area': rawdata_land![i]['land_area'],
+                  'land_unit': rawdata_land![i]['land_unit'],
+                  'plants_name': rawdata_land![i]['plants_name'],
+                  'address': rawdata_land![i]['address'],
+                  'province': rawdata_land![i]['province'],
+                  'rating': rawdata_land![i]['rating'],
+                  'popular_counting': rawdata_land![i]['popular_counting'],
+                },
+              );
+            }
           }
         }
 

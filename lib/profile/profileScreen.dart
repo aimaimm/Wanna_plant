@@ -32,8 +32,10 @@ class _profileScreenState extends State<profileScreen> {
   void downloandpic() async {
     Uri uri = Uri.http(url, "/profilepic");
     try {
-      http.Response response = await http.post(uri,
-          body: {"user_id": widget.datauser[0]['user_id'].toString()});
+      http.Response response = await http.post(uri, body: {
+        "user_id": widget.datauser[0]['user_id'].toString(),
+        "check_role": "user"
+      });
       if (response.statusCode == 200) {
         pictureland = jsonDecode(response.body);
         print(pictureland);
