@@ -116,7 +116,7 @@ class _profileScreenState extends State<profileScreen> {
                         SizedBox(
                           height: 10,
                         ),
-                        Container(
+                        FittedBox(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -127,10 +127,13 @@ class _profileScreenState extends State<profileScreen> {
                                       borderRadius: BorderRadius.circular(15),
                                       child: Image.asset(
                                         'assets/images/man-square.jpg',
-                                        width: 95,
+                                        width: 120,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
                                   ),
                                   Text(
                                     '${widget.datauser[0]['name']}',
@@ -264,32 +267,38 @@ class _profileScreenState extends State<profileScreen> {
                                 ),
                               ),
                               Visibility(
-                                  visible: isVisible,
-                                  child: Container(
-                                    width: size.width,
-                                    height: 141,
-                                    child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: pictureland.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          padding: EdgeInsets.all(5),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            child: Image.network(
+                                visible: isVisible,
+                                child: Container(
+                                  width: size.width,
+                                  height: 141,
+                                  child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: pictureland.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        width: 150,
+                                        height: 130,
+                                        padding: EdgeInsets.all(5),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
                                               'http://$url/${pictureland[index]['pic_name']}',
-                                              width: 130,
-                                              height: 130,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  )),
+                                              // width: 130,
+                                              // height: 130,
+                                              fit: BoxFit.cover),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 8,
                         ),
                         Container(
                           width: size.width,
