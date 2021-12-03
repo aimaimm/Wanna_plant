@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanna_plant/bottomsheet.dart';
 import 'package:wanna_plant/constants.dart';
+import 'package:wanna_plant/data/data_planter.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -174,6 +176,115 @@ class _DetailScreenState extends State<DetailScreen> {
       print(e);
       print("connection error");
     }
+  }
+
+  Future<void> adddatacart() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? rawdatacart = prefs.getString('cart');
+    // prefs.clear();
+    // List datacart = jsonDecode(rawdatacart!);
+    // print(detail_land);
+    // print(detail_land[0]['plants_price'][0]);
+    // int test = detail_land[0]['plants_price'][selectorder].toInt();
+    // print(test * countorder);
+    if (rawdatacart == null) {
+      List addtocart = [];
+      if (detail_land[0]['plants_price'] is int) {
+        addtocart.add({
+          'pic_name':
+              "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
+          'land_id': detail_land[0]['land_id'],
+          'land_area': detail_land[0]['land_area'],
+          'land_unit': detail_land[0]['land_unit'],
+          'amountorder': countorder,
+          'total_money': countorder * detail_land[0]['plants_price'],
+          'planter_id': detail_land[0]['user_id'],
+          'customer_id': widget.datauser[0]['user_id'],
+          'province': detail_land[0]['province'],
+        });
+        String savedata = jsonEncode(addtocart);
+        prefs.setString('cart', savedata);
+      } else {
+        int convert_price = detail_land[0]['plants_price'][selectorder].toInt();
+        addtocart.add({
+          'pic_name':
+              "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
+          'land_id': detail_land[0]['land_id'],
+          'land_area': detail_land[0]['land_area'],
+          'land_unit': detail_land[0]['land_unit'],
+          'amountorder': countorder,
+          'total_money': countorder * convert_price,
+          'planter_id': detail_land[0]['user_id'],
+          'customer_id': widget.datauser[0]['user_id'],
+          'province': detail_land[0]['province'],
+        });
+        String savedata = jsonEncode(addtocart);
+        prefs.setString('cart', savedata);
+      }
+    } else {
+      List addtocart = [];
+      String? rawdataincart = prefs.getString('cart');
+      List dataincart = jsonDecode(rawdataincart!);
+      // print(dataincart[0]);
+      // print(dataincart.runtimeType);
+      if (detail_land[0]['plants_price'] is int) {
+        List dummydata = [];
+        for (int i = 0; i < dataincart.length; i++) {
+          dummydata.add(dataincart[i]);
+        }
+        dummydata.add({
+          'pic_name':
+              "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
+          'land_id': detail_land[0]['land_id'],
+          'land_area': detail_land[0]['land_area'],
+          'land_unit': detail_land[0]['land_unit'],
+          'amountorder': countorder,
+          'total_money': countorder * detail_land[0]['plants_price'],
+          'planter_id': detail_land[0]['user_id'],
+          'customer_id': widget.datauser[0]['user_id'],
+          'province': detail_land[0]['province'],
+        });
+        // print(dummydata);
+        String savedata = jsonEncode(dummydata);
+        prefs.setString('cart', savedata);
+      } else {
+        int convert_price = detail_land[0]['plants_price'][selectorder].toInt();
+        List dummydata = [];
+        for (int i = 0; i < dataincart.length; i++) {
+          dummydata.add(dataincart[i]);
+        }
+        dummydata.add({
+          'pic_name':
+              "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
+          'land_id': detail_land[0]['land_id'],
+          'land_area': detail_land[0]['land_area'],
+          'land_unit': detail_land[0]['land_unit'],
+          'amountorder': countorder,
+          'total_money': countorder * convert_price,
+          'planter_id': detail_land[0]['user_id'],
+          'customer_id': widget.datauser[0]['user_id'],
+          'province': detail_land[0]['province'],
+        });
+        // print(dummydata);
+        String savedata = jsonEncode(dummydata);
+        prefs.setString('cart', savedata);
+      }
+      // addtocart.add({
+      //   'pic_name': "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
+      //   'land_id': detail_land[0]['land_id'],
+      //   'land_area': detail_land[0]['land_area'],
+      //   'land_unit': detail_land[0]['land_unit'],
+      //   'amountorder': countorder,
+      //   'total_money':
+      //       countorder * int.parse(detail_land[0]['plants_price'][selectorder]),
+      //   'planter_id': detail_land[0]['user_id'],
+      //   'customer_id': widget.datauser[0]['user_id'],
+      //   'province': detail_land[0]['province'],
+      // });
+    }
+
+    Navigator.pop(context);
   }
 
   int checkspawnoder() {
@@ -761,7 +872,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
-                                                          // showBotton_sheet = true;
+                                                          adddatacart();
                                                         });
                                                       },
                                                       child: Text(
