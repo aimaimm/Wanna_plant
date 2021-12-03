@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 
 class myCard_favorite extends StatelessWidget {
-  String image, location, land, plant;
-  double rate;
-
   myCard_favorite({
     Key? key,
-    required this.image,
-    required this.location,
-    required this.land,
-    required this.plant,
-    required this.rate,
+    required this.data_fav,
+    required this.index,
   }) : super(key: key);
+
+  final List data_fav;
+  final int index;
+
+  String plant_text(datatext) {
+    if (datatext is List) {
+      if (datatext.length < 2) {
+        return "${datatext[0]}";
+      } else {
+        return "${datatext[0]}, ${datatext[1]}...";
+      }
+    } else {
+      return "$datatext";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +37,8 @@ class myCard_favorite extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(9),
             ),
-            child: Image.asset(
-              image,
+            child: Image.network(
+              "${data_fav[index]['pic_name']}",
               width: 90,
               height: 150,
               fit: BoxFit.cover,
@@ -39,40 +48,56 @@ class myCard_favorite extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                location,
+                "${data_fav[index]['province']}",
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                'Land: $land',
+                'Land: ${data_fav[index]['land_area']} ${data_fav[index]['land_unit']}',
                 style: TextStyle(fontSize: 10),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                plant,
+                plant_text(data_fav[index]['plants_name']),
                 style: TextStyle(fontSize: 10),
               )
             ],
           )),
-          trailing: Column(
-            children: [
-              SizedBox(
-                height: 5,
-              ),
-              Icon(
-                Icons.star,
-                color: Colors.yellow,
-              ),
-              Text(
-                '$rate rate',
-                style: TextStyle(fontSize: 10),
-              )
-            ],
-          ),
+          trailing: data_fav[index]['rating'] == 0
+              ? Column(
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Icon(
+                      Icons.star_rate,
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      '${data_fav[index]['rating']}',
+                      style: TextStyle(fontSize: 10),
+                    )
+                  ],
+                )
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                    ),
+                    Text(
+                      '${data_fav[index]['rating']}',
+                      style: TextStyle(fontSize: 10),
+                    )
+                  ],
+                ),
         ),
       ),
     );

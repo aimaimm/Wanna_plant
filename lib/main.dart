@@ -67,7 +67,9 @@ class MyApp extends StatelessWidget {
               infoland: infoland,
             ),
         '/Wait_identity': (context) => WaitIdentifyScreen(),
-        '/Favorite': (context) => FavoriteScreen(),
+        '/Favorite': (context) => FavoriteScreen(
+              userdata: userdata,
+            ),
         '/History': (context) => HistoryScreen(),
         '/History_Customer': (context) => HistoryCustomer(),
         '/History_planter': (context) => HistoryPlanter(),

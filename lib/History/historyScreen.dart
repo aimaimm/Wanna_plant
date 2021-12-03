@@ -78,11 +78,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         Navigator.pushNamed(context, '/History_Customer');
                       },
                       child: myCard_favorite(
-                        image: items[index]['image'],
-                        location: items[index]['location'],
-                        land: items[index]['land'],
-                        plant: items[index]['plant'],
-                        rate: items[index]['rate'],
+                        data_fav: [], index: 0,
+                        // image: items[index]['image'],
+                        // location: items[index]['location'],
+                        // land: items[index]['land'],
+                        // plant: items[index]['plant'],
+                        // rate: items[index]['rate'],
                       ),
                     );
                   }),
