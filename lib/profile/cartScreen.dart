@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 
 class cartScreen extends StatefulWidget {
@@ -66,98 +67,118 @@ class _cartScreenState extends State<cartScreen> {
         context: context,
         builder: (BuildContext) {
           return AlertDialog(
+            contentPadding: EdgeInsets.all(0),
+            insetPadding: EdgeInsets.symmetric(vertical: 300),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
-            title: Text(
-              'Are you sure to delete order ${order + 1}?',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            content: Column(
+            title: Row(
               children: [
-                Image.network(
-                  '${dataincart![order]['pic_name']}',
-                  width: 150,
-                  height: 100,
-                  fit: BoxFit.cover,
+                Icon(
+                  Icons.error_outline,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  width: 5,
                 ),
                 Text(
-                  '${dataincart![order]['province']}',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  'Land: ${dataincart![order]['land_area']} ${dataincart![order]['land_unit']}',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  'Total: ${dataincart![order]['total_money']} baht',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+                  'Are you sure you want to delete this order?',
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            actions: [
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Row(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Sure',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        style: ButtonStyle(
-                          alignment: Alignment.center,
-                          backgroundColor: MaterialStateProperty.all(gbase),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
+            content: Column(
+              children: [
+                Divider(),
+                // Image.network(
+                //   '${dataincart![order]['pic_name']}',
+                //   width: 150,
+                //   height: 100,
+                //   fit: BoxFit.cover,
+                // ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  padding: EdgeInsets.only(left: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${dataincart![order]['province']}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black45,
                         ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        style: ButtonStyle(
-                          alignment: Alignment.center,
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: BorderSide(color: Colors.grey.shade300),
-                            ),
-                          ),
+                      Text(
+                        'Land: ${dataincart![order]['land_area']} ${dataincart![order]['land_unit']}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black45,
                         ),
                       ),
-                    ),
-                  ],
+                      Text(
+                        'Total: ${dataincart![order]['total_money']} baht',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
+
+                Divider(),
+              ],
+            ),
+            actions: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Sure',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    backgroundColor: MaterialStateProperty.all(gbase),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         });
@@ -226,102 +247,104 @@ class _cartScreenState extends State<cartScreen> {
                   onLongPress: () {
                     showdeletelist(index);
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0XFFF9F9F9),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: EdgeInsets.only(bottom: 10),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(18),
-                            child: Image.network(
-                              '${dataincart![index]['pic_name']}',
-                              width: 150,
-                              height: 100,
-                              fit: BoxFit.cover,
+                  child: FittedBox(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0XFFF9F9F9),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: Image.network(
+                                '${dataincart![index]['pic_name']}',
+                                width: 150,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  dataincart![index]['province'],
-                                  style: TextStyle(fontSize: 11),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Land: ',
-                                      style: TextStyle(fontSize: 11),
-                                    ),
-                                    Text(
-                                      "${dataincart![index]['land_area']}",
-                                      style: TextStyle(fontSize: 11),
-                                    ),
-                                    Text(
-                                      ' ${dataincart![index]['land_unit']}',
-                                      style: TextStyle(fontSize: 11),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Amount: ',
-                                      style: TextStyle(fontSize: 11),
-                                    ),
-                                    Text(
-                                        ' ${dataincart![index]['amountorder']}',
-                                        style: TextStyle(fontSize: 11))
-                                  ],
-                                ),
-                              ],
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    dataincart![index]['province'],
+                                    style: TextStyle(fontSize: 11),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Land: ',
+                                        style: TextStyle(fontSize: 11),
+                                      ),
+                                      Text(
+                                        "${dataincart![index]['land_area']}",
+                                        style: TextStyle(fontSize: 11),
+                                      ),
+                                      Text(
+                                        ' ${dataincart![index]['land_unit']}',
+                                        style: TextStyle(fontSize: 11),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Amount: ',
+                                        style: TextStyle(fontSize: 11),
+                                      ),
+                                      Text(
+                                          ' ${dataincart![index]['amountorder']}',
+                                          style: TextStyle(fontSize: 11))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            alignment: Alignment.bottomRight,
-                            child: Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Total: ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 13),
-                                    ),
-                                    Text(
-                                      ' ${dataincart![index]['total_money']}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 13),
-                                    ),
-                                    Text(
-                                      ' Baht ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 13),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                            Container(
+                              alignment: Alignment.bottomRight,
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Total: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 13),
+                                      ),
+                                      Text(
+                                        ' ${dataincart![index]['total_money']}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 13),
+                                      ),
+                                      Text(
+                                        ' Baht ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

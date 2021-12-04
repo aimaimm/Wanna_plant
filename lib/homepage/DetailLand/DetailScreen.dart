@@ -344,6 +344,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
             body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -550,361 +551,329 @@ class _DetailScreenState extends State<DetailScreen> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 30,
-                      right: 30,
-                      bottom: 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.all(0),
-                          onPressed: fav
-                              ? () async {
-                                  try {
-                                    Uri uri_defav = Uri.http(url, "/defavland");
-                                    http.Response responseAddfav =
-                                        await http.post(uri_defav, body: {
-                                      "user_id": widget.datauser[0]['user_id']
-                                          .toString(),
-                                      'land_id':
-                                          detail_land[0]['land_id'].toString(),
-                                      "check_role": "user"
-                                    });
-                                    if (responseAddfav.statusCode == 200) {
-                                      setState(() {
-                                        fav = false;
-                                      });
-                                    } else {
-                                      print(responseAddfav.statusCode);
-                                      print(responseAddfav.body);
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                    print("connection error");
-                                  }
-                                }
-                              : () async {
-                                  // print(widget.datauser[0]);
-                                  // print(detail_land[0]);
-                                  try {
-                                    Uri uri_fav = Uri.http(url, "/addfavland");
-                                    http.Response responseAddfav =
-                                        await http.post(uri_fav, body: {
-                                      "user_id": widget.datauser[0]['user_id']
-                                          .toString(),
-                                      'land_id':
-                                          detail_land[0]['land_id'].toString(),
-                                      "check_role": "user"
-                                    });
-                                    if (responseAddfav.statusCode == 200) {
-                                      setState(() {
-                                        fav = true;
-                                      });
-                                    } else {
-                                      print(responseAddfav.statusCode);
-                                      print(responseAddfav.body);
-                                    }
-                                  } catch (e) {
-                                    print(e);
-                                    print("connection error");
-                                  }
-                                },
-                          icon: fav
-                              ? Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: gbase,
-                                    border: Border.all(
-                                        width: 1, color: Colors.white),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Icon(
-                                    Icons.favorite_border_outlined,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        width: 1, color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Icon(Icons.favorite_border_outlined),
-                                ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10),
+                ],
+              ),
+            ),
+            bottomNavigationBar: Container(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: fav
+                        ? () async {
+                            try {
+                              Uri uri_defav = Uri.http(url, "/defavland");
+                              http.Response responseAddfav =
+                                  await http.post(uri_defav, body: {
+                                "user_id":
+                                    widget.datauser[0]['user_id'].toString(),
+                                'land_id': detail_land[0]['land_id'].toString(),
+                                "check_role": "user"
+                              });
+                              if (responseAddfav.statusCode == 200) {
+                                setState(() {
+                                  fav = false;
+                                });
+                              } else {
+                                print(responseAddfav.statusCode);
+                                print(responseAddfav.body);
+                              }
+                            } catch (e) {
+                              print(e);
+                              print("connection error");
+                            }
+                          }
+                        : () async {
+                            // print(widget.datauser[0]);
+                            // print(detail_land[0]);
+                            try {
+                              Uri uri_fav = Uri.http(url, "/addfavland");
+                              http.Response responseAddfav =
+                                  await http.post(uri_fav, body: {
+                                "user_id":
+                                    widget.datauser[0]['user_id'].toString(),
+                                'land_id': detail_land[0]['land_id'].toString(),
+                                "check_role": "user"
+                              });
+                              if (responseAddfav.statusCode == 200) {
+                                setState(() {
+                                  fav = true;
+                                });
+                              } else {
+                                print(responseAddfav.statusCode);
+                                print(responseAddfav.body);
+                              }
+                            } catch (e) {
+                              print(e);
+                              print("connection error");
+                            }
+                          },
+                    icon: fav
+                        ? Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              //color: gbase,
+                              border: Border.all(width: 1, color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            elevation: 5,
-                            primary: gbase,
-                            minimumSize: Size(270, 50),
+                            child: Icon(
+                              Icons.favorite_rounded,
+                              color: Colors.red,
+                            ),
+                          )
+                        : Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(Icons.favorite_border_outlined),
                           ),
-                          onPressed: disable_orderBottom
-                              ? () {
-                                  setState(() {
-                                    showModalBottomSheet<void>(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(13.0))),
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return StatefulBuilder(
-                                          builder: (BuildContext context,
-                                              StateSetter setState) {
-                                            return Container(
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      IconButton(
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10),
+                      ),
+                      elevation: 5,
+                      primary: gbase,
+                      minimumSize: Size(270, 50),
+                    ),
+                    onPressed: disable_orderBottom
+                        ? () {
+                            setState(() {
+                              showModalBottomSheet<void>(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(13.0))),
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return StatefulBuilder(
+                                    builder: (BuildContext context,
+                                        StateSetter setState) {
+                                      return Container(
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      Navigator.pop(context);
+                                                    });
+                                                  },
+                                                  icon: Icon(Icons.close),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: 210,
+                                              child: GridView.builder(
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  shrinkWrap: true,
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                    // mainAxisExtent: 28,
+                                                    crossAxisCount: 2,
+                                                    childAspectRatio:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            (MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height /
+                                                                7),
+                                                  ),
+                                                  itemCount: checkspawnoder(),
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return Container(
+                                                      //  margin: EdgeInsets.symmetric(vertical: 15),
+                                                      margin: EdgeInsets.all(8),
+                                                      //height: 10,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color:
+                                                                selectorder ==
+                                                                        index
+                                                                    ? gbase
+                                                                    : Colors
+                                                                        .grey),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: TextButton(
                                                         onPressed: () {
                                                           setState(() {
-                                                            Navigator.pop(
-                                                                context);
+                                                            selectorder = index;
                                                           });
                                                         },
-                                                        icon: Icon(Icons.close),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Container(
-                                                    height: 210,
-                                                    child: GridView.builder(
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        shrinkWrap: true,
-                                                        gridDelegate:
-                                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                                          // mainAxisExtent: 28,
-                                                          crossAxisCount: 2,
-                                                          childAspectRatio: MediaQuery
-                                                                      .of(
-                                                                          context)
-                                                                  .size
-                                                                  .width /
-                                                              (MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height /
-                                                                  7),
+                                                        child: Text(
+                                                          checkStringorder(
+                                                              index),
+                                                          style: TextStyle(
+                                                            fontSize: 13,
+                                                            color:
+                                                                selectorder ==
+                                                                        index
+                                                                    ? gbase
+                                                                    : Colors
+                                                                        .black,
+                                                          ),
                                                         ),
-                                                        itemCount:
-                                                            checkspawnoder(),
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int index) {
-                                                          return Container(
-                                                            //  margin: EdgeInsets.symmetric(vertical: 15),
-                                                            margin:
-                                                                EdgeInsets.all(
-                                                                    8),
-                                                            //height: 10,
+                                                      ),
+                                                    );
+                                                  }),
+                                            ),
+                                            const Divider(
+                                              height: 50,
+                                              thickness: 1,
+                                            ),
+                                            Container(
+                                              // decoration: BoxDecoration(color: Colors.red),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Amount',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        IconButton(
+                                                          padding:
+                                                              EdgeInsets.all(0),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              if (countorder >
+                                                                  1) {
+                                                                countorder--;
+                                                              }
+                                                            });
+                                                          },
+                                                          icon: Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              vertical: 2,
+                                                              horizontal: 7,
+                                                            ),
                                                             decoration:
                                                                 BoxDecoration(
                                                               border: Border.all(
                                                                   width: 1,
-                                                                  color: selectorder ==
-                                                                          index
-                                                                      ? gbase
-                                                                      : Colors
-                                                                          .grey),
+                                                                  color: Colors
+                                                                      .grey),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          10),
+                                                                          8),
                                                             ),
-                                                            child: TextButton(
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  selectorder =
-                                                                      index;
-                                                                });
-                                                              },
-                                                              child: Text(
-                                                                checkStringorder(
-                                                                    index),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 13,
-                                                                  color: selectorder ==
-                                                                          index
-                                                                      ? gbase
-                                                                      : Colors
-                                                                          .black,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }),
-                                                  ),
-                                                  const Divider(
-                                                    height: 50,
-                                                    thickness: 1,
-                                                  ),
-                                                  Container(
-                                                    // decoration: BoxDecoration(color: Colors.red),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Amount',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
+                                                            child: Text('-'),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              IconButton(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(0),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    if (countorder >
-                                                                        1) {
-                                                                      countorder--;
-                                                                    }
-                                                                  });
-                                                                },
-                                                                icon: Container(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .symmetric(
-                                                                    vertical: 2,
-                                                                    horizontal:
-                                                                        7,
-                                                                  ),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border: Border.all(
-                                                                        width:
-                                                                            1,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
-                                                                  ),
-                                                                  child:
-                                                                      Text('-'),
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                  '$countorder'),
-                                                              IconButton(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(0),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    countorder++;
-                                                                  });
-                                                                },
-                                                                icon: Container(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .symmetric(
-                                                                    vertical: 2,
-                                                                    horizontal:
-                                                                        7,
-                                                                  ),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border: Border.all(
-                                                                        width:
-                                                                            1,
-                                                                        color: Colors
-                                                                            .grey),
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
-                                                                  ),
-                                                                  child:
-                                                                      Text('+'),
-                                                                ),
-                                                              ),
-                                                            ],
+                                                        ),
+                                                        Text('$countorder'),
+                                                        IconButton(
+                                                          padding:
+                                                              EdgeInsets.all(0),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              countorder++;
+                                                            });
+                                                          },
+                                                          icon: Container(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              vertical: 2,
+                                                              horizontal: 7,
+                                                            ),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              border: Border.all(
+                                                                  width: 1,
+                                                                  color: Colors
+                                                                      .grey),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                            ),
+                                                            child: Text('+'),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                  .circular(10),
                                                         ),
-                                                        primary: gbase,
-                                                        minimumSize: Size(
-                                                            double.infinity,
-                                                            50),
-                                                      ),
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          adddatacart();
-                                                        });
-                                                      },
-                                                      child: Text(
-                                                        'Add to cart',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    );
-                                    // showBotton_sheet = true;
-                                  });
-                                }
-                              : null,
-                          child: Text(
-                            'Order',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        new BorderRadius
+                                                            .circular(10),
+                                                  ),
+                                                  primary: gbase,
+                                                  minimumSize:
+                                                      Size(double.infinity, 50),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    adddatacart();
+                                                  });
+                                                },
+                                                child: Text(
+                                                  'Add to cart',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                              // showBotton_sheet = true;
+                            });
+                          }
+                        : null,
+                    child: Text(
+                      'Order',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
