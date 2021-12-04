@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
+import 'package:http/http.dart' as http;
 
 class cartScreen extends StatefulWidget {
   const cartScreen({Key? key}) : super(key: key);
@@ -40,6 +41,10 @@ class _cartScreenState extends State<cartScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: TextButton(
                   onPressed: () {
+                    setState(() {
+                      dataincart!.clear();
+                      buildui = false;
+                    });
                     Navigator.of(context).pop();
                   },
                   child: Text(
@@ -90,12 +95,6 @@ class _cartScreenState extends State<cartScreen> {
             content: Column(
               children: [
                 Divider(),
-                // Image.network(
-                //   '${dataincart![order]['pic_name']}',
-                //   width: 150,
-                //   height: 100,
-                //   fit: BoxFit.cover,
-                // ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.6,
                   padding: EdgeInsets.only(left: 0),
@@ -126,7 +125,6 @@ class _cartScreenState extends State<cartScreen> {
                     ],
                   ),
                 ),
-
                 Divider(),
               ],
             ),
@@ -158,7 +156,22 @@ class _cartScreenState extends State<cartScreen> {
               Container(
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: TextButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    if (dataincart!.length > 1) {
+                      setState(() {
+                        dataincart!.removeAt(order);
+                        String strdata = jsonEncode(dataincart);
+                        prefs.setString('cart', strdata);
+                      });
+                    } else {
+                      setState(() {
+                        dataincart!.clear();
+                        buildui = false;
+                        prefs.clear();
+                      });
+                    }
                     Navigator.of(context).pop();
                   },
                   child: Text(
@@ -190,18 +203,22 @@ class _cartScreenState extends State<cartScreen> {
 
   Future<void> loadcartdata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    // prefs.clear();
     String? rawdatacart = prefs.getString('cart');
-    dataincart = jsonDecode(rawdatacart!);
-    setState(() {
-      dataincart!.forEach((element) {
-        print(element['total_money']);
-        subtotal += element['total_money'];
-        // print(subtotal);
+
+    // print(rawdatacart);
+    if (rawdatacart != null) {
+      dataincart = jsonDecode(rawdatacart);
+      setState(() {
+        dataincart!.forEach((element) {
+          // print(element['total_money']);
+          subtotal += element['total_money'];
+          // print(subtotal);
+        });
+        buildui = true;
+        // print(dataincart);
       });
-      buildui = true;
-      // print(dataincart);
-    });
+    }
   }
 
   @override
@@ -233,207 +250,235 @@ class _cartScreenState extends State<cartScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            height: size.height * 0.635,
-            padding: EdgeInsets.all(20),
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: dataincart!.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onLongPress: () {
-                    showdeletelist(index);
-                  },
-                  child: FittedBox(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0XFFF9F9F9),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(18),
-                              child: Image.network(
-                                '${dataincart![index]['pic_name']}',
-                                width: 150,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    dataincart![index]['province'],
-                                    style: TextStyle(fontSize: 11),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Land: ',
-                                        style: TextStyle(fontSize: 11),
-                                      ),
-                                      Text(
-                                        "${dataincart![index]['land_area']}",
-                                        style: TextStyle(fontSize: 11),
-                                      ),
-                                      Text(
-                                        ' ${dataincart![index]['land_unit']}',
-                                        style: TextStyle(fontSize: 11),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Amount: ',
-                                        style: TextStyle(fontSize: 11),
-                                      ),
-                                      Text(
-                                          ' ${dataincart![index]['amountorder']}',
-                                          style: TextStyle(fontSize: 11))
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomRight,
-                              child: Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Total: ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 13),
-                                      ),
-                                      Text(
-                                        ' ${dataincart![index]['total_money']}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 13),
-                                      ),
-                                      Text(
-                                        ' Baht ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 13),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Container(
-            // width: size.width,
-            height: size.height * 0.27,
-            padding: EdgeInsets.all(30),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
-              ),
-            ),
-            child: Column(
+      body: buildui
+          ? Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Subtotal',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-                    ),
-                    Text(
-                      '$subtotal Bath',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Delivery',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-                    ),
-                    Text(
-                      '$deli Bath',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      '${subtotal + deli} Bath',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w200),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.03,
+                Container(
+                  height: size.height * 0.635,
+                  padding: EdgeInsets.all(20),
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: dataincart!.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onLongPress: () {
+                          showdeletelist(index);
+                        },
+                        child: FittedBox(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0XFFF9F9F9),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Image.network(
+                                      '${dataincart![index]['pic_name']}',
+                                      width: 150,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          dataincart![index]['province'],
+                                          style: TextStyle(fontSize: 11),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Land: ',
+                                              style: TextStyle(fontSize: 11),
+                                            ),
+                                            Text(
+                                              "${dataincart![index]['land_area']}",
+                                              style: TextStyle(fontSize: 11),
+                                            ),
+                                            Text(
+                                              ' ${dataincart![index]['land_unit']}',
+                                              style: TextStyle(fontSize: 11),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Amount: ',
+                                              style: TextStyle(fontSize: 11),
+                                            ),
+                                            Text(
+                                                ' ${dataincart![index]['amountorder']}',
+                                                style: TextStyle(fontSize: 11))
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Row(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Total: ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 13),
+                                            ),
+                                            Text(
+                                              ' ${dataincart![index]['total_money']}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 13),
+                                            ),
+                                            Text(
+                                              ' Baht ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w300,
+                                                  fontSize: 13),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Container(
+                  // width: size.width,
+                  height: size.height * 0.27,
+                  padding: EdgeInsets.all(30),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Color(0xFF7CC671),
-                  ),
-                  width: size.width,
-                  child: TextButton(
-                    onPressed: showPayment,
-                    child: Text(
-                      'Payment',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
                     ),
-                    style: ButtonStyle(),
                   ),
-                )
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Subtotal',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w200),
+                          ),
+                          Text(
+                            '$subtotal Bath',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w200),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Delivery',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w200),
+                          ),
+                          Text(
+                            '$deli Bath',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w200),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '${subtotal + deli} Bath',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w200),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Color(0xFF7CC671),
+                        ),
+                        width: size.width,
+                        child: TextButton(
+                          onPressed: () async {
+                            Uri uri_payment = Uri.http(url, "/addactivity");
+                            try {
+                              http.Response response = await http
+                                  .post(uri_payment, body: {
+                                'dataincart': jsonEncode(dataincart),
+                                'check_role': "user"
+                              });
+                              if (response.statusCode == 200) {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.clear();
+                                showPayment();
+                              } else {
+                                print(response.body);
+                                print(response.statusCode);
+                              }
+                            } catch (e) {
+                              print(e);
+                              print("connection error");
+                            }
+                          },
+                          child: Text(
+                            'Payment',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ButtonStyle(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
+            )
+          : Center(
+              child: Text("No order in cart"),
             ),
-          )
-        ],
-      ),
     );
   }
 }
