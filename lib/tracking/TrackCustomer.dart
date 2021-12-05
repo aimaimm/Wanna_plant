@@ -1463,573 +1463,620 @@ class _TrackCustomer extends State<TrackCustomer> {
           ),
         );
       } else {
-        return Container(
-          width: 430,
-          height: 650,
-          child: Card(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  child: ListTile(
-                    title: Text(
-                      '#${data![index]['activity_id']}',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    trailing: Text('${data![index]['datetime']}',
-                        style:
-                            TextStyle(fontSize: 12, color: Color(0xff848484))),
-                  ),
-                ),
-                const Divider(
-                  height: 0,
-                  thickness: 1,
-                  indent: 1,
-                  endIndent: 1,
-                ),
-                Container(
-                  padding: EdgeInsets.all(14),
+        return data![index]['rating'] == 0
+            ? Container(
+                width: 430,
+                height: 650,
+                child: Card(
                   child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      //Padding(padding: EdgeInsets.all(10)),
-                      SizedBox(
-                          height: 90,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(16)),
-                                Row(
+                    children: <Widget>[
+                      Container(
+                        child: ListTile(
+                          title: Text(
+                            '#${data![index]['activity_id']}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          trailing: Text('${data![index]['datetime']}',
+                              style: TextStyle(
+                                  fontSize: 12, color: Color(0xff848484))),
+                        ),
+                      ),
+                      const Divider(
+                        height: 0,
+                        thickness: 1,
+                        indent: 1,
+                        endIndent: 1,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(14),
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            //Padding(padding: EdgeInsets.all(10)),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons.inventory_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Order Confirmed'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  isFirst: true,
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  afterLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                )),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons.timer_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Prepare to plant'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  beforeLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                  afterLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                )),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons.emoji_people_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Planting'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  beforeLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                  afterLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                )),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons.grass_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Harvest'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  beforeLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                  afterLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                )),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons.airport_shuttle_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Delivery'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  beforeLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                  afterLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                )),
+                            SizedBox(
+                                height: 80,
+                                child: TimelineTile(
+                                  endChild: Column(
+                                    children: [
+                                      Padding(padding: EdgeInsets.all(10)),
+                                      Row(
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.all(8)),
+                                          Icon(
+                                            Icons
+                                                .sentiment_very_satisfied_outlined,
+                                            size: 33,
+                                            color: Color(0xff757575),
+                                          ),
+                                          SizedBox(width: 20),
+                                          Text('Success'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  isLast: true,
+                                  indicatorStyle: IndicatorStyle(
+                                    //indicator: ,
+                                    color: Color(0xff7CC671),
+                                  ),
+                                  beforeLineStyle: LineStyle(
+                                      color: Color(0xff7CC671), thickness: 2),
+                                  //afterLineStyle: LineStyle(color: Colors.grey,thickness: 2),
+                                )),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      const Divider(
+                        height: 0,
+                        thickness: 1,
+                        indent: 1,
+                        endIndent: 1,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(14.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RatingBar.builder(
+                                itemSize: 30,
+                                initialRating: 0,
+                                minRating: 0,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding:
+                                    EdgeInsets.symmetric(horizontal: 1.0),
+                                itemBuilder: (context, _) => Icon(
+                                      Icons.star_outlined,
+                                      color: Colors.orange,
+                                    ),
+                                onRatingUpdate: (rating) async {
+                                  Uri uri_rating = Uri.http(url, "/updaterating");
+                                  try {
+                                    http.Response response_rating =
+                                        await http.post(uri_rating, body: {
+                                      'activity_id': data![index]['activity_id'].toString(),
+                                      'rating': rating.toString(),
+                                      'check_role': "user",
+                                    });
+                                    if (response_rating.statusCode == 200) {
+                                      loadsavetracking = true;
+                                      showsavetracking();
+                                      setState(() {
+                                        loaddata();
+                                      });
+                                    } else {
+                                      print(response_rating.body);
+                                      print(response_rating.statusCode);
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                    print("connection error");
+                                  }
+                                  print(rating);
+                                }),
+                            SizedBox(width: 100),
+                            Text(
+                              '${dataname[index]['name']}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(Icons.account_circle_outlined,
+                                color: Color(0xff606060), size: 30),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  color: Color(0xFFF3F3F3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  elevation: 0,
+                ),
+              )
+            : Container();
+      }
+    } else {
+      return data![index]['tracking'] >= 6
+          ? Container()
+          : Container(
+              width: 430,
+              height: 650,
+              child: Card(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          '#${data![index]['activity_id']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                        trailing: Text('${data![index]['datetime']}',
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xff848484))),
+                      ),
+                    ),
+                    const Divider(
+                      color: Color(0xffE0E0E0),
+                      height: 0,
+                      thickness: 1,
+                      indent: 1,
+                      endIndent: 1,
+                    ),
+                    Container(
+                      child: Stepper(
+                        controlsBuilder: (context,
+                            {onStepCancel, onStepContinue}) {
+                          return Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                TextButton(
+                                  onPressed: onStepContinue,
+                                  child: Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text('Confirm'),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    primary: Colors.black,
+                                    backgroundColor: Color(0xffFFB443),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                TextButton(
+                                  onPressed: onStepCancel,
+                                  child: Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text('Cancel'),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    primary: Colors.black,
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        type: StepperType.vertical,
+                        currentStep: data![index]['tracking'],
+                        // onStepTapped: (int Step) {
+                        //   setState(() {
+                        //     data![index]['tracking'] = Step;
+                        //   });
+                        // },
+                        onStepContinue: () async {
+                          // data![index]['tracking'] < 5 ?
+                          //     ? data![index]['tracking'] += 1
+                          //     : null;
+                          showsavetracking();
+                          Uri uri_updatetracking =
+                              Uri.http(url, "/updatetracking");
+                          // print(data![index]['tracking']);
+                          try {
+                            http.Response response_tracking =
+                                await http.post(uri_updatetracking, body: {
+                              'activity_id':
+                                  data![index]['activity_id'].toString(),
+                              'tracking':
+                                  (data![index]['tracking'] + 1).toString(),
+                              'check_role': "user",
+                            });
+
+                            if (response_tracking.statusCode == 200) {
+                              setState(() {
+                                loadsavetracking = true;
+                                loaddata();
+                              });
+                            } else {
+                              data![index]['tracking']--;
+                              print(response_tracking.body);
+                              print(response_tracking.statusCode);
+                            }
+                          } catch (e) {
+                            print(e);
+                            print("connection error");
+                          }
+                        },
+                        onStepCancel: () async {
+                          showsavetracking();
+                          Uri uri_cancelorder =
+                              Uri.http(url, "/cancelordertracking");
+                          // print(data![index]['tracking']);
+                          try {
+                            http.Response response_canceltracking =
+                                await http.post(uri_cancelorder, body: {
+                              'activity_id':
+                                  data![index]['activity_id'].toString(),
+                              'check_role': "user",
+                            });
+
+                            if (response_canceltracking.statusCode == 200) {
+                              setState(() {
+                                loadsavetracking = true;
+                                loaddata();
+                              });
+                            } else {
+                              data![index]['tracking']--;
+                              print(response_canceltracking.body);
+                              print(response_canceltracking.statusCode);
+                            }
+                          } catch (e) {
+                            print(e);
+                            print("connection error");
+                          }
+                        },
+                        //Step Tracking 1- 6
+                        steps: [
+                          Step(
+                              isActive: data![index]['tracking'] >= 0,
+                              state: data![index]['tracking'] == 0
+                                  ? StepState.editing
+                                  : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.inventory_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Order Confirmed'),
+                                    Padding(padding: EdgeInsets.all(12)),
+                                    Text(
+                                      'Order Confirmed',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            isFirst: true,
-                            indicatorStyle: IndicatorStyle(
-                              //indicator: ,
-                              color: Colors.green,
-                            ),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                      SizedBox(
-                          height: 80,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(10)),
-                                Row(
+                              ),
+                              content: Text('')),
+                          Step(
+                              isActive: data![index]['tracking'] >= 1,
+                              state: data![index]['tracking'] == 1
+                                  ? StepState.editing
+                                  : data![index]['tracking'] < 1
+                                      ? StepState.disabled
+                                      : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.timer_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Prepare to plant'),
+                                    Padding(padding: EdgeInsets.all(12)),
+                                    Text(
+                                      'Prepare to plant',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              color: Colors.green,
-                              // indicator: Container(
-                              //   decoration: BoxDecoration(
-                              //     border: Border.all(
-                              //       width: 2,
-                              //       color: Colors.grey,
-                              //       style: BorderStyle.solid,
-                              //     ),
-                              //     color: Colors.transparent,
-                              //     shape: BoxShape.circle
-                              //   ),
-                              // )
-                            ),
-                            beforeLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                      SizedBox(
-                          height: 80,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(10)),
-                                Row(
+                              ),
+                              content: Text('')),
+                          Step(
+                              isActive: data![index]['tracking'] >= 2,
+                              state: data![index]['tracking'] == 2
+                                  ? StepState.editing
+                                  : data![index]['tracking'] < 2
+                                      ? StepState.disabled
+                                      : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.emoji_people_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Planting'),
+                                    Padding(padding: EdgeInsets.all(10)),
+                                    Text(
+                                      'Planting',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              //indicator: ,
-                              color: Colors.green,
-                            ),
-                            beforeLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                      SizedBox(
-                          height: 80,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(10)),
-                                Row(
+                              ),
+                              content: Text('')),
+                          Step(
+                              isActive: data![index]['tracking'] >= 3,
+                              state: data![index]['tracking'] == 3
+                                  ? StepState.editing
+                                  : data![index]['tracking'] < 3
+                                      ? StepState.disabled
+                                      : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.grass_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Harvest'),
+                                    Padding(padding: EdgeInsets.all(10)),
+                                    Text(
+                                      'Harvest',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              //indicator: ,
-                              color: Colors.green,
-                            ),
-                            beforeLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                      SizedBox(
-                          height: 80,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(10)),
-                                Row(
+                              ),
+                              content: Text('')),
+                          Step(
+                              isActive: data![index]['tracking'] >= 4,
+                              state: data![index]['tracking'] == 4
+                                  ? StepState.editing
+                                  : data![index]['tracking'] < 4
+                                      ? StepState.disabled
+                                      : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.airport_shuttle_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Delivery'),
+                                    Padding(padding: EdgeInsets.all(10)),
+                                    Text(
+                                      'Delivery',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            indicatorStyle: IndicatorStyle(
-                              //indicator: ,
-                              color: Colors.green,
-                            ),
-                            beforeLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                      SizedBox(
-                          height: 80,
-                          child: TimelineTile(
-                            endChild: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.all(10)),
-                                Row(
+                              ),
+                              content: Text('')),
+                          Step(
+                              isActive: data![index]['tracking'] >= 5,
+                              state: data![index]['tracking'] == 5
+                                  ? StepState.editing
+                                  : data![index]['tracking'] < 5
+                                      ? StepState.disabled
+                                      : StepState.complete,
+                              title: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(padding: EdgeInsets.all(8)),
                                     Icon(
                                       Icons.sentiment_very_satisfied_outlined,
                                       size: 33,
                                       color: Color(0xff757575),
                                     ),
-                                    SizedBox(width: 20),
-                                    Text('Success'),
+                                    Padding(padding: EdgeInsets.all(10)),
+                                    Text(
+                                      'Success',
+                                      style: (TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                    ),
                                   ],
                                 ),
-                              ],
-                            ),
-                            isLast: true,
-                            indicatorStyle: IndicatorStyle(
-                              //indicator: ,
-                              color: Colors.green,
-                            ),
-                            beforeLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                            afterLineStyle:
-                                LineStyle(color: Colors.green, thickness: 2),
-                          )),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                const Divider(
-                  height: 0,
-                  thickness: 1,
-                  indent: 1,
-                  endIndent: 1,
-                ),
-                Container(
-                  padding: EdgeInsets.all(14.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Visibility(
-                        visible: true,
-                        child: RatingBar.builder(
-                            itemSize: 30,
-                            initialRating: 0,
-                            minRating: 0,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                            itemBuilder: (context, _) => Icon(
-                                  Icons.star_outlined,
-                                  color: Colors.orange,
-                                ),
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            }),
+                              ),
+                              content: Text('')),
+                        ],
                       ),
-                      //SizedBox(width: 100),
-                      Row(
-                        children: [
+                    ),
+                    const Divider(
+                      color: Color(0xffE0E0E0),
+                      height: 0,
+                      thickness: 1,
+                      indent: 1,
+                      endIndent: 1,
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
                           Text(
                             '${dataname[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
-                          Icon(Icons.account_circle_outlined,
-                              color: Color(0xff606060), size: 30),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            color: Color(0xFFF3F3F3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            elevation: 0,
-          ),
-        );
-      }
-    } else {
-      return Container(
-        width: 430,
-        height: 650,
-        child: Card(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: ListTile(
-                  title: Text(
-                    '#${data![index]['activity_id']}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                  trailing: Text('${data![index]['datetime']}',
-                      style: TextStyle(fontSize: 12, color: Color(0xff848484))),
-                ),
-              ),
-              const Divider(
-                color: Color(0xffE0E0E0),
-                height: 0,
-                thickness: 1,
-                indent: 1,
-                endIndent: 1,
-              ),
-              Container(
-                child: Stepper(
-                  controlsBuilder: (context, {onStepCancel, onStepContinue}) {
-                    return Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          TextButton(
-                            onPressed: onStepContinue,
-                            child: Container(
-                              width: 120,
-                              alignment: Alignment.center,
-                              child: Text('Confirm'),
-                            ),
-                            style: TextButton.styleFrom(
-                              primary: Colors.black,
-                              backgroundColor: Color(0xffFFB443),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          TextButton(
-                            onPressed: onStepCancel,
-                            child: Container(
-                              width: 120,
-                              alignment: Alignment.center,
-                              child: Text('Cancel'),
-                            ),
-                            style: TextButton.styleFrom(
-                              primary: Colors.black,
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
+                          Icon(
+                            Icons.account_circle_outlined,
+                            color: Color(0xff606060),
+                            size: 30,
                           ),
                         ],
                       ),
-                    );
-                  },
-                  type: StepperType.vertical,
-                  currentStep: data![index]['tracking'],
-                  // onStepTapped: (int Step) {
-                  //   setState(() {
-                  //     data![index]['tracking'] = Step;
-                  //   });
-                  // },
-                  onStepContinue: () async {
-                    // data![index]['tracking'] < 5
-                    //     ? data![index]['tracking'] += 1
-                    //     : null;
-                    showsavetracking();
-                    Uri uri_updatetracking = Uri.http(url, "/updatetracking");
-                    print(data![index]['tracking']);
-                    try {
-                      http.Response response_tracking =
-                          await http.post(uri_updatetracking, body: {
-                        'activity_id': data![index]['activity_id'].toString(),
-                        'tracking': data![index]['tracking'] < 5
-                            ? (data![index]['tracking'] + 1).toString()
-                            : 6.toString(),
-                        'check_role': "user",
-                      });
-
-                      if (response_tracking.statusCode == 200) {
-                        setState(() {
-                          loadsavetracking = true;
-                          loaddata();
-                        });
-                      } else {
-                        data![index]['tracking']--;
-                        print(response_tracking.body);
-                        print(response_tracking.statusCode);
-                      }
-                    } catch (e) {
-                      print(e);
-                      print("connection error");
-                    }
-                  },
-                  onStepCancel: () {},
-                  //Step Tracking 1- 6
-                  steps: [
-                    Step(
-                        isActive: data![index]['tracking'] >= 0,
-                        state: data![index]['tracking'] == 0
-                            ? StepState.editing
-                            : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.inventory_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(12)),
-                              Text(
-                                'Order Confirmed',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
-                    Step(
-                        isActive: data![index]['tracking'] >= 1,
-                        state: data![index]['tracking'] == 1
-                            ? StepState.editing
-                            : data![index]['tracking'] < 1
-                                ? StepState.disabled
-                                : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.timer_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(12)),
-                              Text(
-                                'Prepare to plant',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
-                    Step(
-                        isActive: data![index]['tracking'] >= 2,
-                        state: data![index]['tracking'] == 2
-                            ? StepState.editing
-                            : data![index]['tracking'] < 2
-                                ? StepState.disabled
-                                : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.emoji_people_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(10)),
-                              Text(
-                                'Planting',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
-                    Step(
-                        isActive: data![index]['tracking'] >= 3,
-                        state: data![index]['tracking'] == 3
-                            ? StepState.editing
-                            : data![index]['tracking'] < 3
-                                ? StepState.disabled
-                                : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.grass_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(10)),
-                              Text(
-                                'Harvest',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
-                    Step(
-                        isActive: data![index]['tracking'] >= 4,
-                        state: data![index]['tracking'] == 4
-                            ? StepState.editing
-                            : data![index]['tracking'] < 4
-                                ? StepState.disabled
-                                : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.airport_shuttle_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(10)),
-                              Text(
-                                'Delivery',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
-                    Step(
-                        isActive: data![index]['tracking'] >= 5,
-                        state: data![index]['tracking'] == 5
-                            ? StepState.editing
-                            : data![index]['tracking'] < 5
-                                ? StepState.disabled
-                                : StepState.complete,
-                        title: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Icon(
-                                Icons.sentiment_very_satisfied_outlined,
-                                size: 33,
-                                color: Color(0xff757575),
-                              ),
-                              Padding(padding: EdgeInsets.all(10)),
-                              Text(
-                                'Success',
-                                style: (TextStyle(fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        content: Text('')),
+                    )
                   ],
                 ),
-              ),
-              const Divider(
-                color: Color(0xffE0E0E0),
-                height: 0,
-                thickness: 1,
-                indent: 1,
-                endIndent: 1,
-              ),
-              Container(
-                padding: EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      '${dataname[index]['name']}',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.account_circle_outlined,
-                      color: Color(0xff606060),
-                      size: 30,
-                    ),
-                  ],
+                color: Color(0xFFF3F3F3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
-              )
-            ],
-          ),
-          color: Color(0xFFF3F3F3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          elevation: 0,
-        ),
-      );
+                elevation: 0,
+              ),
+            );
     }
   }
 
