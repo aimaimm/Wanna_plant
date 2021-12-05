@@ -84,9 +84,11 @@ class MyApp extends StatelessWidget {
               datauser: userdata,
             ),
         '/Cart': (context) => cartScreen(),
-        '/Tracking_customer': (context) => TrackCustomer(),
-        '/Tracking_planter': (context) => TrackPlanter(),
-        '/Tracking_success': (context) => TrackingSuccess(),
+        '/Tracking_customer': (context) => TrackCustomer(
+          userdata: userdata,
+        ),
+        // '/Tracking_planter': (context) => TrackPlanter(),
+        // '/Tracking_success': (context) => TrackingSuccess(),
       },
     );
   }

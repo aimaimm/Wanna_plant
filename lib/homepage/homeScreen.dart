@@ -225,7 +225,7 @@ class _HomeState extends State<Home> {
                                   IconButton(
                                     onPressed: () {
                                       Navigator.pushNamed(
-                                          context, '/Tracking_planter');
+                                          context, '/Tracking_customer');
                                     },
                                     icon: Icon(
                                       Icons.notifications,
