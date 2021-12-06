@@ -70,9 +70,27 @@ class MyApp extends StatelessWidget {
         '/Favorite': (context) => FavoriteScreen(
               userdata: userdata,
             ),
-        '/History': (context) => HistoryScreen(),
-        '/History_Customer': (context) => HistoryCustomer(),
-        '/History_planter': (context) => HistoryPlanter(),
+        '/History': (context) => HistoryScreen(
+              datauser: userdata,
+            ),
+        '/History_Customer': (context) => HistoryCustomer(
+              datauser: userdata,
+              datacustomer: data_customer.length == 1
+                  ? data_customer
+                  : [data_customer[indexact]],
+              nameplanter: name_planter.length == 1
+                  ? name_planter
+                  : [name_planter[indexact]],
+            ),
+        '/History_planter': (context) => HistoryPlanter(
+              datauser: userdata,
+              dataplanter: data_planter.length == 1
+                  ? data_planter
+                  : [data_planter[indexact]],
+              namecustomer: name_customer.length == 1
+                  ? name_customer
+                  : [name_customer[indexact]],
+            ),
         '/Homepage': (context) => Home(
               userdata: userdata,
             ),
@@ -85,8 +103,8 @@ class MyApp extends StatelessWidget {
             ),
         '/Cart': (context) => cartScreen(),
         '/Tracking_customer': (context) => TrackCustomer(
-          userdata: userdata,
-        ),
+              userdata: userdata,
+            ),
         // '/Tracking_planter': (context) => TrackPlanter(),
         // '/Tracking_success': (context) => TrackingSuccess(),
       },
