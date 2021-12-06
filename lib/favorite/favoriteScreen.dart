@@ -94,7 +94,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             }
           }
         }
-        
+
         setState(() {
           buildui = true;
         });
@@ -130,18 +130,22 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     fontSize: 16.0),
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  itemCount: data_fav.length,
-                  itemBuilder: (context, index) {
-                    return myCard_favorite(
-                      data_fav: data_fav,
-                      index: index,
-                    );
-                  }),
-            ),
+            body: data_fav.length == 0
+                ? Center(
+                    child: Text("No result"),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        itemCount: data_fav.length,
+                        itemBuilder: (context, index) {
+                          return myCard_favorite(
+                            data_fav: data_fav,
+                            index: index,
+                          );
+                        }),
+                  ),
             bottomNavigationBar: CustomBottomBar(),
           )
         : Scaffold(

@@ -25,12 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // Map<String, dynamic> login = {'username': 'aimaim', 'password': '1234'};
 
   _login() async {
-    Uri uri_login = Uri.http(url, '/login');
-    try {
-      http.Response respons = await http.post(uri_login, body: {
-        "username": username.text,
-        "password": password.text,
-      });
+    if (username.text != "" && password.text != "") {
+      Uri uri_login = Uri.http(url, '/login');
       showDialog(
           barrierDismissible: false,
           context: context,
@@ -43,17 +39,73 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: CircularProgressIndicator(),
                 ));
           });
-      if (respons.statusCode == 200) {
-        userdata = jsonDecode(respons.body);
-        setState(() {
-          Navigator.of(context).pop();
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            '/Homepage',
-            ModalRoute.withName('/Homepage'),
-          ); //Home
+      try {
+        http.Response respons = await http.post(uri_login, body: {
+          "username": username.text,
+          "password": password.text,
         });
-      } else {
+
+        if (respons.statusCode == 200) {
+          userdata = jsonDecode(respons.body);
+          setState(() {
+            Navigator.of(context).pop();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/Homepage',
+              ModalRoute.withName('/Homepage'),
+            ); //Home
+          });
+        } else {
+          Navigator.of(context).pop();
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  title: Icon(
+                    Icons.error_outline_outlined,
+                    color: Colors.red.shade400,
+                    size: 70,
+                  ),
+                  content: Text(
+                    '${respons.body}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        style: ButtonStyle(
+                            alignment: Alignment.center,
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    side: BorderSide(
+                                        color: Colors.grey.shade300)))),
+                      ),
+                    ),
+                  ],
+                );
+              });
+          print(respons.body);
+          print(respons.statusCode);
+        }
+      } catch (e) {
+        print(e);
         Navigator.of(context).pop();
         showDialog(
             barrierDismissible: true,
@@ -64,12 +116,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 title: Icon(
-                  Icons.no_accounts_outlined,
+                  Icons.error_outline_outlined,
                   color: Colors.red.shade400,
                   size: 70,
                 ),
                 content: Text(
-                  '${respons.body}',
+                  'connection error',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
@@ -99,12 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               );
             });
-        print(respons.body);
-        print(respons.statusCode);
+        print("connection error");
       }
-    } catch (e) {
-      print(e);
-      print("connection error");
     }
   }
 

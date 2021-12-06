@@ -119,7 +119,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                       title: Icon(
-                        Icons.no_accounts_outlined,
+                        Icons.error_outline_outlined,
                         color: Colors.red.shade400,
                         size: 70,
                       ),
@@ -186,7 +186,12 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
-                      title: Text(
+                      title: Icon(
+                        Icons.error_outline_outlined,
+                        color: Colors.red.shade400,
+                        size: 70,
+                      ),
+                      content: Text(
                         '${response.body}',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
@@ -234,9 +239,14 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
-                  title: Text(
-                    'Connection error',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  title: Icon(
+                    Icons.error_outline_outlined,
+                    color: Colors.red.shade400,
+                    size: 70,
+                  ),
+                  content: Text(
+                    'connection error',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   actions: [

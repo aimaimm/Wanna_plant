@@ -38,7 +38,7 @@ class _profileScreenState extends State<profileScreen> {
       });
       if (response.statusCode == 200) {
         pictureland = jsonDecode(response.body);
-        print(pictureland);
+        // print(pictureland);
         setState(() {
           buildui = true;
           if (widget.datauser[0]['identify'] == 0) {
@@ -327,7 +327,10 @@ class _profileScreenState extends State<profileScreen> {
                                   Expanded(
                                     child: Container(
                                       child: TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, "/edit_acc");
+                                        },
                                         icon: Icon(Icons.account_circle,
                                             color: Colors.grey.shade600),
                                         label: Text(

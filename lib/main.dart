@@ -3,6 +3,7 @@ import 'package:wanna_plant/CustomBottomBar.dart';
 import 'package:wanna_plant/History/HistoryDetailCustomer.dart';
 import 'package:wanna_plant/History/HistoryDetailPlanter.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
+import 'package:wanna_plant/manage_account/edit_acc_screen.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:wanna_plant/profile/profileScreen.dart';
 import 'package:wanna_plant/signup/textInfo.dart';
@@ -66,8 +67,11 @@ class MyApp extends StatelessWidget {
               imageFileList: imageFileList,
               infoland: infoland,
             ),
-        '/Wait_identity': (context) => WaitIdentifyScreen(),
+        // '/Wait_identity': (context) => WaitIdentifyScreen(),
         '/Favorite': (context) => FavoriteScreen(
+              userdata: userdata,
+            ),
+        '/edit_acc': (context) => Edit_acc_screen(
               userdata: userdata,
             ),
         '/History': (context) => HistoryScreen(

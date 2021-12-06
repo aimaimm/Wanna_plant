@@ -4,7 +4,12 @@ import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/manage_account/edit_txt.dart';
 
 class Edit_acc_screen extends StatefulWidget {
-  //const Edit_acc_screen({ Key? key }) : super(key: key);
+  const Edit_acc_screen({
+    Key? key,
+    required this.userdata,
+  }) : super(key: key);
+
+  final List userdata;
 
   @override
   _Edit_acc_screenState createState() => _Edit_acc_screenState();

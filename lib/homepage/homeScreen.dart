@@ -313,368 +313,382 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
-                  child: Column(
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [],
-                          ),
-                          AnimatedOpacity(
-                            opacity: animation_search,
-                            duration: const Duration(milliseconds: 300),
-                            child: Visibility(
-                              visible: hide_pop,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 20),
-                                    child: Text(
-                                      'Popular proeperty',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 200,
-                                          child: ListView.builder(
-                                            physics: BouncingScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: data_land.length,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  // print(index);
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DetailScreen(
-                                                        idland: data_land[index]
-                                                            ['land_id'],
-                                                        datauser:
-                                                            widget.userdata,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0XFFF9F9F9),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            16),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        ClipRRect(
+              body: data_land.length == 0
+                  ? Center(
+                      child: Text("No result"),
+                    )
+                  : SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [],
+                                ),
+                                AnimatedOpacity(
+                                  opacity: animation_search,
+                                  duration: const Duration(milliseconds: 300),
+                                  child: Visibility(
+                                    visible: hide_pop,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 20),
+                                          child: Text(
+                                            'Popular proeperty',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                height: 200,
+                                                child: ListView.builder(
+                                                  physics:
+                                                      BouncingScrollPhysics(),
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: data_land.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        // print(index);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                DetailScreen(
+                                                              idland: data_land[
+                                                                      index]
+                                                                  ['land_id'],
+                                                              datauser: widget
+                                                                  .userdata,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0XFFF9F9F9),
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(20),
-                                                          child: Image.network(
-                                                            "${data_land[index]['pic_name']}",
-                                                            width: 150,
-                                                            height: 100,
-                                                            fit: BoxFit.cover,
-                                                          ),
                                                         ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  '${data_land[index]['province']}',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          10),
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 5),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(16),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                                child: Image
+                                                                    .network(
+                                                                  "${data_land[index]['pic_name']}",
+                                                                  width: 150,
+                                                                  height: 100,
+                                                                  fit: BoxFit
+                                                                      .cover,
                                                                 ),
-                                                                Text(
-                                                                  '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          10),
-                                                                ),
-                                                                Text(
-                                                                  plant_text(data_land[
-                                                                          index]
-                                                                      [
-                                                                      'plants_name']),
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          10),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              width: 40,
-                                                            ),
-                                                            data_land[index][
-                                                                        'rating'] ==
-                                                                    0
-                                                                ? Column(
+                                                              ),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                children: [
+                                                                  Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
                                                                     children: [
-                                                                      Icon(
-                                                                        Icons
-                                                                            .star_rate,
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        size:
-                                                                            20,
+                                                                      Text(
+                                                                        '${data_land[index]['province']}',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10),
                                                                       ),
                                                                       Text(
-                                                                        '${data_land[index]['rating']} rate',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              10,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  )
-                                                                : Column(
-                                                                    children: [
-                                                                      Icon(
-                                                                        Icons
-                                                                            .star_rate,
-                                                                        color: Colors
-                                                                            .amber,
-                                                                        size:
-                                                                            20,
+                                                                        '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10),
                                                                       ),
                                                                       Text(
-                                                                        '${data_land[index]['rating']} rate',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              10,
-                                                                        ),
+                                                                        plant_text(data_land[index]
+                                                                            [
+                                                                            'plants_name']),
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                10),
                                                                       ),
                                                                     ],
                                                                   ),
-                                                          ],
+                                                                  SizedBox(
+                                                                    width: 40,
+                                                                  ),
+                                                                  data_land[index]
+                                                                              [
+                                                                              'rating'] ==
+                                                                          0
+                                                                      ? Column(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.star_rate,
+                                                                              color: Colors.grey,
+                                                                              size: 20,
+                                                                            ),
+                                                                            Text(
+                                                                              '${data_land[index]['rating']} rate',
+                                                                              style: TextStyle(
+                                                                                fontSize: 10,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        )
+                                                                      : Column(
+                                                                          children: [
+                                                                            Icon(
+                                                                              Icons.star_rate,
+                                                                              color: Colors.amber,
+                                                                              size: 20,
+                                                                            ),
+                                                                            Text(
+                                                                              '${data_land[index]['rating']} rate',
+                                                                              style: TextStyle(
+                                                                                fontSize: 10,
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                          ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Visibility(
+                              visible: show_items_count,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text('${data_land.length.toString()} Items'),
+                                ],
+                              ),
+                            ),
+                            Visibility(
+                              visible: hide_pop,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'All',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, "/Homepage_seeall");
+                                    },
+                                    child: Text(
+                                      'see all',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Visibility(
-                        visible: show_items_count,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('${data_land.length.toString()} Items'),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: hide_pop,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'All',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, "/Homepage_seeall");
-                              },
-                              child: Text(
-                                'see all',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListView.builder(
-                        padding: EdgeInsets.all(0),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: data_land.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              if (hide_pop == false) {
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                  setState(() {
-                                    hide_pop = true;
-                                    show_items_count = false;
-                                    animation_search = 1;
-                                  });
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailScreen(
-                                        idland: data_land[index]['land_id'],
-                                        datauser: widget.userdata,
-                                      ),
+                            ListView.builder(
+                              padding: EdgeInsets.all(0),
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: data_land.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    if (hide_pop == false) {
+                                      if (!currentFocus.hasPrimaryFocus) {
+                                        currentFocus.unfocus();
+                                        setState(() {
+                                          hide_pop = true;
+                                          show_items_count = false;
+                                          animation_search = 1;
+                                        });
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                              idland: data_land[index]
+                                                  ['land_id'],
+                                              datauser: widget.userdata,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                              idland: data_land[index]
+                                                  ['land_id'],
+                                              datauser: widget.userdata,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailScreen(
+                                            idland: data_land[index]['land_id'],
+                                            datauser: widget.userdata,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0XFFF9F9F9),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                  );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailScreen(
-                                        idland: data_land[index]['land_id'],
-                                        datauser: widget.userdata,
-                                      ),
-                                    ),
-                                  );
-                                }
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailScreen(
-                                      idland: data_land[index]['land_id'],
-                                      datauser: widget.userdata,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0XFFF9F9F9),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              margin: EdgeInsets.only(bottom: 10),
-                              child: Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(18),
-                                      child: Image.network(
-                                        '${data_land[index]['pic_name']}',
-                                        width: 150,
-                                        height: 100,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(right: 30),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            '${data_land[index]['province']}',
-                                            style: TextStyle(fontSize: 10),
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(18),
+                                            child: Image.network(
+                                              '${data_land[index]['pic_name']}',
+                                              width: 150,
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                          SizedBox(
-                                            height: 20,
+                                          Container(
+                                            margin: EdgeInsets.only(right: 30),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '${data_land[index]['province']}',
+                                                  style:
+                                                      TextStyle(fontSize: 10),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  'Land: ${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
+                                                  style:
+                                                      TextStyle(fontSize: 10),
+                                                ),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Text(
+                                                  plant_text(data_land[index]
+                                                      ['plants_name']),
+                                                  style:
+                                                      TextStyle(fontSize: 10),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            'Land: ${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
-                                            style: TextStyle(fontSize: 10),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            plant_text(data_land[index]
-                                                ['plants_name']),
-                                            style: TextStyle(fontSize: 10),
-                                          ),
+                                          data_land[index]['rating'] == 0
+                                              ? Center(
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star_rate,
+                                                        color: Colors.grey,
+                                                        size: 25,
+                                                      ),
+                                                      Text(
+                                                        '${data_land[index]['rating']} rate',
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star_rate,
+                                                        color: Colors.amber,
+                                                        size: 25,
+                                                      ),
+                                                      Text(
+                                                        '${data_land[index]['rating']} rate',
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
                                         ],
                                       ),
                                     ),
-                                    data_land[index]['rating'] == 0
-                                        ? Center(
-                                            child: Column(
-                                              children: [
-                                                Icon(
-                                                  Icons.star_rate,
-                                                  color: Colors.grey,
-                                                  size: 25,
-                                                ),
-                                                Text(
-                                                  '${data_land[index]['rating']} rate',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Column(
-                                              children: [
-                                                Icon(
-                                                  Icons.star_rate,
-                                                  color: Colors.amber,
-                                                  size: 25,
-                                                ),
-                                                Text(
-                                                  '${data_land[index]['rating']} rate',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                  ],
-                                ),
-                              ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
               bottomNavigationBar: CustomBottomBar(),
             )
           : Scaffold(
