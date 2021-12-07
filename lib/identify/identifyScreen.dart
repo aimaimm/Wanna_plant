@@ -92,6 +92,7 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               http.MultipartRequest requestlandpicture =
                   http.MultipartRequest('POST', uri_land);
               List iduser = jsonDecode(response.body);
+              userdata = iduser;
 
               requestlandpicture.fields['size'] = widget.size;
               requestlandpicture.fields['val'] = widget.val;

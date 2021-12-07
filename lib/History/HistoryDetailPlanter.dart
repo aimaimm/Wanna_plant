@@ -850,9 +850,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
                                                     Icons.star_outlined,
                                                     color: Colors.orange,
                                                   ),
-                                              onRatingUpdate: (rating) {
-                                                print(rating);
-                                              }),
+                                              onRatingUpdate: (rating) {}),
                                         ),
                                         //SizedBox(width: 100),
                                         Row(
@@ -878,21 +876,24 @@ class _HistoryPlanter extends State<HistoryPlanter> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         RatingBar.builder(
-                                            itemSize: 30,
-                                            initialRating: widget.dataplanter[0]
-                                                ['rating'],
-                                            minRating: widget.dataplanter[0]
-                                                ['rating'],
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            itemCount: 5,
-                                            itemPadding: EdgeInsets.symmetric(
-                                                horizontal: 1),
-                                            itemBuilder: (context, _) => Icon(
-                                                  Icons.star_outlined,
-                                                  color: Colors.orange,
-                                                ),
-                                            onRatingUpdate: (rating) {}),
+                                          itemSize: 30,
+                                          initialRating: widget.dataplanter[0]
+                                                  ['rating']
+                                              .toDouble(),
+                                          minRating: widget.dataplanter[0]
+                                                  ['rating']
+                                              .toDouble(),
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 1),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star_outlined,
+                                            color: Colors.orange,
+                                          ),
+                                          onRatingUpdate: (rating) {},
+                                        ),
                                         SizedBox(width: 100),
                                         Row(
                                           children: [

@@ -108,6 +108,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           check_role_profile = "guest";
                           Navigator.pushNamed(context, '/Register_land');
                         }
+                      } else {
+                        showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (BuildContext) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                ),
+                                title: Icon(
+                                  Icons.error_outline_outlined,
+                                  color: Colors.red.shade400,
+                                  size: 70,
+                                ),
+                                content: Text(
+                                  'Incorrect Information!',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                actions: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      style: ButtonStyle(
+                                          alignment: Alignment.center,
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  side: BorderSide(
+                                                      color: Colors
+                                                          .grey.shade300)))),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
                       }
 
                       // String email = "ton.com";

@@ -132,7 +132,6 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
             countcheck++;
           }
         }
-        // print(countcheck);
         if (countcheck == plantTEC.length) {
           for (int i = 0; i < rowCard.length; i++) {
             var namecon = plantTEC[i].text;
@@ -141,6 +140,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
             if (price_check != null) {
               entries.add({'plantname': namecon, 'price': price});
               if ((i + 1) == rowCard.length && size_check != null) {
+                infoland = true;
                 setState(() {
                   // print(entries);
                   Navigator.pushNamed(context, '/Identity');

@@ -24,7 +24,7 @@ class _profileScreenState extends State<profileScreen> {
   bool planter = true;
   bool buildui = false;
   List pictureland = [];
-  int rating_count = 0;
+  double rating_count = 0;
   int planted_count = 0;
   String setroleText() {
     if (widget.datauser[0]['role'] == 2) {

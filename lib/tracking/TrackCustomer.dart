@@ -1731,21 +1731,20 @@ class _TrackCustomer extends State<TrackCustomer> {
                                       color: Colors.orange,
                                     ),
                                 onRatingUpdate: (rating) async {
+                                  // print(rating);
                                   Uri uri_rating =
                                       Uri.http(url, "/updaterating");
                                   try {
                                     http.Response response_rating =
                                         await http.post(uri_rating, body: {
-                                      'activity_id': items[index]['activity_id']
+                                      'activity_id': data![index]['activity_id']
                                           .toString(),
                                       'rating': rating.toString(),
                                       'check_role': "user",
                                     });
                                     if (response_rating.statusCode == 200) {
-                                      loadsavetracking = true;
-                                      showsavetracking();
                                       setState(() {
-                                        loaddata();
+                                        data![index]['rating'] = rating;
                                       });
                                     } else {
                                       print(response_rating.body);
@@ -1755,7 +1754,6 @@ class _TrackCustomer extends State<TrackCustomer> {
                                     print(e);
                                     print("connection error");
                                   }
-                                  // print(rating);
                                 }),
                             SizedBox(width: 100),
                             Text(
@@ -2162,6 +2160,10 @@ class _TrackCustomer extends State<TrackCustomer> {
             buildui = true;
           });
         } else {
+          if (loadsavetracking == true) {
+            Navigator.pop(context);
+            loadsavetracking = false;
+          }
           setState(() {
             loadornull = true;
           });

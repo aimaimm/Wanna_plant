@@ -882,9 +882,11 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                         RatingBar.builder(
                                             itemSize: 30,
                                             initialRating: widget
-                                                .datacustomer[0]['rating'],
+                                                .datacustomer[0]['rating']
+                                                .toDouble(),
                                             minRating: widget.datacustomer[0]
-                                                ['rating'],
+                                                    ['rating']
+                                                .toDouble(),
                                             direction: Axis.horizontal,
                                             allowHalfRating: true,
                                             itemCount: 5,
@@ -894,9 +896,50 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                   Icons.star_outlined,
                                                   color: Colors.orange,
                                                 ),
-                                            onRatingUpdate: (rating) {
-                                              print(rating);
-                                            }),
+                                            onRatingUpdate: widget
+                                                            .datacustomer[0]
+                                                        ['rating'] ==
+                                                    0
+                                                ? (rating) async {
+                                                    Uri uri_rating = Uri.http(
+                                                        url, "/updaterating");
+                                                    try {
+                                                      http.Response
+                                                          response_rating =
+                                                          await http.post(
+                                                              uri_rating,
+                                                              body: {
+                                                            'activity_id': widget
+                                                                .datacustomer[0]
+                                                                    [
+                                                                    'activity_id']
+                                                                .toString(),
+                                                            'rating': rating
+                                                                .toString(),
+                                                            'check_role':
+                                                                "user",
+                                                          });
+                                                      if (response_rating
+                                                              .statusCode ==
+                                                          200) {
+                                                        setState(() {
+                                                          widget.datacustomer[0]
+                                                                  [
+                                                                  'rating'] =
+                                                              rating;
+                                                        });
+                                                      } else {
+                                                        print(response_rating
+                                                            .body);
+                                                        print(response_rating
+                                                            .statusCode);
+                                                      }
+                                                    } catch (e) {
+                                                      print(e);
+                                                      print("connection error");
+                                                    }
+                                                  }
+                                                : (rating) {}),
                                         SizedBox(width: 100),
                                         Text(
                                           '${widget.nameplanter[0]['name']}',
