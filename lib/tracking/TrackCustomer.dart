@@ -24,6 +24,40 @@ class _TrackCustomer extends State<TrackCustomer> {
   bool loadsavetracking = false;
   List? data;
   List dataname = [];
+  var items = [];
+
+  void filterSearchResults(query) {
+    List dummySearchList = [];
+    dummySearchList.addAll(data!);
+    if (query.isNotEmpty) {
+      List<dynamic> dummyListData = [];
+      dummySearchList.forEach((item) {
+        if ((item['activity_id'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['rating'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['datetime'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['plants_name'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['total_price'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['name'].toString().toLowerCase())
+                .contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+
+      setState(() {
+        items.clear();
+        items.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        items.addAll(data!);
+      });
+    }
+  }
 
   Future showsavetracking() async {
     await showDialog(
@@ -41,8 +75,8 @@ class _TrackCustomer extends State<TrackCustomer> {
   }
 
   Widget spawnorder(index) {
-    if (data![index]['customer'] == widget.userdata[0]['user_id']) {
-      if (data![index]['tracking'] == 0) {
+    if (items[index]['customer'] == widget.userdata[0]['user_id']) {
+      if (items[index]['tracking'] == 0) {
         return Container(
           width: 430,
           height: 650,
@@ -52,11 +86,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      '#${data![index]['activity_id']}',
+                      '#${items[index]['activity_id']}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    trailing: Text('${data![index]['datetime']}',
+                    trailing: Text('${items[index]['datetime']}',
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff848484))),
                   ),
@@ -299,14 +333,14 @@ class _TrackCustomer extends State<TrackCustomer> {
                                   color: Colors.orange,
                                 ),
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              // print(rating);
                             }),
                       ),
                       //SizedBox(width: 100),
                       Row(
                         children: [
                           Text(
-                            '${dataname[index]['name']}',
+                            '${items[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -326,7 +360,7 @@ class _TrackCustomer extends State<TrackCustomer> {
             elevation: 0,
           ),
         );
-      } else if (data![index]['tracking'] == 1) {
+      } else if (items[index]['tracking'] == 1) {
         return Container(
           width: 430,
           height: 650,
@@ -336,11 +370,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      '#${data![index]['activity_id']}',
+                      '#${items[index]['activity_id']}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    trailing: Text('${data![index]['datetime']}',
+                    trailing: Text('${items[index]['datetime']}',
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff848484))),
                   ),
@@ -583,14 +617,14 @@ class _TrackCustomer extends State<TrackCustomer> {
                                   color: Colors.orange,
                                 ),
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              // print(rating);
                             }),
                       ),
                       //SizedBox(width: 100),
                       Row(
                         children: [
                           Text(
-                            '${dataname[index]['name']}',
+                            '${items[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -610,7 +644,7 @@ class _TrackCustomer extends State<TrackCustomer> {
             elevation: 0,
           ),
         );
-      } else if (data![index]['tracking'] == 2) {
+      } else if (items[index]['tracking'] == 2) {
         return Container(
           width: 430,
           height: 650,
@@ -620,11 +654,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      '#${data![index]['activity_id']}',
+                      '#${items[index]['activity_id']}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    trailing: Text('${data![index]['datetime']}',
+                    trailing: Text('${items[index]['datetime']}',
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff848484))),
                   ),
@@ -867,14 +901,14 @@ class _TrackCustomer extends State<TrackCustomer> {
                                   color: Colors.orange,
                                 ),
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              // print(rating);
                             }),
                       ),
                       //SizedBox(width: 100),
                       Row(
                         children: [
                           Text(
-                            '${dataname[index]['name']}',
+                            '${items[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -894,7 +928,7 @@ class _TrackCustomer extends State<TrackCustomer> {
             elevation: 0,
           ),
         );
-      } else if (data![index]['tracking'] == 3) {
+      } else if (items[index]['tracking'] == 3) {
         return Container(
           width: 430,
           height: 650,
@@ -904,11 +938,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      '#${data![index]['activity_id']}',
+                      '#${items[index]['activity_id']}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    trailing: Text('${data![index]['datetime']}',
+                    trailing: Text('${items[index]['datetime']}',
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff848484))),
                   ),
@@ -1151,14 +1185,14 @@ class _TrackCustomer extends State<TrackCustomer> {
                                   color: Colors.orange,
                                 ),
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              // print(rating);
                             }),
                       ),
                       //SizedBox(width: 100),
                       Row(
                         children: [
                           Text(
-                            '${dataname[index]['name']}',
+                            '${items[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -1178,7 +1212,7 @@ class _TrackCustomer extends State<TrackCustomer> {
             elevation: 0,
           ),
         );
-      } else if (data![index]['tracking'] == 4) {
+      } else if (items[index]['tracking'] == 4) {
         return Container(
           width: 430,
           height: 650,
@@ -1188,11 +1222,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                 Container(
                   child: ListTile(
                     title: Text(
-                      '#${data![index]['activity_id']}',
+                      '#${items[index]['activity_id']}',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                     ),
-                    trailing: Text('${data![index]['datetime']}',
+                    trailing: Text('${items[index]['datetime']}',
                         style:
                             TextStyle(fontSize: 12, color: Color(0xff848484))),
                   ),
@@ -1435,14 +1469,14 @@ class _TrackCustomer extends State<TrackCustomer> {
                                   color: Colors.orange,
                                 ),
                             onRatingUpdate: (rating) {
-                              print(rating);
+                              // print(rating);
                             }),
                       ),
                       //SizedBox(width: 100),
                       Row(
                         children: [
                           Text(
-                            '${dataname[index]['name']}',
+                            '${items[index]['name']}',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -1463,7 +1497,7 @@ class _TrackCustomer extends State<TrackCustomer> {
           ),
         );
       } else {
-        return data![index]['rating'] == 0
+        return items[index]['rating'] == 0
             ? Container(
                 width: 430,
                 height: 650,
@@ -1473,11 +1507,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                       Container(
                         child: ListTile(
                           title: Text(
-                            '#${data![index]['activity_id']}',
+                            '#${items[index]['activity_id']}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14),
                           ),
-                          trailing: Text('${data![index]['datetime']}',
+                          trailing: Text('${items[index]['datetime']}',
                               style: TextStyle(
                                   fontSize: 12, color: Color(0xff848484))),
                         ),
@@ -1697,11 +1731,13 @@ class _TrackCustomer extends State<TrackCustomer> {
                                       color: Colors.orange,
                                     ),
                                 onRatingUpdate: (rating) async {
-                                  Uri uri_rating = Uri.http(url, "/updaterating");
+                                  Uri uri_rating =
+                                      Uri.http(url, "/updaterating");
                                   try {
                                     http.Response response_rating =
                                         await http.post(uri_rating, body: {
-                                      'activity_id': data![index]['activity_id'].toString(),
+                                      'activity_id': items[index]['activity_id']
+                                          .toString(),
                                       'rating': rating.toString(),
                                       'check_role': "user",
                                     });
@@ -1719,11 +1755,11 @@ class _TrackCustomer extends State<TrackCustomer> {
                                     print(e);
                                     print("connection error");
                                   }
-                                  print(rating);
+                                  // print(rating);
                                 }),
                             SizedBox(width: 100),
                             Text(
-                              '${dataname[index]['name']}',
+                              '${items[index]['name']}',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(width: 10),
@@ -1743,344 +1779,332 @@ class _TrackCustomer extends State<TrackCustomer> {
               )
             : Container();
       }
-    } else {
-      return data![index]['tracking'] >= 6
-          ? Container()
-          : Container(
-              width: 430,
-              height: 650,
-              child: Card(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: ListTile(
-                        title: Text(
-                          '#${data![index]['activity_id']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                        trailing: Text('${data![index]['datetime']}',
-                            style: TextStyle(
-                                fontSize: 12, color: Color(0xff848484))),
-                      ),
-                    ),
-                    const Divider(
-                      color: Color(0xffE0E0E0),
-                      height: 0,
-                      thickness: 1,
-                      indent: 1,
-                      endIndent: 1,
-                    ),
-                    Container(
-                      child: Stepper(
-                        controlsBuilder: (context,
-                            {onStepCancel, onStepContinue}) {
-                          return Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                TextButton(
-                                  onPressed: onStepContinue,
-                                  child: Container(
-                                    width: 120,
-                                    alignment: Alignment.center,
-                                    child: Text('Confirm'),
-                                  ),
-                                  style: TextButton.styleFrom(
-                                    primary: Colors.black,
-                                    backgroundColor: Color(0xffFFB443),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                TextButton(
-                                  onPressed: onStepCancel,
-                                  child: Container(
-                                    width: 120,
-                                    alignment: Alignment.center,
-                                    child: Text('Cancel'),
-                                  ),
-                                  style: TextButton.styleFrom(
-                                    primary: Colors.black,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        type: StepperType.vertical,
-                        currentStep: data![index]['tracking'],
-                        // onStepTapped: (int Step) {
-                        //   setState(() {
-                        //     data![index]['tracking'] = Step;
-                        //   });
-                        // },
-                        onStepContinue: () async {
-                          // data![index]['tracking'] < 5 ?
-                          //     ? data![index]['tracking'] += 1
-                          //     : null;
-                          showsavetracking();
-                          Uri uri_updatetracking =
-                              Uri.http(url, "/updatetracking");
-                          // print(data![index]['tracking']);
-                          try {
-                            http.Response response_tracking =
-                                await http.post(uri_updatetracking, body: {
-                              'activity_id':
-                                  data![index]['activity_id'].toString(),
-                              'tracking':
-                                  (data![index]['tracking'] + 1).toString(),
-                              'check_role': "user",
-                            });
-
-                            if (response_tracking.statusCode == 200) {
-                              setState(() {
-                                loadsavetracking = true;
-                                loaddata();
-                              });
-                            } else {
-                              data![index]['tracking']--;
-                              print(response_tracking.body);
-                              print(response_tracking.statusCode);
-                            }
-                          } catch (e) {
-                            print(e);
-                            print("connection error");
-                          }
-                        },
-                        onStepCancel: () async {
-                          showsavetracking();
-                          Uri uri_cancelorder =
-                              Uri.http(url, "/cancelordertracking");
-                          // print(data![index]['tracking']);
-                          try {
-                            http.Response response_canceltracking =
-                                await http.post(uri_cancelorder, body: {
-                              'activity_id':
-                                  data![index]['activity_id'].toString(),
-                              'check_role': "user",
-                            });
-
-                            if (response_canceltracking.statusCode == 200) {
-                              setState(() {
-                                loadsavetracking = true;
-                                loaddata();
-                              });
-                            } else {
-                              data![index]['tracking']--;
-                              print(response_canceltracking.body);
-                              print(response_canceltracking.statusCode);
-                            }
-                          } catch (e) {
-                            print(e);
-                            print("connection error");
-                          }
-                        },
-                        //Step Tracking 1- 6
-                        steps: [
-                          Step(
-                              isActive: data![index]['tracking'] >= 0,
-                              state: data![index]['tracking'] == 0
-                                  ? StepState.editing
-                                  : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.inventory_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(12)),
-                                    Text(
-                                      'Order Confirmed',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                          Step(
-                              isActive: data![index]['tracking'] >= 1,
-                              state: data![index]['tracking'] == 1
-                                  ? StepState.editing
-                                  : data![index]['tracking'] < 1
-                                      ? StepState.disabled
-                                      : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.timer_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(12)),
-                                    Text(
-                                      'Prepare to plant',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                          Step(
-                              isActive: data![index]['tracking'] >= 2,
-                              state: data![index]['tracking'] == 2
-                                  ? StepState.editing
-                                  : data![index]['tracking'] < 2
-                                      ? StepState.disabled
-                                      : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.emoji_people_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(10)),
-                                    Text(
-                                      'Planting',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                          Step(
-                              isActive: data![index]['tracking'] >= 3,
-                              state: data![index]['tracking'] == 3
-                                  ? StepState.editing
-                                  : data![index]['tracking'] < 3
-                                      ? StepState.disabled
-                                      : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.grass_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(10)),
-                                    Text(
-                                      'Harvest',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                          Step(
-                              isActive: data![index]['tracking'] >= 4,
-                              state: data![index]['tracking'] == 4
-                                  ? StepState.editing
-                                  : data![index]['tracking'] < 4
-                                      ? StepState.disabled
-                                      : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.airport_shuttle_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(10)),
-                                    Text(
-                                      'Delivery',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                          Step(
-                              isActive: data![index]['tracking'] >= 5,
-                              state: data![index]['tracking'] == 5
-                                  ? StepState.editing
-                                  : data![index]['tracking'] < 5
-                                      ? StepState.disabled
-                                      : StepState.complete,
-                              title: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.sentiment_very_satisfied_outlined,
-                                      size: 33,
-                                      color: Color(0xff757575),
-                                    ),
-                                    Padding(padding: EdgeInsets.all(10)),
-                                    Text(
-                                      'Success',
-                                      style: (TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              content: Text('')),
-                        ],
-                      ),
-                    ),
-                    const Divider(
-                      color: Color(0xffE0E0E0),
-                      height: 0,
-                      thickness: 1,
-                      indent: 1,
-                      endIndent: 1,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(12.0),
+    } else if (items[index]['planter'] == widget.userdata[0]['user_id']) {
+      return Container(
+        width: 430,
+        height: 650,
+        child: Card(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: ListTile(
+                  title: Text(
+                    '#${items[index]['activity_id']}',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  trailing: Text('${items[index]['datetime']}',
+                      style: TextStyle(fontSize: 12, color: Color(0xff848484))),
+                ),
+              ),
+              const Divider(
+                color: Color(0xffE0E0E0),
+                height: 0,
+                thickness: 1,
+                indent: 1,
+                endIndent: 1,
+              ),
+              Container(
+                child: Stepper(
+                  controlsBuilder: (context, {onStepCancel, onStepContinue}) {
+                    return Center(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
-                            '${dataname[index]['name']}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          TextButton(
+                            onPressed: onStepContinue,
+                            child: Container(
+                              width: 120,
+                              alignment: Alignment.center,
+                              child: Text('Confirm'),
+                            ),
+                            style: TextButton.styleFrom(
+                              primary: Colors.black,
+                              backgroundColor: Color(0xffFFB443),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 10),
-                          Icon(
-                            Icons.account_circle_outlined,
-                            color: Color(0xff606060),
-                            size: 30,
+                          SizedBox(
+                            width: 20,
+                          ),
+                          TextButton(
+                            onPressed: onStepCancel,
+                            child: Container(
+                              width: 120,
+                              alignment: Alignment.center,
+                              child: Text('Cancel'),
+                            ),
+                            style: TextButton.styleFrom(
+                              primary: Colors.black,
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    )
+                    );
+                  },
+                  type: StepperType.vertical,
+                  currentStep: items[index]['tracking'],
+                  // onStepTapped: (int Step) {
+                  //   setState(() {
+                  //     data![index]['tracking'] = Step;
+                  //   });
+                  // },
+                  onStepContinue: () async {
+                    // data![index]['tracking'] < 5 ?
+                    //     ? data![index]['tracking'] += 1
+                    //     : null;
+                    showsavetracking();
+                    Uri uri_updatetracking = Uri.http(url, "/updatetracking");
+                    // print(data![index]['tracking']);
+                    try {
+                      http.Response response_tracking =
+                          await http.post(uri_updatetracking, body: {
+                        'activity_id': items[index]['activity_id'].toString(),
+                        'tracking': (items[index]['tracking'] + 1).toString(),
+                        'check_role': "user",
+                      });
+
+                      if (response_tracking.statusCode == 200) {
+                        setState(() {
+                          loadsavetracking = true;
+                          loaddata();
+                        });
+                      } else {
+                        items[index]['tracking']--;
+                        print(response_tracking.body);
+                        print(response_tracking.statusCode);
+                      }
+                    } catch (e) {
+                      print(e);
+                      print("connection error");
+                    }
+                  },
+                  onStepCancel: () async {
+                    showsavetracking();
+                    Uri uri_cancelorder = Uri.http(url, "/cancelordertracking");
+                    // print(data![index]['tracking']);
+                    try {
+                      http.Response response_canceltracking =
+                          await http.post(uri_cancelorder, body: {
+                        'activity_id': items[index]['activity_id'].toString(),
+                        'check_role': "user",
+                      });
+
+                      if (response_canceltracking.statusCode == 200) {
+                        setState(() {
+                          loadsavetracking = true;
+                          loaddata();
+                        });
+                      } else {
+                        items[index]['tracking']--;
+                        print(response_canceltracking.body);
+                        print(response_canceltracking.statusCode);
+                      }
+                    } catch (e) {
+                      print(e);
+                      print("connection error");
+                    }
+                  },
+                  //Step Tracking 1- 6
+                  steps: [
+                    Step(
+                        isActive: items[index]['tracking'] >= 0,
+                        state: items[index]['tracking'] == 0
+                            ? StepState.editing
+                            : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.inventory_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(12)),
+                              Text(
+                                'Order Confirmed',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
+                    Step(
+                        isActive: items[index]['tracking'] >= 1,
+                        state: items[index]['tracking'] == 1
+                            ? StepState.editing
+                            : items[index]['tracking'] < 1
+                                ? StepState.disabled
+                                : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.timer_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(12)),
+                              Text(
+                                'Prepare to plant',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
+                    Step(
+                        isActive: items[index]['tracking'] >= 2,
+                        state: items[index]['tracking'] == 2
+                            ? StepState.editing
+                            : items[index]['tracking'] < 2
+                                ? StepState.disabled
+                                : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.emoji_people_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                'Planting',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
+                    Step(
+                        isActive: items[index]['tracking'] >= 3,
+                        state: items[index]['tracking'] == 3
+                            ? StepState.editing
+                            : items[index]['tracking'] < 3
+                                ? StepState.disabled
+                                : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.grass_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                'Harvest',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
+                    Step(
+                        isActive: items[index]['tracking'] >= 4,
+                        state: items[index]['tracking'] == 4
+                            ? StepState.editing
+                            : items[index]['tracking'] < 4
+                                ? StepState.disabled
+                                : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.airport_shuttle_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                'Delivery',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
+                    Step(
+                        isActive: items[index]['tracking'] >= 5,
+                        state: items[index]['tracking'] == 5
+                            ? StepState.editing
+                            : items[index]['tracking'] < 5
+                                ? StepState.disabled
+                                : StepState.complete,
+                        title: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(
+                                Icons.sentiment_very_satisfied_outlined,
+                                size: 33,
+                                color: Color(0xff757575),
+                              ),
+                              Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                'Success',
+                                style: (TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        content: Text('')),
                   ],
                 ),
-                color: Color(0xFFF3F3F3),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                elevation: 0,
               ),
-            );
+              const Divider(
+                color: Color(0xffE0E0E0),
+                height: 0,
+                thickness: 1,
+                indent: 1,
+                endIndent: 1,
+              ),
+              Container(
+                padding: EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      '${items[index]['name']}',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 10),
+                    Icon(
+                      Icons.account_circle_outlined,
+                      color: Color(0xff606060),
+                      size: 30,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          color: Color(0xFFF3F3F3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          elevation: 0,
+        ),
+      );
+    } else {
+      return Container();
     }
   }
 
   Future<void> loaddata() async {
+    dataname.clear();
+    items.clear();
     Uri uri = Uri.http(url, "/tracking");
     Uri uri_dataname = Uri.http(url, "/getnameuser");
     // print(widget.userdata);
@@ -2124,8 +2148,12 @@ class _TrackCustomer extends State<TrackCustomer> {
         }
 
         if (data!.length != 0) {
-          // print(data!);
           // print(dataname);
+          for (int i = 0; i < data!.length; i++) {
+            data![i].addAll(dataname[i]);
+          }
+          // print(data!);
+          items.addAll(data!);
           setState(() {
             if (loadsavetracking == true) {
               Navigator.pop(context);
@@ -2187,6 +2215,9 @@ class _TrackCustomer extends State<TrackCustomer> {
                         height: 50,
                         width: 400,
                         child: TextField(
+                          onChanged: (value) => {
+                            filterSearchResults(value.toString()),
+                          },
                           decoration: InputDecoration(
                             focusedBorder: InputBorder.none,
                             filled: true,
@@ -2203,696 +2234,9 @@ class _TrackCustomer extends State<TrackCustomer> {
                       child: Container(
                         width: 420,
                         child: ListView.builder(
-                          itemCount: data!.length,
+                          itemCount: items.length,
                           itemBuilder: (context, index) {
-                            return
-
-                                // Container(
-                                //     width: 430,
-                                //     height: 650,
-                                //     child: Card(
-                                //       child: Column(
-                                //         children: <Widget>[
-                                //           Container(
-                                //             child: ListTile(
-                                //               title: Text(
-                                //                 '#${data![index]['activity_id']}',
-                                //                 style: TextStyle(
-                                //                     fontWeight: FontWeight.bold,
-                                //                     fontSize: 14),
-                                //               ),
-                                //               trailing: Text('${data![index]['datetime']}',
-                                //                   style: TextStyle(
-                                //                       fontSize: 12,
-                                //                       color: Color(0xff848484))),
-                                //             ),
-                                //           ),
-                                //           const Divider(
-                                //             height: 0,
-                                //             thickness: 1,
-                                //             indent: 1,
-                                //             endIndent: 1,
-                                //           ),
-                                //           Container(
-                                //             padding: EdgeInsets.all(14),
-                                //             child: Column(
-                                //               //mainAxisAlignment: MainAxisAlignment.start,
-                                //               children: [
-                                //                 //Padding(padding: EdgeInsets.all(10)),
-                                //                 SizedBox(
-                                //                     height: 90,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       16)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .inventory_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text(
-                                //                                   'Order Confirmed'),
-                                //                             ],
-                                //                           ),
-                                //                           Row(
-                                //                             //alignment: Alignment.centerLeft,
-                                //                             children: [
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               12)),
-                                //                               SizedBox(width: 45),
-                                //                               Text(
-                                //                                 'Order cancel !!!',
-                                //                                 style: TextStyle(
-                                //                                     color: Colors
-                                //                                         .red,
-                                //                                     fontSize: 12),
-                                //                               ),
-                                //                             ],
-                                //                           )
-                                //                         ],
-                                //                       ),
-                                //                       isFirst: true,
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         //indicator: ,
-                                //                         color: Colors.red,
-                                //                       ),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //                 SizedBox(
-                                //                     height: 80,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       10)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .timer_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text(
-                                //                                   'Prepare to plant'),
-                                //                             ],
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         color: Colors.grey,
-                                //                         // indicator: Container(
-                                //                         //   decoration: BoxDecoration(
-                                //                         //     border: Border.all(
-                                //                         //       width: 2,
-                                //                         //       color: Colors.grey,
-                                //                         //       style: BorderStyle.solid,
-                                //                         //     ),
-                                //                         //     color: Colors.transparent,
-                                //                         //     shape: BoxShape.circle
-                                //                         //   ),
-                                //                         // )
-                                //                       ),
-                                //                       beforeLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //                 SizedBox(
-                                //                     height: 80,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       10)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .emoji_people_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text('Planting'),
-                                //                             ],
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         //indicator: ,
-                                //                         color: Colors.grey,
-                                //                       ),
-                                //                       beforeLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //                 SizedBox(
-                                //                     height: 80,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       10)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .grass_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text('Harvest'),
-                                //                             ],
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         //indicator: ,
-                                //                         color: Colors.grey,
-                                //                       ),
-                                //                       beforeLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //                 SizedBox(
-                                //                     height: 80,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       10)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .airport_shuttle_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text('Delivery'),
-                                //                             ],
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         //indicator: ,
-                                //                         color: Colors.grey,
-                                //                       ),
-                                //                       beforeLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //                 SizedBox(
-                                //                     height: 80,
-                                //                     child: TimelineTile(
-                                //                       endChild: Column(
-                                //                         children: [
-                                //                           Padding(
-                                //                               padding:
-                                //                                   EdgeInsets.all(
-                                //                                       10)),
-                                //                           Row(
-                                //                             children: <Widget>[
-                                //                               Padding(
-                                //                                   padding:
-                                //                                       EdgeInsets
-                                //                                           .all(
-                                //                                               8)),
-                                //                               Icon(
-                                //                                 Icons
-                                //                                     .sentiment_very_satisfied_outlined,
-                                //                                 size: 33,
-                                //                                 color: Color(
-                                //                                     0xff757575),
-                                //                               ),
-                                //                               SizedBox(width: 20),
-                                //                               Text('Success'),
-                                //                             ],
-                                //                           ),
-                                //                         ],
-                                //                       ),
-                                //                       isLast: true,
-                                //                       indicatorStyle:
-                                //                           IndicatorStyle(
-                                //                         //indicator: ,
-                                //                         color: Colors.grey,
-                                //                       ),
-                                //                       beforeLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                       afterLineStyle: LineStyle(
-                                //                           color: Colors.grey,
-                                //                           thickness: 2),
-                                //                     )),
-                                //               ],
-                                //             ),
-                                //           ),
-                                //           SizedBox(height: 10),
-                                //           const Divider(
-                                //             height: 0,
-                                //             thickness: 1,
-                                //             indent: 1,
-                                //             endIndent: 1,
-                                //           ),
-                                //           Container(
-                                //             padding: EdgeInsets.all(14.0),
-                                //             child: Row(
-                                //               mainAxisAlignment:
-                                //                   MainAxisAlignment.spaceBetween,
-                                //               children: <Widget>[
-                                //                 Visibility(
-                                //                   visible: false,
-                                //                   child: RatingBar.builder(
-                                //                       itemSize: 30,
-                                //                       initialRating: 0,
-                                //                       minRating: 0,
-                                //                       direction: Axis.horizontal,
-                                //                       allowHalfRating: true,
-                                //                       itemCount: 5,
-                                //                       itemPadding:
-                                //                           EdgeInsets.symmetric(
-                                //                               horizontal: 1.0),
-                                //                       itemBuilder: (context, _) =>
-                                //                           Icon(
-                                //                             Icons.star_outlined,
-                                //                             color: Colors.orange,
-                                //                           ),
-                                //                       onRatingUpdate: (rating) {
-                                //                         print(rating);
-                                //                       }),
-                                //                 ),
-                                //                 //SizedBox(width: 100),
-                                //                 Row(
-                                //                   children: [
-                                //                     Text(
-                                //                       'Jan Jukoo',
-                                //                       style: TextStyle(
-                                //                           fontWeight:
-                                //                               FontWeight.bold),
-                                //                     ),
-                                //                     SizedBox(width: 10),
-                                //                     Icon(
-                                //                         Icons
-                                //                             .account_circle_outlined,
-                                //                         color: Color(0xff606060),
-                                //                         size: 30),
-                                //                   ],
-                                //                 ),
-                                //               ],
-                                //             ),
-                                //           ),
-                                //         ],
-                                //       ),
-                                //       color: Color(0xFFF3F3F3),
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(16.0),
-                                //       ),
-                                //       elevation: 0,
-                                //     ),
-                                //   )
-
-                                //     Container(
-                                //   width: 430,
-                                //   height: 650,
-                                //   child: Card(
-                                //     child: Column(
-                                //       children: <Widget>[
-                                //         Container(
-                                //           child: ListTile(
-                                //             title: Text(
-                                //               '#01',
-                                //               style: TextStyle(
-                                //                   fontWeight: FontWeight.bold,
-                                //                   fontSize: 14),
-                                //             ),
-                                //             trailing: Text('12/09/64',
-                                //                 style: TextStyle(
-                                //                     fontSize: 12,
-                                //                     color: Color(0xff848484))),
-                                //           ),
-                                //         ),
-                                //         const Divider(
-                                //           color: Color(0xffE0E0E0),
-                                //           height: 0,
-                                //           thickness: 1,
-                                //           indent: 1,
-                                //           endIndent: 1,
-                                //         ),
-                                //         Container(
-                                //           child: Stepper(
-                                //             controlsBuilder: (context,
-                                //                 {onStepCancel, onStepContinue}) {
-                                //               return Center(
-                                //                 child: Row(
-                                //                   mainAxisAlignment:
-                                //                       MainAxisAlignment.center,
-                                //                   children: <Widget>[
-                                //                     TextButton(
-                                //                       onPressed: onStepContinue,
-                                //                       child: Container(
-                                //                         width: 120,
-                                //                         alignment: Alignment.center,
-                                //                         child: Text('Confirm'),
-                                //                       ),
-                                //                       style: TextButton.styleFrom(
-                                //                         primary: Colors.black,
-                                //                         backgroundColor:
-                                //                             Color(0xffFFB443),
-                                //                         shape: RoundedRectangleBorder(
-                                //                           borderRadius:
-                                //                               BorderRadius.circular(
-                                //                                   10.0),
-                                //                         ),
-                                //                       ),
-                                //                     ),
-                                //                     SizedBox(
-                                //                       width: 20,
-                                //                     ),
-                                //                     TextButton(
-                                //                       onPressed: onStepCancel,
-                                //                       child: Container(
-                                //                         width: 120,
-                                //                         alignment: Alignment.center,
-                                //                         child: Text('Cancel'),
-                                //                       ),
-                                //                       style: TextButton.styleFrom(
-                                //                         primary: Colors.black,
-                                //                         backgroundColor: Colors.white,
-                                //                         shape: RoundedRectangleBorder(
-                                //                           borderRadius:
-                                //                               BorderRadius.circular(
-                                //                                   10.0),
-                                //                         ),
-                                //                       ),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //               );
-                                //             },
-                                //             type: StepperType.vertical,
-                                //             currentStep: currentStep,
-                                //             onStepTapped: (int Step) {
-                                //               setState(() {
-                                //                 currentStep = Step;
-                                //               });
-                                //             },
-                                //             onStepContinue: () {
-                                //               currentStep < 5
-                                //                   ? setState(() => currentStep += 1)
-                                //                   : null;
-                                //             },
-                                //             onStepCancel: () {},
-                                //             //Step Tracking 1- 6
-                                //             steps: [
-                                //               Step(
-                                //                   isActive: currentStep >= 0,
-                                //                   state: currentStep == 0
-                                //                       ? StepState.editing
-                                //                       : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons.inventory_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(12)),
-                                //                         Text(
-                                //                           'Order Confirmed',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //               Step(
-                                //                   isActive: currentStep >= 1,
-                                //                   state: currentStep == 1
-                                //                       ? StepState.editing
-                                //                       : currentStep < 1
-                                //                           ? StepState.disabled
-                                //                           : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons.timer_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(12)),
-                                //                         Text(
-                                //                           'Prepare to plant',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //               Step(
-                                //                   isActive: currentStep >= 2,
-                                //                   state: currentStep == 2
-                                //                       ? StepState.editing
-                                //                       : currentStep < 2
-                                //                           ? StepState.disabled
-                                //                           : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons.emoji_people_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(10)),
-                                //                         Text(
-                                //                           'Planting',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //               Step(
-                                //                   isActive: currentStep >= 3,
-                                //                   state: currentStep == 3
-                                //                       ? StepState.editing
-                                //                       : currentStep < 3
-                                //                           ? StepState.disabled
-                                //                           : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons.grass_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(10)),
-                                //                         Text(
-                                //                           'Harvest',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //               Step(
-                                //                   isActive: currentStep >= 4,
-                                //                   state: currentStep == 4
-                                //                       ? StepState.editing
-                                //                       : currentStep < 4
-                                //                           ? StepState.disabled
-                                //                           : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons
-                                //                               .airport_shuttle_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(10)),
-                                //                         Text(
-                                //                           'Delivery',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //               Step(
-                                //                   isActive: currentStep >= 5,
-                                //                   state: currentStep == 5
-                                //                       ? StepState.editing
-                                //                       : currentStep < 5
-                                //                           ? StepState.disabled
-                                //                           : StepState.complete,
-                                //                   title: Container(
-                                //                     child: Row(
-                                //                       crossAxisAlignment:
-                                //                           CrossAxisAlignment.start,
-                                //                       children: <Widget>[
-                                //                         Icon(
-                                //                           Icons
-                                //                               .sentiment_very_satisfied_outlined,
-                                //                           size: 33,
-                                //                           color: Color(0xff757575),
-                                //                         ),
-                                //                         Padding(
-                                //                             padding:
-                                //                                 EdgeInsets.all(10)),
-                                //                         Text(
-                                //                           'Success',
-                                //                           style: (TextStyle(
-                                //                               fontWeight:
-                                //                                   FontWeight.bold)),
-                                //                         ),
-                                //                       ],
-                                //                     ),
-                                //                   ),
-                                //                   content: Text('')),
-                                //             ],
-                                //           ),
-                                //         ),
-                                //         const Divider(
-                                //           color: Color(0xffE0E0E0),
-                                //           height: 0,
-                                //           thickness: 1,
-                                //           indent: 1,
-                                //           endIndent: 1,
-                                //         ),
-                                //         Container(
-                                //           padding: EdgeInsets.all(12.0),
-                                //           child: Row(
-                                //             mainAxisAlignment: MainAxisAlignment.end,
-                                //             children: <Widget>[
-                                //               Text(
-                                //                 'John John',
-                                //                 style: TextStyle(
-                                //                     fontWeight: FontWeight.bold),
-                                //               ),
-                                //               SizedBox(width: 10),
-                                //               Icon(
-                                //                 Icons.account_circle_outlined,
-                                //                 color: Color(0xff606060),
-                                //                 size: 30,
-                                //               ),
-                                //             ],
-                                //           ),
-                                //         )
-                                //       ],
-                                //     ),
-                                //     color: Color(0xFFF3F3F3),
-                                //     shape: RoundedRectangleBorder(
-                                //       borderRadius: BorderRadius.circular(16.0),
-                                //     ),
-                                //     elevation: 0,
-                                //   ),
-                                // );
-                                spawnorder(index);
+                            return spawnorder(index);
                           },
                         ),
                       ),

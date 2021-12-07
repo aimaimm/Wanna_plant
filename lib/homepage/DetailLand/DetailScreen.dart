@@ -568,6 +568,19 @@ class _DetailScreenState extends State<DetailScreen> {
                     onPressed: fav
                         ? () async {
                             try {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext) {
+                                    return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)),
+                                        ),
+                                        title: Center(
+                                          child: CircularProgressIndicator(),
+                                        ));
+                                  });
                               Uri uri_defav = Uri.http(url, "/defavland");
                               http.Response responseAddfav =
                                   await http.post(uri_defav, body: {
@@ -577,14 +590,121 @@ class _DetailScreenState extends State<DetailScreen> {
                                 "check_role": "user"
                               });
                               if (responseAddfav.statusCode == 200) {
+                                Navigator.pop(context);
                                 setState(() {
                                   fav = false;
                                 });
                               } else {
+                                Navigator.pop(context);
+                                showDialog(
+                                    barrierDismissible: true,
+                                    context: context,
+                                    builder: (BuildContext) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)),
+                                        ),
+                                        title: Icon(
+                                          Icons.error_outline_outlined,
+                                          color: Colors.red.shade400,
+                                          size: 70,
+                                        ),
+                                        content: Text(
+                                          '${responseAddfav.body}',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(
+                                                'OK',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              style: ButtonStyle(
+                                                  alignment: Alignment.center,
+                                                  shape: MaterialStateProperty
+                                                      .all(RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          side: BorderSide(
+                                                              color: Colors.grey
+                                                                  .shade300)))),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    });
                                 print(responseAddfav.statusCode);
                                 print(responseAddfav.body);
                               }
                             } catch (e) {
+                              Navigator.pop(context);
+                              showDialog(
+                                  barrierDismissible: true,
+                                  context: context,
+                                  builder: (BuildContext) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                      ),
+                                      title: Icon(
+                                        Icons.error_outline_outlined,
+                                        color: Colors.red.shade400,
+                                        size: 70,
+                                      ),
+                                      content: Text(
+                                        'Connection error',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      actions: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            style: ButtonStyle(
+                                                alignment: Alignment.center,
+                                                shape: MaterialStateProperty
+                                                    .all(RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        side: BorderSide(
+                                                            color: Colors.grey
+                                                                .shade300)))),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
                               print(e);
                               print("connection error");
                             }
@@ -593,6 +713,19 @@ class _DetailScreenState extends State<DetailScreen> {
                             // print(widget.datauser[0]);
                             // print(detail_land[0]);
                             try {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext) {
+                                    return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)),
+                                        ),
+                                        title: Center(
+                                          child: CircularProgressIndicator(),
+                                        ));
+                                  });
                               Uri uri_fav = Uri.http(url, "/addfavland");
                               http.Response responseAddfav =
                                   await http.post(uri_fav, body: {
@@ -602,14 +735,121 @@ class _DetailScreenState extends State<DetailScreen> {
                                 "check_role": "user"
                               });
                               if (responseAddfav.statusCode == 200) {
+                                Navigator.pop(context);
                                 setState(() {
                                   fav = true;
                                 });
                               } else {
+                                Navigator.pop(context);
+                                showDialog(
+                                    barrierDismissible: true,
+                                    context: context,
+                                    builder: (BuildContext) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0)),
+                                        ),
+                                        title: Icon(
+                                          Icons.error_outline_outlined,
+                                          color: Colors.red.shade400,
+                                          size: 70,
+                                        ),
+                                        content: Text(
+                                          '${responseAddfav.body}',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text(
+                                                'OK',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              style: ButtonStyle(
+                                                  alignment: Alignment.center,
+                                                  shape: MaterialStateProperty
+                                                      .all(RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          side: BorderSide(
+                                                              color: Colors.grey
+                                                                  .shade300)))),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    });
                                 print(responseAddfav.statusCode);
                                 print(responseAddfav.body);
                               }
                             } catch (e) {
+                              Navigator.pop(context);
+                              showDialog(
+                                  barrierDismissible: true,
+                                  context: context,
+                                  builder: (BuildContext) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0)),
+                                      ),
+                                      title: Icon(
+                                        Icons.error_outline_outlined,
+                                        color: Colors.red.shade400,
+                                        size: 70,
+                                      ),
+                                      content: Text(
+                                        'Connection error',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      actions: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            style: ButtonStyle(
+                                                alignment: Alignment.center,
+                                                shape: MaterialStateProperty
+                                                    .all(RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        side: BorderSide(
+                                                            color: Colors.grey
+                                                                .shade300)))),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
                               print(e);
                               print("connection error");
                             }

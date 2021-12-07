@@ -14,12 +14,54 @@ class Seeallscreen extends StatefulWidget {
 }
 
 class _SeeallscreenState extends State<Seeallscreen> {
+  var items = [];
+
   String plant_text(datatext) {
-    if (datatext.length < 2) {
-      return "${datatext[0]}";
+    if (datatext is List) {
+      if (datatext.length < 2) {
+        return "${datatext[0]}";
+      } else {
+        return "${datatext[0]}, ${datatext[1]}...";
+      }
     } else {
-      return "${datatext[0]}, ${datatext[1]}...";
+      return "$datatext";
     }
+  }
+
+  void filterSearchResults(query) {
+    List dummySearchList = [];
+    dummySearchList.addAll(widget.data_land);
+    if (query.isNotEmpty) {
+      List<dynamic> dummyListData = [];
+      dummySearchList.forEach((item) {
+        if ((item['province'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['land_area'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['land_unit'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['plants_name'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['rating'].toString().toLowerCase())
+                .contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+
+      setState(() {
+        items.clear();
+        items.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        items.addAll(widget.data_land);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    items.addAll(widget.data_land);
+    super.initState();
   }
 
   @override
@@ -58,7 +100,9 @@ class _SeeallscreenState extends State<Seeallscreen> {
             child: SizedBox(
               height: 50,
               child: TextField(
-                onTap: () {},
+                onChanged: (value) => {
+                  filterSearchResults(value.toString()),
+                },
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -106,14 +150,14 @@ class _SeeallscreenState extends State<Seeallscreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('${widget.data_land.length.toString()} Items'),
+                    Text('${items.length.toString()} Items'),
                   ],
                 ),
                 ListView.builder(
                   padding: EdgeInsets.all(0),
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: widget.data_land.length,
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
@@ -121,7 +165,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetailScreen(
-                              idland: widget.data_land[index]['land_id'],
+                              idland: items[index]['land_id'],
                               datauser: widget.userdata,
                             ),
                           ),
@@ -141,7 +185,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(18),
                                 child: Image.network(
-                                  '${widget.data_land[index]['pic_name']}',
+                                  '${items[index]['pic_name']}',
                                   width: 150,
                                   height: 100,
                                   fit: BoxFit.cover,
@@ -153,28 +197,27 @@ class _SeeallscreenState extends State<Seeallscreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${widget.data_land[index]['province']}',
+                                      '${items[index]['province']}',
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     SizedBox(
                                       height: 20,
                                     ),
                                     Text(
-                                      'Land: ${widget.data_land[index]['land_area']} ${widget.data_land[index]['land_unit']}',
+                                      'Land: ${items[index]['land_area']} ${items[index]['land_unit']}',
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     SizedBox(
                                       height: 20,
                                     ),
                                     Text(
-                                      plant_text(widget.data_land[index]
-                                          ['plants_name']),
+                                      plant_text(items[index]['plants_name']),
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ],
                                 ),
                               ),
-                              widget.data_land[index]['rating'] == 0
+                              items[index]['rating'] == 0
                                   ? Center(
                                       child: Column(
                                         children: [
@@ -184,7 +227,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                                             size: 25,
                                           ),
                                           Text(
-                                            '${widget.data_land[index]['rating']} rate',
+                                            '${items[index]['rating']} rate',
                                             style: TextStyle(
                                               fontSize: 12,
                                             ),
@@ -201,7 +244,7 @@ class _SeeallscreenState extends State<Seeallscreen> {
                                             size: 25,
                                           ),
                                           Text(
-                                            '${widget.data_land[index]['rating']} rate',
+                                            '${items[index]['rating']} rate',
                                             style: TextStyle(
                                               fontSize: 12,
                                             ),

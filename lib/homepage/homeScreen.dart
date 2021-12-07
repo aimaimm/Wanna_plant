@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:wanna_plant/data/data_customer.dart';
 import 'package:wanna_plant/data/data_planter.dart';
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
@@ -24,6 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool hide_pop = true;
+  var items = [];
   double animation_search = 1;
   bool show_items_count = false;
 
@@ -140,7 +142,7 @@ class _HomeState extends State<Home> {
             }
           }
         }
-
+        items.addAll(data_land);
         setState(() {
           if (rawdata_land != null) {
             build_ui = true;
@@ -160,8 +162,39 @@ class _HomeState extends State<Home> {
     // print(widget.userdata);
     index_bottombar = 0;
     data_land.clear();
+
     dataland();
     super.initState();
+  }
+
+  void filterSearchResults(query) {
+    List dummySearchList = [];
+    dummySearchList.addAll(data_land);
+    if (query.isNotEmpty) {
+      List<dynamic> dummyListData = [];
+      dummySearchList.forEach((item) {
+        if ((item['province'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['land_area'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['land_unit'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['plants_name'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['rating'].toString().toLowerCase())
+                .contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+
+      setState(() {
+        items.clear();
+        items.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        items.clear();
+        items.addAll(data_land);
+      });
+    }
   }
 
   @override
@@ -284,6 +317,9 @@ class _HomeState extends State<Home> {
                         child: SizedBox(
                           height: 50,
                           child: TextField(
+                            onChanged: (value) => {
+                              filterSearchResults(value.toString()),
+                            },
                             onTap: () {
                               setState(() {
                                 animation_search = 0;
@@ -544,7 +580,7 @@ class _HomeState extends State<Home> {
                               padding: EdgeInsets.all(0),
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: data_land.length,
+                              itemCount: items.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
@@ -560,8 +596,7 @@ class _HomeState extends State<Home> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => DetailScreen(
-                                              idland: data_land[index]
-                                                  ['land_id'],
+                                              idland: items[index]['land_id'],
                                               datauser: widget.userdata,
                                             ),
                                           ),
@@ -571,8 +606,7 @@ class _HomeState extends State<Home> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => DetailScreen(
-                                              idland: data_land[index]
-                                                  ['land_id'],
+                                              idland: items[index]['land_id'],
                                               datauser: widget.userdata,
                                             ),
                                           ),
@@ -583,7 +617,7 @@ class _HomeState extends State<Home> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => DetailScreen(
-                                            idland: data_land[index]['land_id'],
+                                            idland: items[index]['land_id'],
                                             datauser: widget.userdata,
                                           ),
                                         ),
@@ -606,7 +640,7 @@ class _HomeState extends State<Home> {
                                             borderRadius:
                                                 BorderRadius.circular(18),
                                             child: Image.network(
-                                              '${data_land[index]['pic_name']}',
+                                              '${items[index]['pic_name']}',
                                               width: 150,
                                               height: 100,
                                               fit: BoxFit.cover,
@@ -619,7 +653,7 @@ class _HomeState extends State<Home> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  '${data_land[index]['province']}',
+                                                  '${items[index]['province']}',
                                                   style:
                                                       TextStyle(fontSize: 10),
                                                 ),
@@ -627,7 +661,7 @@ class _HomeState extends State<Home> {
                                                   height: 20,
                                                 ),
                                                 Text(
-                                                  'Land: ${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
+                                                  'Land: ${items[index]['land_area']} ${items[index]['land_unit']}',
                                                   style:
                                                       TextStyle(fontSize: 10),
                                                 ),
@@ -635,7 +669,7 @@ class _HomeState extends State<Home> {
                                                   height: 20,
                                                 ),
                                                 Text(
-                                                  plant_text(data_land[index]
+                                                  plant_text(items[index]
                                                       ['plants_name']),
                                                   style:
                                                       TextStyle(fontSize: 10),
@@ -643,7 +677,7 @@ class _HomeState extends State<Home> {
                                               ],
                                             ),
                                           ),
-                                          data_land[index]['rating'] == 0
+                                          items[index]['rating'] == 0
                                               ? Center(
                                                   child: Column(
                                                     children: [
@@ -653,7 +687,7 @@ class _HomeState extends State<Home> {
                                                         size: 25,
                                                       ),
                                                       Text(
-                                                        '${data_land[index]['rating']} rate',
+                                                        '${items[index]['rating']} rate',
                                                         style: TextStyle(
                                                           fontSize: 12,
                                                         ),
@@ -670,7 +704,7 @@ class _HomeState extends State<Home> {
                                                         size: 25,
                                                       ),
                                                       Text(
-                                                        '${data_land[index]['rating']} rate',
+                                                        '${items[index]['rating']} rate',
                                                         style: TextStyle(
                                                           fontSize: 12,
                                                         ),
