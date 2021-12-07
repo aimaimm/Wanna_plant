@@ -24,6 +24,8 @@ class _profileScreenState extends State<profileScreen> {
   bool planter = true;
   bool buildui = false;
   List pictureland = [];
+  int rating_count = 0;
+  int planted_count = 0;
   String setroleText() {
     if (widget.datauser[0]['role'] == 2) {
       return "Now you're planter and customer";
@@ -34,13 +36,26 @@ class _profileScreenState extends State<profileScreen> {
 
   void downloandpic() async {
     Uri uri = Uri.http(url, "/profilepic");
+    Uri uri_rating_planted = Uri.http(url, "/countratingandplanted");
     try {
       http.Response response = await http.post(uri, body: {
         "user_id": widget.datauser[0]['user_id'].toString(),
         "check_role": "user"
       });
-      if (response.statusCode == 200) {
+      http.Response response_count = await http.post(uri_rating_planted, body: {
+        'user_id': widget.datauser[0]['user_id'].toString(),
+        "check_role": "user",
+      });
+      if (response.statusCode == 200 && response_count.statusCode == 200) {
         pictureland = jsonDecode(response.body);
+        List count_rating_planter = jsonDecode(response_count.body);
+        // print(count_rating_planter);
+        rating_count = count_rating_planter[0]['rating'] == null
+            ? 0
+            : count_rating_planter[0]['rating'];
+        planted_count = count_rating_planter[0]['planted'] == null
+            ? 0
+            : count_rating_planter[0]['planted'];
         // print(pictureland);
         setState(() {
           buildui = true;
@@ -192,8 +207,7 @@ class _profileScreenState extends State<profileScreen> {
                                         Column(
                                           children: [
                                             Text(
-                                              widget.datauser[0]['rating'] ??
-                                                  '0',
+                                              '$rating_count',
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w300),
@@ -232,7 +246,7 @@ class _profileScreenState extends State<profileScreen> {
                                         Column(
                                           children: [
                                             Text(
-                                              '0',
+                                              '$planted_count',
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w300),
