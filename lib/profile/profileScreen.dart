@@ -434,7 +434,10 @@ class _profileScreenState extends State<profileScreen> {
                                 Expanded(
                                   child: Container(
                                     child: TextButton.icon(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/contactus');
+                                      },
                                       icon: Icon(
                                         Icons.phone_outlined,
                                         color: Colors.grey.shade600,

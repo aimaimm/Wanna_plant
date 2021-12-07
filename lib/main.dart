@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/CustomBottomBar.dart';
 import 'package:wanna_plant/History/HistoryDetailCustomer.dart';
 import 'package:wanna_plant/History/HistoryDetailPlanter.dart';
+import 'package:wanna_plant/contectUS/contect_screen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 import 'package:wanna_plant/manage_account/edit_acc_screen.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
@@ -109,6 +110,7 @@ class MyApp extends StatelessWidget {
         '/Tracking_customer': (context) => TrackCustomer(
               userdata: userdata,
             ),
+        '/contactus': (context) => Contect_Screen()
         // '/Tracking_planter': (context) => TrackPlanter(),
         // '/Tracking_success': (context) => TrackingSuccess(),
       },
