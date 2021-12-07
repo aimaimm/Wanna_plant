@@ -55,7 +55,9 @@ class _Edit_acc_screenState extends State<Edit_acc_screen> {
               SizedBox(
                 height: sizeH / 25,
               ),
-              edit_txt(),
+              edit_txt(
+                userdata: widget.userdata,
+              ),
               SizedBox(
                 height: sizeH * 0.01,
               ),

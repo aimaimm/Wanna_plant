@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:wanna_plant/CustomBottomBar.dart';
+import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,8 @@ class profileScreen extends StatefulWidget {
   @override
   _profileScreenState createState() => _profileScreenState();
 }
+
+List user_profile = [];
 
 class _profileScreenState extends State<profileScreen> {
   bool isVisible = true;
@@ -314,7 +317,7 @@ class _profileScreenState extends State<profileScreen> {
                         ),
                         Container(
                           width: size.width,
-                          height: size.height * 0.14,
+                          height: size.height * 0.06,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(13),
                               color: Colors.grey.shade100),
@@ -354,40 +357,6 @@ class _profileScreenState extends State<profileScreen> {
                                   ),
                                 ],
                               ),
-                              Divider(
-                                color: Colors.grey.shade400,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: TextButton.icon(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.history,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                        label: Text(
-                                          'History',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 13),
-                                        ),
-                                        style: ButtonStyle(
-                                            alignment: Alignment.centerLeft),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                      color: Colors.grey.shade600,
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -407,7 +376,14 @@ class _profileScreenState extends State<profileScreen> {
                                 Expanded(
                                   child: Container(
                                     child: TextButton.icon(
-                                      onPressed: () {},
+                                      onPressed: planter == true
+                                          ? null
+                                          : () {
+                                              check_role_profile = "user";
+                                              user_profile = widget.datauser;
+                                              Navigator.pushNamed(
+                                                  context, '/Register_land');
+                                            },
                                       icon: Icon(
                                         planter == true
                                             ? Icons.check_circle_outline
@@ -430,11 +406,13 @@ class _profileScreenState extends State<profileScreen> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 20,
-                                    color: Colors.grey.shade600,
-                                  ),
+                                  child: planter == true
+                                      ? null
+                                      : Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 20,
+                                          color: Colors.grey.shade600,
+                                        ),
                                 ),
                               ],
                             ),

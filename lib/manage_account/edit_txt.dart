@@ -2,13 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/constants.dart';
 
 class edit_txt extends StatefulWidget {
-  const edit_txt({Key? key}) : super(key: key);
+  const edit_txt({
+    Key? key,
+    required this.userdata,
+  }) : super(key: key);
+
+  final List userdata;
 
   @override
   _edit_txtState createState() => _edit_txtState();
 }
 
 class _edit_txtState extends State<edit_txt> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(

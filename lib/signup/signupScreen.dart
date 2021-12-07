@@ -105,6 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         int? promptpay_check = int.tryParse(protmptpay.text);
                         if (phonenumber_check != null &&
                             promptpay_check != null) {
+                          check_role_profile = "guest";
                           Navigator.pushNamed(context, '/Register_land');
                         }
                       }

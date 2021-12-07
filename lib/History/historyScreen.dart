@@ -119,10 +119,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   void initState() {
-    data_customer = [];
-    data_planter = [];
-    name_customer = [];
-    name_planter = [];
+    data_customer.clear();
+    data_planter.clear();
+    name_customer.clear();
+    name_planter.clear();
     indexact = 0;
     loaddata();
     super.initState();

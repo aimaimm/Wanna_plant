@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:wanna_plant/identify/identifyScreen.dart';
+import 'package:wanna_plant/profile/profileScreen.dart';
 
 String? size;
 String? descrip;
@@ -21,6 +22,7 @@ bool infoland = true;
 List plantTEC = [];
 List priceTEC = [];
 List rowCard = [];
+String check_role_profile = "guest";
 
 class Regis_land_Screen extends StatefulWidget {
   const Regis_land_Screen({
@@ -107,54 +109,314 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
   }
 
 //----------------------confirm button------------------------------------------
-  _Next() {
-    size = size_area.text;
-    descrip = description.text;
-    int? size_check = int.tryParse(size!);
+  _Next() async {
+    if (check_role_profile == "guest") {
+      size = size_area.text;
+      descrip = description.text;
+      int? size_check = int.tryParse(size!);
 
-    if (size == "" ||
-        descrip == "" ||
-        imageFileList.length == 0 ||
-        plantTEC.length == 0) {
-      infoland = false;
-      setState(() {
-        Navigator.pushNamed(context, '/Identity');
-      });
-    } else {
-      int countcheck = 0;
-
-      // check "" in list kind of plant
-      for (int i = 0; i < plantTEC.length; i++) {
-        if (plantTEC[i].text != "" && priceTEC[i].text != "") {
-          countcheck++;
-        }
-      }
-      // print(countcheck);
-      if (countcheck == plantTEC.length) {
-        for (int i = 0; i < rowCard.length; i++) {
-          var namecon = plantTEC[i].text;
-          var price = priceTEC[i].text;
-          int? price_check = int.tryParse(price);
-          if (price_check != null) {
-            entries.add({'plantname': namecon, 'price': price});
-            if ((i + 1) == rowCard.length && size_check != null) {
-              setState(() {
-                // print(entries);
-                Navigator.pushNamed(context, '/Identity');
-              });
-            }
-          }
-        }
-
-        // print(_imageFileList);
-        //Navigator.pop(context, entries);
-        // print(entries);
-
-      } else {
+      if (size == "" ||
+          descrip == "" ||
+          imageFileList.length == 0 ||
+          plantTEC.length == 0) {
         infoland = false;
         setState(() {
           Navigator.pushNamed(context, '/Identity');
         });
+      } else {
+        int countcheck = 0;
+
+        // check "" in list kind of plant
+        for (int i = 0; i < plantTEC.length; i++) {
+          if (plantTEC[i].text != "" && priceTEC[i].text != "") {
+            countcheck++;
+          }
+        }
+        // print(countcheck);
+        if (countcheck == plantTEC.length) {
+          for (int i = 0; i < rowCard.length; i++) {
+            var namecon = plantTEC[i].text;
+            var price = priceTEC[i].text;
+            int? price_check = int.tryParse(price);
+            if (price_check != null) {
+              entries.add({'plantname': namecon, 'price': price});
+              if ((i + 1) == rowCard.length && size_check != null) {
+                setState(() {
+                  // print(entries);
+                  Navigator.pushNamed(context, '/Identity');
+                });
+              }
+            }
+          }
+
+          // print(_imageFileList);
+          //Navigator.pop(context, entries);
+          // print(entries);
+
+        } else {
+          infoland = false;
+          setState(() {
+            Navigator.pushNamed(context, '/Identity');
+          });
+        }
+      }
+    } else if (check_role_profile == "user") {
+      size = size_area.text;
+      descrip = description.text;
+      int? size_check = int.tryParse(size!);
+
+      if (size == "" ||
+          descrip == "" ||
+          imageFileList.length == 0 ||
+          plantTEC.length == 0) {
+        infoland = false;
+        showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (BuildContext) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                title: Icon(
+                  Icons.error_outline_outlined,
+                  color: Colors.red.shade400,
+                  size: 70,
+                ),
+                content: Text(
+                  'Please complete the information',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      style: ButtonStyle(
+                          alignment: Alignment.center,
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: BorderSide(
+                                      color: Colors.grey.shade300)))),
+                    ),
+                  ),
+                ],
+              );
+            });
+      } else {
+        int countcheck = 0;
+
+        // check "" in list kind of plant
+        for (int i = 0; i < plantTEC.length; i++) {
+          if (plantTEC[i].text != "" && priceTEC[i].text != "") {
+            countcheck++;
+          }
+        }
+        // print(countcheck);
+        if (countcheck == plantTEC.length) {
+          for (int i = 0; i < rowCard.length; i++) {
+            var namecon = plantTEC[i].text;
+            var price = priceTEC[i].text;
+            int? price_check = int.tryParse(price);
+            if (price_check != null) {
+              entries.add({'plantname': namecon, 'price': price});
+              if ((i + 1) == rowCard.length && size_check != null) {
+                Uri uri_land = Uri.http(url, '/registerland');
+                showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext) {
+                      return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          title: Center(
+                            child: CircularProgressIndicator(),
+                          ));
+                    });
+                try {
+                  http.MultipartRequest requestlandpicture =
+                      http.MultipartRequest('POST', uri_land);
+                  requestlandpicture.fields['size'] = size!;
+                  requestlandpicture.fields['val'] = val!;
+                  requestlandpicture.fields['descrip'] = descrip!;
+                  requestlandpicture.fields['user_id'] =
+                      jsonEncode(user_profile);
+                  requestlandpicture.fields['entries'] = jsonEncode(entries);
+                  requestlandpicture.fields['check_role'] = "guest";
+                  for (int i = 0; i < imageFileList.length; i++) {
+                    requestlandpicture.files.add(
+                        await http.MultipartFile.fromPath(
+                            'fileupload', imageFileList[i].path));
+                  }
+                  var res = await requestlandpicture.send();
+                  if (res.statusCode == 200) {
+                    Navigator.pop(context);
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                            ),
+                            title: Icon(
+                              Icons.check_circle_outline,
+                              color: Colors.lightGreen.shade400,
+                              size: 100,
+                            ),
+                            content: Text(
+                              'Register Success',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            actions: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'OK',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  style: ButtonStyle(
+                                      alignment: Alignment.center,
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              side: BorderSide(
+                                                  color:
+                                                      Colors.grey.shade300)))),
+                                ),
+                              ),
+                            ],
+                          );
+                        });
+                  }
+                } catch (e) {
+                  Navigator.pop(context);
+                  showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (BuildContext) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          title: Icon(
+                            Icons.error_outline_outlined,
+                            color: Colors.red.shade400,
+                            size: 70,
+                          ),
+                          content: Text(
+                            'connection down',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                style: ButtonStyle(
+                                    alignment: Alignment.center,
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            side: BorderSide(
+                                                color: Colors.grey.shade300)))),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                }
+              }
+            }
+          }
+
+          // print(_imageFileList);
+          //Navigator.pop(context, entries);
+          // print(entries);
+
+        } else {
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  title: Icon(
+                    Icons.error_outline_outlined,
+                    color: Colors.red.shade400,
+                    size: 70,
+                  ),
+                  content: Text(
+                    'Please complete the information',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        style: ButtonStyle(
+                            alignment: Alignment.center,
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    side: BorderSide(
+                                        color: Colors.grey.shade300)))),
+                      ),
+                    ),
+                  ],
+                );
+              });
+        }
       }
     }
   }
@@ -199,7 +461,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                   _Next();
                 },
                 child: Text(
-                  'Next',
+                  check_role_profile == "guest" ? 'Next' : 'Save',
                   style: TextStyle(color: gbase),
                 ),
                 style: TextButton.styleFrom(
