@@ -13,16 +13,23 @@ class edit_txt extends StatefulWidget {
   _edit_txtState createState() => _edit_txtState();
 }
 
+TextEditingController name = TextEditingController();
+TextEditingController username = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController address = TextEditingController();
+TextEditingController protmpt = TextEditingController();
+
 class _edit_txtState extends State<edit_txt> {
-  TextEditingController name = TextEditingController();
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController address = TextEditingController();
-  TextEditingController protmpt = TextEditingController();
 
   @override
   void initState() {
+    name.text = widget.userdata[0]['name'];
+    username.text = widget.userdata[0]['username'];
+    phone.text = widget.userdata[0]['phonenumber'];
+    address.text = widget.userdata[0]['address'];
+    protmpt.text = widget.userdata[0]['promptpay'];
+    // print(widget.userdata);
     super.initState();
   }
 
