@@ -2236,6 +2236,7 @@ class _TrackCustomer extends State<TrackCustomer> {
                       child: Container(
                         width: 420,
                         child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
                           itemCount: items.length,
                           itemBuilder: (context, index) {
                             return spawnorder(index);

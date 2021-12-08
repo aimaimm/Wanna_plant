@@ -58,6 +58,7 @@ class _TrackingSuccess extends State<TrackingSuccess> {
               child: Container(
                 width: 420,
                 child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return Container(
@@ -69,7 +70,7 @@ class _TrackingSuccess extends State<TrackingSuccess> {
                             Container(
                               child: ListTile(
                                 title: Text(
-                                  '#0${index+1}',
+                                  '#0${index + 1}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
