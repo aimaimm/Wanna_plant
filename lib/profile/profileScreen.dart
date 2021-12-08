@@ -52,7 +52,7 @@ class _profileScreenState extends State<profileScreen> {
         // print(count_rating_planter);
         rating_count = count_rating_planter[0]['rating'] == null
             ? 0
-            : count_rating_planter[0]['rating'];
+            : count_rating_planter[0]['rating'].toDouble();
         planted_count = count_rating_planter[0]['planted'] == null
             ? 0
             : count_rating_planter[0]['planted'];
