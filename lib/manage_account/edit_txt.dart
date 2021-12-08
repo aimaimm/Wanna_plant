@@ -2,19 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/constants.dart';
 
 class edit_txt extends StatefulWidget {
-  const edit_txt({Key? key}) : super(key: key);
+  const edit_txt({
+    Key? key,
+    required this.userdata,
+  }) : super(key: key);
+
+  final List userdata;
 
   @override
   _edit_txtState createState() => _edit_txtState();
 }
 
+TextEditingController name = TextEditingController();
+TextEditingController username = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController address = TextEditingController();
+TextEditingController protmpt = TextEditingController();
+
 class _edit_txtState extends State<edit_txt> {
-  TextEditingController name = TextEditingController();
-  TextEditingController username = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController phone = TextEditingController();
-  TextEditingController address = TextEditingController();
-  TextEditingController protmpt = TextEditingController();
+
+  @override
+  void initState() {
+    name.text = widget.userdata[0]['name'];
+    username.text = widget.userdata[0]['username'];
+    phone.text = widget.userdata[0]['phonenumber'];
+    address.text = widget.userdata[0]['address'];
+    protmpt.text = widget.userdata[0]['promptpay'];
+    // print(widget.userdata);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_plant/constants.dart';
 
 class myCard_history extends StatelessWidget {
-  String image, name, plant;
-  double rate;
-  int price;
-
   myCard_history({
     Key? key,
-    required this.image,
-    required this.name,
-    required this.price,
-    required this.plant,
-    required this.rate,
+    required this.data,
+    required this.dataname,
   }) : super(key: key);
+
+  final List data;
+  final String dataname;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +26,8 @@ class myCard_history extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(9),
             ),
-            child: Image.asset(
-              image,
+            child: Image.network(
+              'http://$url/${data[0]['pic_name']}',
               width: 90,
               height: 150,
               fit: BoxFit.cover,
@@ -40,21 +37,21 @@ class myCard_history extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                '$dataname',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                plant,
+                '${data[0]['plants_name']}',
                 style: TextStyle(fontSize: 10),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                '$price baht.',
+                '${data[0]['total_price']} baht.',
                 style: TextStyle(fontSize: 10),
               )
             ],
@@ -69,7 +66,7 @@ class myCard_history extends StatelessWidget {
                 color: Colors.yellow,
               ),
               Text(
-                '$rate rate',
+                '${data[0]['rating']} rate',
                 style: TextStyle(fontSize: 10),
               )
             ],
