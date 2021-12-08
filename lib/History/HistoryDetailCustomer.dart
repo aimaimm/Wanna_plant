@@ -1,14 +1,67 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:http/http.dart' as http;
+import 'package:wanna_plant/constants.dart';
+import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 
 class HistoryCustomer extends StatefulWidget {
+  const HistoryCustomer({
+    Key? key,
+    required this.datauser,
+    required this.nameplanter,
+    required this.datacustomer,
+  }) : super(key: key);
+
+  final List datauser;
+  final List datacustomer;
+  final List nameplanter;
+
   @override
   State<StatefulWidget> createState() => _HistoryCustomer();
 }
 
 class _HistoryCustomer extends State<HistoryCustomer> {
   int currentStep = 0;
+  String txtaddress = "";
+  String txtland = "";
+  bool buildui = false;
+
+  Future<void> loadaddress() async {
+    Uri uri_address = Uri.http(url, "/getaddressdetailact");
+    try {
+      http.Response response = await http.post(uri_address, body: {
+        'user_id': widget.datacustomer[0]['planter'].toString(),
+        'check_role': "user",
+      });
+      if (response.statusCode == 200) {
+        var address = jsonDecode(response.body);
+        // print(address[0]['address']);
+        txtaddress = address[0]['address'];
+        txtland = "${address[0]['land_area']} ${address[0]['land_unit']}";
+        setState(() {
+          buildui = true;
+        });
+      } else {
+        print(response.body);
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e);
+      print("connection error");
+    }
+  }
+
+  @override
+  void initState() {
+    loadaddress();
+    // print(widget.datacustomer);
+    // print(widget.nameplanter);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +95,24 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            widget.datacustomer[0]['status'] == 0 &&
+                                    widget.datacustomer[0]['tracking'] != 6
+                                ? Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                : Text(
+                                    'Success',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                             Text(
-                              'Success',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Thank you for plant',
+                              'Number of Order #${widget.datacustomer[0]['activity_id']}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -70,7 +132,10 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                       ),
                     ],
                   ),
-                  color: Color(0xFF7CC671),
+                  color: widget.datacustomer[0]['status'] == 0 &&
+                          widget.datacustomer[0]['tracking'] != 6
+                      ? Colors.redAccent
+                      : Color(0xFF7CC671),
                 ),
                 height: 75,
               ),
@@ -79,6 +144,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
               child: Container(
                 width: 450,
                 child: ListView(
+                  physics: BouncingScrollPhysics(),
                   children: [
                     Container(
                       child: Column(
@@ -107,7 +173,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                               SizedBox(width: 24),
                               Container(
                                 child: Text(
-                                  'John John \n(+66) 0812345678 \n444/85 \nAmphoe Meaung ChaniRar 52300',
+                                  '$txtaddress',
                                   style: TextStyle(
                                     color: Color(0xff7D7D7D),
                                     fontSize: 12,
@@ -139,7 +205,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                               ),
                               Container(
                                 child: Text(
-                                  '  107 accur',
+                                  '  $txtland',
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -153,7 +219,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                               ),
                               Container(
                                 child: Text(
-                                  '  Carrot',
+                                  '  ${widget.datacustomer[0]['plants_name']}',
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -196,7 +262,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                               SizedBox(width: 24),
                               Container(
                                 child: Text(
-                                  ' 8000 Baht.',
+                                  ' ${widget.datacustomer[0]['total_price']} Baht.',
                                   style: TextStyle(
                                     color: Color(0xff7D7D7D),
                                     fontSize: 12,
@@ -245,13 +311,13 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                             Container(
                               child: ListTile(
                                 title: Text(
-                                  '#01',
+                                  '#${widget.datacustomer[0]['activity_id']}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
                                 ),
                                 trailing: Text(
-                                  '12/09/64',
+                                  '${widget.datacustomer[0]['activity_id']}',
                                   style: TextStyle(
                                       fontSize: 12, color: Color(0xff848484)),
                                 ),
@@ -286,26 +352,62 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                               Text('Order Confirmed'),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Padding(
-                                                  padding: EdgeInsets.all(12)),
-                                              SizedBox(width: 45),
-                                              Text(
-                                                '12/09/64',
-                                                style: TextStyle(
-                                                    color: Color(0xff757575),
-                                                    fontSize: 12),
-                                              ),
-                                            ],
-                                          )
+                                          widget.datacustomer[0]['status'] ==
+                                                      0 &&
+                                                  widget.datacustomer[0]
+                                                          ['tracking'] ==
+                                                      0
+                                              ? Row(
+                                                  children: [
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(12)),
+                                                    SizedBox(width: 45),
+                                                    Text(
+                                                      'Order cancel!!',
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 12),
+                                                    ),
+                                                  ],
+                                                )
+                                              : widget.datacustomer[0]
+                                                          ['date_confirm'] ==
+                                                      null
+                                                  ? Container()
+                                                  : Row(
+                                                      children: [
+                                                        Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    12)),
+                                                        SizedBox(width: 45),
+                                                        Text(
+                                                          '${widget.datacustomer[0]['date_confirm']}',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xff757575),
+                                                              fontSize: 12),
+                                                        ),
+                                                      ],
+                                                    )
                                         ],
                                       ),
                                       isFirst: true,
-                                      indicatorStyle: IndicatorStyle(
-                                        //indicator: ,
-                                        color: Colors.grey,
-                                      ),
+                                      indicatorStyle: widget.datacustomer[0]
+                                                      ['status'] ==
+                                                  0 &&
+                                              widget.datacustomer[0]
+                                                      ['tracking'] ==
+                                                  0
+                                          ? IndicatorStyle(
+                                              //indicator: ,
+                                              color: Colors.red,
+                                            )
+                                          : IndicatorStyle(
+                                              //indicator: ,
+                                              color: Colors.grey,
+                                            ),
                                       afterLineStyle: LineStyle(
                                           color: Colors.grey, thickness: 2),
                                     ),
@@ -330,26 +432,62 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                 Text('Prepare to plant'),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  '18/09/64',
-                                                  style: TextStyle(
-                                                      color: Color(0xff757575),
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
+                                            widget.datacustomer[0]['status'] ==
+                                                        0 &&
+                                                    widget.datacustomer[0]
+                                                            ['tracking'] ==
+                                                        1
+                                                ? Row(
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12)),
+                                                      SizedBox(width: 45),
+                                                      Text(
+                                                        'Order cancel!!',
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : widget.datacustomer[0]
+                                                            ['date_prepare'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(12)),
+                                                          SizedBox(width: 45),
+                                                          Text(
+                                                            '${widget.datacustomer[0]['date_prepare']}',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff757575),
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      )
                                           ],
                                         ),
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
+                                        indicatorStyle: widget.datacustomer[0]
+                                                        ['status'] ==
+                                                    0 &&
+                                                widget.datacustomer[0]
+                                                        ['tracking'] ==
+                                                    1
+                                            ? IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.red,
+                                              )
+                                            : IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.grey,
+                                              ),
                                         beforeLineStyle: LineStyle(
                                             color: Colors.grey, thickness: 2),
                                         afterLineStyle: LineStyle(
@@ -375,26 +513,62 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                 Text('Planting'),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  '20/09/64',
-                                                  style: TextStyle(
-                                                      color: Color(0xff757575),
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
+                                            widget.datacustomer[0]['status'] ==
+                                                        0 &&
+                                                    widget.datacustomer[0]
+                                                            ['tracking'] ==
+                                                        2
+                                                ? Row(
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12)),
+                                                      SizedBox(width: 45),
+                                                      Text(
+                                                        'Order cancel!!',
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : widget.datacustomer[0]
+                                                            ['date_planting'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(12)),
+                                                          SizedBox(width: 45),
+                                                          Text(
+                                                            '${widget.datacustomer[0]['date_planting']}',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff757575),
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      )
                                           ],
                                         ),
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
+                                        indicatorStyle: widget.datacustomer[0]
+                                                        ['status'] ==
+                                                    0 &&
+                                                widget.datacustomer[0]
+                                                        ['tracking'] ==
+                                                    2
+                                            ? IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.red,
+                                              )
+                                            : IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.grey,
+                                              ),
                                         beforeLineStyle: LineStyle(
                                             color: Colors.grey, thickness: 2),
                                         afterLineStyle: LineStyle(
@@ -420,26 +594,62 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                 Text('Harvest'),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  '30/09/64',
-                                                  style: TextStyle(
-                                                      color: Color(0xff757575),
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
+                                            widget.datacustomer[0]['status'] ==
+                                                        0 &&
+                                                    widget.datacustomer[0]
+                                                            ['tracking'] ==
+                                                        3
+                                                ? Row(
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12)),
+                                                      SizedBox(width: 45),
+                                                      Text(
+                                                        'Order cancel!!',
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : widget.datacustomer[0]
+                                                            ['date_harvest'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(12)),
+                                                          SizedBox(width: 45),
+                                                          Text(
+                                                            '${widget.datacustomer[0]['date_harvest']}',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff757575),
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      )
                                           ],
                                         ),
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
+                                        indicatorStyle: widget.datacustomer[0]
+                                                        ['status'] ==
+                                                    0 &&
+                                                widget.datacustomer[0]
+                                                        ['tracking'] ==
+                                                    3
+                                            ? IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.red,
+                                              )
+                                            : IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.grey,
+                                              ),
                                         beforeLineStyle: LineStyle(
                                             color: Colors.grey, thickness: 2),
                                         afterLineStyle: LineStyle(
@@ -466,26 +676,62 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                 Text('Delivery'),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  '05/10/64',
-                                                  style: TextStyle(
-                                                      color: Color(0xff757575),
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
+                                            widget.datacustomer[0]['status'] ==
+                                                        0 &&
+                                                    widget.datacustomer[0]
+                                                            ['tracking'] ==
+                                                        4
+                                                ? Row(
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12)),
+                                                      SizedBox(width: 45),
+                                                      Text(
+                                                        'Order cancel!!',
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : widget.datacustomer[0]
+                                                            ['date_delivery'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(12)),
+                                                          SizedBox(width: 45),
+                                                          Text(
+                                                            '${widget.datacustomer[0]['date_delivery']}',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff757575),
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      )
                                           ],
                                         ),
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
+                                        indicatorStyle: widget.datacustomer[0]
+                                                        ['status'] ==
+                                                    0 &&
+                                                widget.datacustomer[0]
+                                                        ['tracking'] ==
+                                                    4
+                                            ? IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.red,
+                                              )
+                                            : IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.grey,
+                                              ),
                                         beforeLineStyle: LineStyle(
                                             color: Colors.grey, thickness: 2),
                                         afterLineStyle: LineStyle(
@@ -512,27 +758,63 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                 Text('Success'),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12)),
-                                                SizedBox(width: 45),
-                                                Text(
-                                                  '10/10/64',
-                                                  style: TextStyle(
-                                                      color: Color(0xff757575),
-                                                      fontSize: 12),
-                                                ),
-                                              ],
-                                            )
+                                            widget.datacustomer[0]['status'] ==
+                                                        0 &&
+                                                    widget.datacustomer[0]
+                                                            ['tracking'] ==
+                                                        5
+                                                ? Row(
+                                                    children: [
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  12)),
+                                                      SizedBox(width: 45),
+                                                      Text(
+                                                        'Order cancel!!',
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : widget.datacustomer[0]
+                                                            ['date_success'] ==
+                                                        null
+                                                    ? Container()
+                                                    : Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(12)),
+                                                          SizedBox(width: 45),
+                                                          Text(
+                                                            '${widget.datacustomer[0]['date_success']}',
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff757575),
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      )
                                           ],
                                         ),
                                         isLast: true,
-                                        indicatorStyle: IndicatorStyle(
-                                          //indicator: ,
-                                          color: Colors.grey,
-                                        ),
+                                        indicatorStyle: widget.datacustomer[0]
+                                                        ['status'] ==
+                                                    0 &&
+                                                widget.datacustomer[0]
+                                                        ['tracking'] ==
+                                                    5
+                                            ? IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.red,
+                                              )
+                                            : IndicatorStyle(
+                                                //indicator: ,
+                                                color: Colors.grey,
+                                              ),
                                         beforeLineStyle: LineStyle(
                                             color: Colors.grey, thickness: 2),
                                         afterLineStyle: LineStyle(
@@ -548,39 +830,128 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                               indent: 1,
                               endIndent: 1,
                             ),
-                            Container(
-                              padding: EdgeInsets.all(14),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  RatingBar.builder(
-                                      itemSize: 30,
-                                      initialRating: 5,
-                                      minRating: 5,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: false,
-                                      itemCount: 5,
-                                      itemPadding:
-                                          EdgeInsets.symmetric(horizontal: 1),
-                                      itemBuilder: (context, _) => Icon(
-                                            Icons.star_outlined,
-                                            color: Colors.orange,
-                                          ),
-                                      onRatingUpdate: (rating) {
-                                        print(rating);
-                                      }),
-                                  SizedBox(width: 100),
-                                  Text(
-                                    'Jan Jukoo',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Icon(Icons.account_circle_outlined,
-                                      color: Color(0xff606060), size: 30)
-                                ],
-                              ),
-                            )
+                            widget.datacustomer[0]['status'] == 0 &&
+                                    widget.datacustomer[0]['tracking'] != 6
+                                ? Container(
+                                    padding: EdgeInsets.all(14.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Visibility(
+                                          visible: false,
+                                          child: RatingBar.builder(
+                                              itemSize: 30,
+                                              initialRating: 0,
+                                              minRating: 0,
+                                              direction: Axis.horizontal,
+                                              allowHalfRating: true,
+                                              itemCount: 5,
+                                              itemPadding: EdgeInsets.symmetric(
+                                                  horizontal: 1.0),
+                                              itemBuilder: (context, _) => Icon(
+                                                    Icons.star_outlined,
+                                                    color: Colors.orange,
+                                                  ),
+                                              onRatingUpdate: (rating) {
+                                                print(rating);
+                                              }),
+                                        ),
+                                        //SizedBox(width: 100),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${widget.nameplanter[0]['name']}',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Icon(Icons.account_circle_outlined,
+                                                color: Color(0xff606060),
+                                                size: 30),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    padding: EdgeInsets.all(14),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        RatingBar.builder(
+                                            itemSize: 30,
+                                            initialRating: widget
+                                                .datacustomer[0]['rating']
+                                                .toDouble(),
+                                            minRating: widget.datacustomer[0]
+                                                    ['rating']
+                                                .toDouble(),
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemPadding: EdgeInsets.symmetric(
+                                                horizontal: 1),
+                                            itemBuilder: (context, _) => Icon(
+                                                  Icons.star_outlined,
+                                                  color: Colors.orange,
+                                                ),
+                                            onRatingUpdate: widget
+                                                            .datacustomer[0]
+                                                        ['rating'] ==
+                                                    0
+                                                ? (rating) async {
+                                                    Uri uri_rating = Uri.http(
+                                                        url, "/updaterating");
+                                                    try {
+                                                      http.Response
+                                                          response_rating =
+                                                          await http.post(
+                                                              uri_rating,
+                                                              body: {
+                                                            'activity_id': widget
+                                                                .datacustomer[0]
+                                                                    [
+                                                                    'activity_id']
+                                                                .toString(),
+                                                            'rating': rating
+                                                                .toString(),
+                                                            'check_role':
+                                                                "user",
+                                                          });
+                                                      if (response_rating
+                                                              .statusCode ==
+                                                          200) {
+                                                        setState(() {
+                                                          widget.datacustomer[0]
+                                                                  ['rating'] =
+                                                              rating;
+                                                        });
+                                                      } else {
+                                                        print(response_rating
+                                                            .body);
+                                                        print(response_rating
+                                                            .statusCode);
+                                                      }
+                                                    } catch (e) {
+                                                      print(e);
+                                                      print("connection error");
+                                                    }
+                                                  }
+                                                : (rating) {}),
+                                        SizedBox(width: 100),
+                                        Text(
+                                          '${widget.nameplanter[0]['name']}',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Icon(Icons.account_circle_outlined,
+                                            color: Color(0xff606060), size: 30)
+                                      ],
+                                    ),
+                                  )
                           ],
                         ),
                         color: Color(0xFFF3F3F3),
@@ -602,7 +973,18 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                     alignment: Alignment.center,
                     child: Text('Order again'),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // print(widget.datacustomer[0]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailScreen(
+                          idland: widget.datacustomer[0]['land_id'],
+                          datauser: widget.datauser,
+                        ),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     primary: Colors.white,
                     backgroundColor: Color(0xFF7CC671),
