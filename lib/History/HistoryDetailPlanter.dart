@@ -140,6 +140,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
               child: Container(
                 width: 450,
                 child: ListView(
+                   physics: BouncingScrollPhysics(),
                   children: [
                     Container(
                       child: Column(

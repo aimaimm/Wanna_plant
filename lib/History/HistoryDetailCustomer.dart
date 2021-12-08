@@ -144,6 +144,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
               child: Container(
                 width: 450,
                 child: ListView(
+                  physics: BouncingScrollPhysics(),
                   children: [
                     Container(
                       child: Column(
@@ -924,8 +925,7 @@ class _HistoryCustomer extends State<HistoryCustomer> {
                                                           200) {
                                                         setState(() {
                                                           widget.datacustomer[0]
-                                                                  [
-                                                                  'rating'] =
+                                                                  ['rating'] =
                                                               rating;
                                                         });
                                                       } else {
