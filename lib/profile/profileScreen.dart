@@ -339,10 +339,12 @@ class _profileScreenState extends State<profileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
                                       child: TextButton.icon(
                                         onPressed: () {
                                           Navigator.pushNamed(
@@ -360,16 +362,16 @@ class _profileScreenState extends State<profileScreen> {
                                             alignment: Alignment.centerLeft),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                      color: Colors.grey.shade600,
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 10),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                        color: Colors.grey.shade600,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
