@@ -15,13 +15,11 @@ class edit_txt extends StatefulWidget {
 
 TextEditingController name = TextEditingController();
 TextEditingController username = TextEditingController();
-TextEditingController password = TextEditingController();
 TextEditingController phone = TextEditingController();
 TextEditingController address = TextEditingController();
 TextEditingController protmpt = TextEditingController();
 
 class _edit_txtState extends State<edit_txt> {
-
   @override
   void initState() {
     name.text = widget.userdata[0]['name'];
@@ -98,32 +96,6 @@ class _edit_txtState extends State<edit_txt> {
         ),
         SizedBox(
           height: 13,
-        ),
-        TextField(
-          controller: password,
-          readOnly: true,
-          style: TextStyle(fontSize: 12),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(10),
-            hintText: 'Password',
-            hintStyle: TextStyle(
-              fontSize: 10,
-            ),
-            fillColor: txtg,
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Colors.transparent,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: Colors.transparent,
-              ),
-            ),
-          ),
         ),
         SizedBox(
           height: 16,
