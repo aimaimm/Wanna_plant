@@ -2200,51 +2200,54 @@ class _TrackCustomer extends State<TrackCustomer> {
       body: RefreshIndicator(
         onRefresh: loaddata,
         child: buildui
-            ? Center(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 20,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 20,
                         ),
-                      ),
-                      child: SizedBox(
-                        height: 50,
-                        width: 400,
-                        child: TextField(
-                          onChanged: (value) => {
-                            filterSearchResults(value.toString()),
-                          },
-                          decoration: InputDecoration(
-                            focusedBorder: InputBorder.none,
-                            filled: true,
-                            fillColor: Color(0xFFF3F3F3),
-                            prefixIcon: Icon(Icons.search),
-                            hintText: 'Search',
-                            // labelText: 'Search',
-                            enabledBorder: InputBorder.none,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: 50,
+                          width: 400,
+                          child: TextField(
+                            onChanged: (value) => {
+                              filterSearchResults(value.toString()),
+                            },
+                            decoration: InputDecoration(
+                              focusedBorder: InputBorder.none,
+                              filled: true,
+                              fillColor: Color(0xFFF3F3F3),
+                              prefixIcon: Icon(Icons.search),
+                              hintText: 'Search',
+                              // labelText: 'Search',
+                              enabledBorder: InputBorder.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: 420,
-                        child: ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            return spawnorder(index);
-                          },
+                      Expanded(
+                        child: Container(
+                          width: 420,
+                          child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemCount: items.length,
+                            itemBuilder: (context, index) {
+                              return spawnorder(index);
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               )
             : loadornull

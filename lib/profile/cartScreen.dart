@@ -236,7 +236,7 @@ class _cartScreenState extends State<cartScreen> {
         elevation: 0,
         title: Text(
           'My Cart',
-          style: TextStyle(color: Colors.black, fontSize: 27),
+          style: TextStyle(color: Colors.black, fontSize: 20),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -372,106 +372,125 @@ class _cartScreenState extends State<cartScreen> {
                     },
                   ),
                 ),
-                Container(
-                  // width: size.width,
-                  height: size.height * 0.27,
-                  padding: EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+                Expanded(
+                  child: Container(
+                    // width: size.width,
+                    height: size.height * 0.27,
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Subtotal',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w200),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Subtotal',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                  Text(
+                                    '$subtotal Bath',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Delivery',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200),
+                                  ),
+                                  Text(
+                                    '$deli Bath',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Total',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '${subtotal + deli} Bath',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
-                          Text(
-                            '$subtotal Bath',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w200),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Delivery',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w200),
-                          ),
-                          Text(
-                            '$deli Bath',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w200),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '${subtotal + deli} Bath',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w200),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.03,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Color(0xFF7CC671),
                         ),
-                        width: size.width,
-                        child: TextButton(
-                          onPressed: () async {
-                            Uri uri_payment = Uri.http(url, "/addactivity");
-                            try {
-                              http.Response response = await http
-                                  .post(uri_payment, body: {
-                                'dataincart': jsonEncode(dataincart),
-                                'check_role': "user"
-                              });
-                              if (response.statusCode == 200) {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                prefs.clear();
-                                showPayment();
-                              } else {
-                                print(response.body);
-                                print(response.statusCode);
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color(0xFF7CC671),
+                          ),
+                          width: size.width,
+                          child: TextButton(
+                            onPressed: () async {
+                              Uri uri_payment = Uri.http(url, "/addactivity");
+                              try {
+                                http.Response response = await http
+                                    .post(uri_payment, body: {
+                                  'dataincart': jsonEncode(dataincart),
+                                  'check_role': "user"
+                                });
+                                if (response.statusCode == 200) {
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
+                                  prefs.clear();
+                                  showPayment();
+                                } else {
+                                  print(response.body);
+                                  print(response.statusCode);
+                                }
+                              } catch (e) {
+                                print(e);
+                                print("connection error");
                               }
-                            } catch (e) {
-                              print(e);
-                              print("connection error");
-                            }
-                          },
-                          child: Text(
-                            'Payment',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            },
+                            child: Text(
+                              'Payment',
+                              style: TextStyle(
+                                  fontSize: (60 / size.width) * 100,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(),
                           ),
-                          style: ButtonStyle(),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

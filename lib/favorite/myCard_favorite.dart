@@ -33,6 +33,7 @@ class myCard_favorite extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
+          //dense: true,
           leading: ClipRRect(
             borderRadius: BorderRadius.all(
               Radius.circular(9),
@@ -41,7 +42,7 @@ class myCard_favorite extends StatelessWidget {
               "${data_fav[index]['pic_name']}",
               width: 90,
               height: 150,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           title: (Column(
