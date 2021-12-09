@@ -290,6 +290,8 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                                 child: TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context, "/Profile", (route) => false);
                                   },
                                   child: Text(
                                     'OK',
