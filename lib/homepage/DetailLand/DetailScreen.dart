@@ -917,206 +917,240 @@ class _DetailScreenState extends State<DetailScreen> {
                                       builder: (BuildContext context,
                                           StateSetter setState) {
                                         return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      Navigator.pop(context);
-                                                    });
-                                                  },
-                                                  icon: Icon(Icons.close),
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              height: size.height * 0.23,
-                                              child: GridView.builder(
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  shrinkWrap: true,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    // mainAxisExtent: 28,
-                                                    crossAxisCount: 2,
-                                                    childAspectRatio:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            (MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height /
-                                                                7),
-                                                  ),
-                                                  itemCount: checkspawnoder(),
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Container(
-                                                      //  margin: EdgeInsets.symmetric(vertical: 15),
-                                                      margin: EdgeInsets.all(8),
-                                                      //height: 10,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            width: 1,
-                                                            color:
-                                                                selectorder ==
-                                                                        index
-                                                                    ? gbase
-                                                                    : Colors
-                                                                        .grey),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                      ),
-                                                      child: TextButton(
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      IconButton(
                                                         onPressed: () {
                                                           setState(() {
-                                                            selectorder = index;
+                                                            Navigator.pop(
+                                                                context);
                                                           });
                                                         },
-                                                        child: Text(
-                                                          checkStringorder(
-                                                              index),
-                                                          style: TextStyle(
-                                                            fontSize: 13,
-                                                            color:
-                                                                selectorder ==
-                                                                        index
-                                                                    ? gbase
-                                                                    : Colors
-                                                                        .black,
-                                                          ),
+                                                        icon: Icon(Icons.close),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    height: size.height * 0.23,
+                                                    child: GridView.builder(
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        shrinkWrap: true,
+                                                        gridDelegate:
+                                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                          // mainAxisExtent: 28,
+                                                          crossAxisCount: 2,
+                                                          childAspectRatio: MediaQuery
+                                                                      .of(
+                                                                          context)
+                                                                  .size
+                                                                  .width /
+                                                              (MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  7),
                                                         ),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
-                                            const Divider(
-                                              height: 50,
-                                              thickness: 1,
-                                            ),
-                                            Container(
-                                              // decoration: BoxDecoration(color: Colors.red),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      'Amount',
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        IconButton(
-                                                          padding:
-                                                              EdgeInsets.all(0),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              if (countorder >
-                                                                  1) {
-                                                                countorder--;
-                                                              }
-                                                            });
-                                                          },
-                                                          icon: Container(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              vertical: 2,
-                                                              horizontal: 7,
-                                                            ),
+                                                        itemCount:
+                                                            checkspawnoder(),
+                                                        itemBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                int index) {
+                                                          return Container(
+                                                            //  margin: EdgeInsets.symmetric(vertical: 15),
+                                                            margin:
+                                                                EdgeInsets.all(
+                                                                    8),
+                                                            //height: 10,
                                                             decoration:
                                                                 BoxDecoration(
                                                               border: Border.all(
                                                                   width: 1,
-                                                                  color: Colors
-                                                                      .grey),
+                                                                  color: selectorder ==
+                                                                          index
+                                                                      ? gbase
+                                                                      : Colors
+                                                                          .grey),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8),
+                                                                          10),
                                                             ),
-                                                            child: Text('-'),
-                                                          ),
+                                                            child: TextButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  selectorder =
+                                                                      index;
+                                                                });
+                                                              },
+                                                              child: Text(
+                                                                checkStringorder(
+                                                                    index),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: selectorder ==
+                                                                          index
+                                                                      ? gbase
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
+                                                  ),
+                                                  const Divider(
+                                                    height: 50,
+                                                    thickness: 1,
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      // decoration: BoxDecoration(color: Colors.red),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              'Amount',
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                IconButton(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0),
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      if (countorder >
+                                                                          1) {
+                                                                        countorder--;
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                  icon:
+                                                                      Container(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .symmetric(
+                                                                      vertical:
+                                                                          2,
+                                                                      horizontal:
+                                                                          7,
+                                                                    ),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          width:
+                                                                              1,
+                                                                          color:
+                                                                              Colors.grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                    ),
+                                                                    child: Text(
+                                                                        '-'),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                    '$countorder'),
+                                                                IconButton(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0),
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      countorder++;
+                                                                    });
+                                                                  },
+                                                                  icon:
+                                                                      Container(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .symmetric(
+                                                                      vertical:
+                                                                          2,
+                                                                      horizontal:
+                                                                          7,
+                                                                    ),
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border: Border.all(
+                                                                          width:
+                                                                              1,
+                                                                          color:
+                                                                              Colors.grey),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                    ),
+                                                                    child: Text(
+                                                                        '+'),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Text('$countorder'),
-                                                        IconButton(
-                                                          padding:
-                                                              EdgeInsets.all(0),
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              countorder++;
-                                                            });
-                                                          },
-                                                          icon: Container(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              vertical: 2,
-                                                              horizontal: 7,
-                                                            ),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              border: Border.all(
-                                                                  width: 1,
-                                                                  color: Colors
-                                                                      .grey),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                            ),
-                                                            child: Text('+'),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          new BorderRadius
-                                                              .circular(10),
-                                                    ),
-                                                    primary: gbase,
-                                                    minimumSize: Size(
-                                                        double.infinity, 50),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        new BorderRadius
+                                                            .circular(10),
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      adddatacart();
-                                                    });
-                                                  },
-                                                  child: Text(
-                                                    'Add to cart',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                                  primary: gbase,
+                                                  minimumSize:
+                                                      Size(double.infinity, 50),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    adddatacart();
+                                                  });
+                                                },
+                                                child: Text(
+                                                  'Add to cart',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ),
