@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanna_plant/CustomBottomBar.dart';
+
 import 'package:wanna_plant/History/HistoryDetailCustomer.dart';
 import 'package:wanna_plant/History/HistoryDetailPlanter.dart';
 import 'package:wanna_plant/contectUS/contect_screen.dart';
@@ -9,18 +9,16 @@ import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:wanna_plant/profile/profileScreen.dart';
 import 'package:wanna_plant/signup/textInfo.dart';
 import 'package:wanna_plant/tracking/TrackCustomer.dart';
-import 'package:wanna_plant/tracking/TrackingSuccess.dart';
 
-import 'package:wanna_plant/chatScreen.dart';
+
 import 'package:wanna_plant/favorite/favoriteScreen.dart';
 import 'package:wanna_plant/homepage/homeScreen.dart';
-import 'package:wanna_plant/tracking/trackplanter.dart';
+
 import 'package:wanna_plant/History/historyScreen.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
-import 'package:wanna_plant/area/upload_imageScreen.dart';
-import 'package:wanna_plant/favorite/favoriteScreen.dart';
+
 import 'package:wanna_plant/identify/identifyScreen.dart';
-import 'package:wanna_plant/identify/waitIdentifyScreen.dart';
+
 import 'package:wanna_plant/login/forgot_passwordScreen.dart';
 import 'package:wanna_plant/login/loginScreen.dart';
 

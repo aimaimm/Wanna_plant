@@ -5,8 +5,7 @@ import 'package:timeline_tile/timeline_tile.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:wanna_plant/constants.dart';
-// ignore: unused_import
-//import 'package:timelines/timelines.dart';
+
 
 class TrackCustomer extends StatefulWidget {
   const TrackCustomer({Key? key, required this.userdata}) : super(key: key);
@@ -169,17 +168,7 @@ class _TrackCustomer extends State<TrackCustomer> {
                             ),
                             indicatorStyle: IndicatorStyle(
                               color: Colors.grey,
-                              // indicator: Container(
-                              //   decoration: BoxDecoration(
-                              //     border: Border.all(
-                              //       width: 2,
-                              //       color: Colors.grey,
-                              //       style: BorderStyle.solid,
-                              //     ),
-                              //     color: Colors.transparent,
-                              //     shape: BoxShape.circle
-                              //   ),
-                              // )
+                             
                             ),
                             beforeLineStyle:
                                 LineStyle(color: Colors.grey, thickness: 2),
@@ -1525,9 +1514,9 @@ class _TrackCustomer extends State<TrackCustomer> {
                       Container(
                         padding: EdgeInsets.all(14),
                         child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
+                         
                           children: [
-                            //Padding(padding: EdgeInsets.all(10)),
+                            
                             SizedBox(
                                 height: 80,
                                 child: TimelineTile(

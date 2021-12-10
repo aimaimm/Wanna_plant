@@ -54,8 +54,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
   @override
   void initState() {
     loadaddress();
-    // print(widget.dataplanter);
-    // print(widget.namecustomer);
+    
     super.initState();
   }
 
@@ -83,7 +82,7 @@ class _HistoryPlanter extends State<HistoryPlanter> {
             child: Container(
               child: FittedBox(
                 child: Row(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  
                   children: [
                     Padding(padding: EdgeInsets.all(13)),
                     Container(

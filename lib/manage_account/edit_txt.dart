@@ -218,45 +218,4 @@ class _edit_txtState extends State<edit_txt> {
   }
 }
 
-// class TxtField_edit extends StatelessWidget {
-//   const TxtField_edit({
-//     Key? key,
-//     required this.hintText,
-//     required this.icon,
-//     required this.controller,
-//   }) : super(key: key);
 
-//   final String hintText;
-//   final Icon icon;
-//   final String controller;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextField(
-//       controller: controller,
-//       style: TextStyle(fontSize: 12),
-//       decoration: InputDecoration(
-//         suffixIcon: icon,
-//         contentPadding: EdgeInsets.all(10),
-//         hintText: hintText,
-//         hintStyle: TextStyle(
-//           fontSize: 10,
-//         ),
-//         fillColor: txtg,
-//         filled: true,
-//         focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10.0),
-//           borderSide: BorderSide(
-//             color: Colors.transparent,
-//           ),
-//         ),
-//         enabledBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(10.0),
-//           borderSide: BorderSide(
-//             color: Colors.transparent,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

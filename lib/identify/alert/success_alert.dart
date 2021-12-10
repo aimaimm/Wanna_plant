@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/identify/IdentifyCard.dart';
-import 'package:wanna_plant/identify/waitIdentifyScreen.dart';
+
 import 'package:http/http.dart' as http;
 
 Future successAlert(

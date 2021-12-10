@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:wanna_plant/data/data_customer.dart';
-import 'package:wanna_plant/data/data_planter.dart';
+
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 

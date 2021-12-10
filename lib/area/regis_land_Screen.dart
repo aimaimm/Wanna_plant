@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:wanna_plant/area/PlantEntry.dart';
-import 'package:wanna_plant/area/upload_imageScreen.dart';
+
 import 'package:wanna_plant/area/wigget/Description_input.dart';
 import 'package:wanna_plant/area/wigget/Text_header.dart';
 import 'package:wanna_plant/area/wigget/enter_text.dart';
@@ -10,7 +8,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart ' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:wanna_plant/identify/identifyScreen.dart';
+
 import 'package:wanna_plant/profile/profileScreen.dart';
 
 String? size;
@@ -50,9 +48,8 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
       imageFileList.addAll(selectedImages);
     }
 
-    //  print('Image list lenght :${_imageFileList!.length.toString()}');
     setState(() {
-      //files = _imageFileList!.length.toString();
+    
     });
   }
 
@@ -142,17 +139,14 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
               if ((i + 1) == rowCard.length && size_check != null) {
                 infoland = true;
                 setState(() {
-                  // print(entries);
+                  
                   Navigator.pushNamed(context, '/Identity');
                 });
               }
             }
           }
 
-          // print(_imageFileList);
-          //Navigator.pop(context, entries);
-          // print(entries);
-
+         
         } else {
           infoland = false;
           setState(() {
@@ -223,7 +217,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
             countcheck++;
           }
         }
-        // print(countcheck);
+        
         if (countcheck == plantTEC.length) {
           for (int i = 0; i < rowCard.length; i++) {
             var namecon = plantTEC[i].text;
@@ -369,9 +363,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
             }
           }
 
-          // print(_imageFileList);
-          //Navigator.pop(context, entries);
-          // print(entries);
+         
 
         } else {
           showDialog(
@@ -434,11 +426,11 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    // String data = ModalRoute.of(context)!.settings.arguments as String;
+   
     var sizeH = MediaQuery.of(context).size.height;
     var sizeW = MediaQuery.of(context).size.width;
     return Scaffold(
-      //extendBodyBehindAppBar: true,
+     
       extendBody: true,
       appBar: AppBar(
         toolbarHeight: sizeH / 14.5,
@@ -570,20 +562,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
                                   ),
                                 ],
                               ),
-                              // child: TextButton(
-                              //   onPressed: () {
-                              //     // Navigator.pushNamed(context, '/upload_image');
-                              //     selectImage();
-                              //   },
-                              //   child: Text(
-                              //     'upload your land',
-                              //     style: TextStyle(fontSize: 11),
-                              //   ),
-                              //   style: TextButton.styleFrom(
-                              //     primary: gbase,
-                              //     side: BorderSide(color: gbase, width: 0.4),
-                              //   ),
-                              // ),
+                           
                             ),
                           ),
                   ),
@@ -720,19 +699,7 @@ class _Regis_land_ScreenState extends State<Regis_land_Screen> {
               SizedBox(
                 height: 15,
               ),
-              // Align(
-              //   alignment: Alignment.bottomCenter,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       _Confirm();
-              //     },
-              //     child: Text('Confirm'),
-              //     style: ElevatedButton.styleFrom(
-              //       primary: gbase,
-              //       fixedSize: Size(sizeW, 40),
-              //     ),
-              //   ),
-              // )
+           
             ],
           ),
         ),

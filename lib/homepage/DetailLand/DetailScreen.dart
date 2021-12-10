@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanna_plant/bottomsheet.dart';
+
 import 'package:wanna_plant/constants.dart';
-import 'package:wanna_plant/data/data_planter.dart';
+
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -83,25 +83,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 },
               );
             } else {
-              // if (detail_land[detail_land.length - 1]['pic_name'] !=
-              //     rawdata_land[i]['pic_name']) {
-              //   List stack_plant = [];
-
-              //   if (detail_land[detail_land.length - 1]['pic_name'] is List) {
-              //     for (int p = 0;
-              //         p < detail_land[detail_land.length - 1]['pic_name'].length;
-              //         p++) {
-              //       stack_plant
-              //           .add(detail_land[detail_land.length - 1]['pic_name'][p]);
-              //     }
-              //   } else {
-              //     stack_plant
-              //         .add(detail_land[detail_land.length - 1]['pic_name']);
-              //   }
-
-              //   stack_plant.add(rawdata_land[i]['pic_name']);
-              //   detail_land[detail_land.length - 1]['pic_name'] = stack_plant;
-              // }
+             
               if (detail_land[detail_land.length - 1]['plants_name'] !=
                   rawdata_land[i]['plants_name']) {
                 List stack_plant_name = [];
@@ -147,22 +129,12 @@ class _DetailScreenState extends State<DetailScreen> {
               }
             }
           }
-          // print(detail_land[0]['pic_name'][0]);
-          // for (int i = 0; i < detail_land[0]['pic_name'].length; i++) {
-          //   // print(detail_land[0]['pic_name'][i]['pic_name']);
-          //   detail_land[0]['pic_name'][i]['pic_name'] =
-          //       "http://$url/${detail_land[0]['pic_name'][i]['pic_name']}";
-          //   // List stack_plant = [];
-          //   // stack_plant.add(detail_land[i - 1]['pic_name']);
-          //   // stack_plant.add(rawdata_land[i]['pic_name']);
-          //   // detail_land[i - 1]['pic_name'] = stack_plant;
-          // }
+         
           main_picture =
               "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}";
 
           setState(() {
-            // print(detail_land[0]['plants_name']);
-            // print(detail_land[0]['plants_name'].length);
+            
             List checkfavbtn = jsonDecode(response_favbtn.body);
             if (checkfavbtn.length != 0) {
               fav = true;
@@ -182,12 +154,7 @@ class _DetailScreenState extends State<DetailScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? rawdatacart = prefs.getString('cart');
-    // prefs.clear();
-    // List datacart = jsonDecode(rawdatacart!);
-    // print(detail_land);
-    // print(detail_land[0]['plants_price'][0]);
-    // int test = detail_land[0]['plants_price'][selectorder].toInt();
-    // print(test * countorder);
+    
     if (rawdatacart == null) {
       List addtocart = [];
       if (detail_land[0]['plants_price'] is int) {
@@ -270,22 +237,11 @@ class _DetailScreenState extends State<DetailScreen> {
           'customer_id': widget.datauser[0]['user_id'],
           'province': detail_land[0]['province'],
         });
-        // print(dummydata);
+       
         String savedata = jsonEncode(dummydata);
         prefs.setString('cart', savedata);
       }
-      // addtocart.add({
-      //   'pic_name': "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}",
-      //   'land_id': detail_land[0]['land_id'],
-      //   'land_area': detail_land[0]['land_area'],
-      //   'land_unit': detail_land[0]['land_unit'],
-      //   'amountorder': countorder,
-      //   'total_money':
-      //       countorder * int.parse(detail_land[0]['plants_price'][selectorder]),
-      //   'planter_id': detail_land[0]['user_id'],
-      //   'customer_id': widget.datauser[0]['user_id'],
-      //   'province': detail_land[0]['province'],
-      // });
+     
     }
 
     Navigator.pop(context);
@@ -1177,9 +1133,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
             ),
-            // bottomSheet: showBotton_sheet
-            //     ?
-            //     : null,
+            
           )
         : Scaffold(
             body: Center(
