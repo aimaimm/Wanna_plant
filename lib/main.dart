@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/CustomBottomBar.dart';
 import 'package:wanna_plant/History/HistoryDetailCustomer.dart';
 import 'package:wanna_plant/History/HistoryDetailPlanter.dart';
+import 'package:wanna_plant/contectUS/contect_screen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
+import 'package:wanna_plant/manage_account/edit_acc_screen.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:wanna_plant/profile/profileScreen.dart';
+import 'package:wanna_plant/signup/textInfo.dart';
 import 'package:wanna_plant/tracking/TrackCustomer.dart';
 import 'package:wanna_plant/tracking/TrackingSuccess.dart';
 
@@ -50,19 +53,68 @@ class MyApp extends StatelessWidget {
         '/forgot_password': (context) => Forgot_passwordScreen(),
         '/signup': (context) => SignUpScreen(),
         '/Register_land': (context) => Regis_land_Screen(),
-        '/Identity': (context) => IdentifyScreen(),
-        '/Wait_identity': (context) => WaitIdentifyScreen(),
-        '/Favorite': (context) => FavoriteScreen(),
-        '/History': (context) => HistoryScreen(),
-        '/History_Customer': (context) => HistoryCustomer(),
-        '/History_planter': (context) => HistoryPlanter(),
-        '/Homepage': (context) => Home(),
-        '/Homepage_seeall': (context) => Seeallscreen(),
-        '/Profile': (context) => profileScreen(),
-        '/Cart': (context) => cartScreen(),
-        '/Tracking_customer': (context) => TrackCustomer(),
-        '/Tracking_planter': (context) => TrackPlanter(),
-        '/Tracking_success': (context) => TrackingSuccess(),
+        '/Identity': (context) => IdentifyScreen(
+              name: name.text,
+              username: username.text,
+              password: password.text,
+              phonenumber: phonenumber.text,
+              address: address.text,
+              province: val_province!,
+              protmptpay: protmptpay.text,
+              size: size!,
+              descrip: descrip!,
+              val: val!,
+              entries: entries,
+              imageFileList: imageFileList,
+              infoland: infoland,
+            ),
+        // '/Wait_identity': (context) => WaitIdentifyScreen(),
+        '/Favorite': (context) => FavoriteScreen(
+              userdata: userdata,
+            ),
+        '/edit_acc': (context) => Edit_acc_screen(
+              userdata: userdata,
+            ),
+        '/History': (context) => HistoryScreen(
+              datauser: userdata,
+            ),
+        '/History_Customer': (context) => HistoryCustomer(
+              datauser: userdata,
+              datacustomer: data_customer.length == 1
+                  ? data_customer
+                  : [data_customer[indexact]],
+              nameplanter: name_planter.length == 1
+                  ? name_planter
+                  : [name_planter[indexact]],
+            ),
+        '/History_planter': (context) => HistoryPlanter(
+              datauser: userdata,
+              dataplanter: data_planter.length == 1
+                  ? data_planter
+                  : [data_planter[indexact]],
+              namecustomer: name_customer.length == 1
+                  ? name_customer
+                  : [name_customer[indexact]],
+            ),
+        '/Homepage': (context) => Home(
+              userdata: userdata,
+            ),
+        '/Homepage_seeall': (context) => Seeallscreen(
+              data_land: data_land,
+              userdata: userdata,
+            ),
+        '/Profile': (context) => profileScreen(
+              datauser: userdata,
+            ),
+        '/Cart': (context) => cartScreen(
+          datauser: userdata,
+        ),
+        '/Tracking_customer': (context) => TrackCustomer(
+              userdata: userdata,
+            ),
+        '/contactus': (context) => Contect_Screen()
+        // '/Tracking_planter': (context) => TrackPlanter(),
+        // '/Tracking_success': (context) => TrackingSuccess(),
       },
     );
   }

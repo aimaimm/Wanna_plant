@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/welcomeScreen.dart';
+import 'package:http/http.dart' as http;
+
+List userdata = [];
 
 class LoginScreen extends StatefulWidget {
   //const LoginScreen({ Key? key }) : super(key: key);
@@ -14,16 +19,140 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   String error = '';
+  bool hidepass = true;
+  Widget btnpass = Icon(Icons.visibility, color: Color(0xFFA6A6A6));
 
-  Map<String, dynamic> login = {'username': 'aimaim', 'password': '1234'};
+  // Map<String, dynamic> login = {'username': 'aimaim', 'password': '1234'};
 
-  _login() {
-    if (username.text != login['name'] || password.text != login['password']) {
-      error = 'username or password went wrong';
-    } else {
-      setState(() {
-        Navigator.pushNamed(context, '/'); //Home
-      });
+  _login() async {
+    if (username.text != "" && password.text != "") {
+      Uri uri_login = Uri.http(url, '/login');
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext) {
+            return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                title: Center(
+                  child: CircularProgressIndicator(),
+                ));
+          });
+      try {
+        http.Response respons = await http.post(uri_login, body: {
+          "username": username.text,
+          "password": password.text,
+        });
+
+        if (respons.statusCode == 200) {
+          userdata = jsonDecode(respons.body);
+          setState(() {
+            Navigator.of(context).pop();
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/Homepage',
+              ModalRoute.withName('/Homepage'),
+            ); //Home
+          });
+        } else {
+          Navigator.of(context).pop();
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  title: Icon(
+                    Icons.error_outline_outlined,
+                    color: Colors.red.shade400,
+                    size: 70,
+                  ),
+                  content: Text(
+                    '${respons.body}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        style: ButtonStyle(
+                            alignment: Alignment.center,
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    side: BorderSide(
+                                        color: Colors.grey.shade300)))),
+                      ),
+                    ),
+                  ],
+                );
+              });
+          print(respons.body);
+          print(respons.statusCode);
+        }
+      } catch (e) {
+        print(e);
+        Navigator.of(context).pop();
+        showDialog(
+            barrierDismissible: true,
+            context: context,
+            builder: (BuildContext) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                title: Icon(
+                  Icons.error_outline_outlined,
+                  color: Colors.red.shade400,
+                  size: 70,
+                ),
+                content: Text(
+                  'connection error',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      style: ButtonStyle(
+                          alignment: Alignment.center,
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  side: BorderSide(
+                                      color: Colors.grey.shade300)))),
+                    ),
+                  ),
+                ],
+              );
+            });
+        print("connection error");
+      }
     }
   }
 
@@ -105,11 +234,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextField(
                           controller: password,
-                          obscureText: true,
+                          obscureText: hidepass,
                           decoration: InputDecoration(
-                            suffix: Icon(
-                              Icons.visibility,
-                              color: Color(0xFFA6A6A6),
+                            suffix: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (hidepass == true) {
+                                    btnpass = Icon(Icons.visibility_off);
+                                    hidepass = false;
+                                  } else {
+                                    btnpass = Icon(Icons.visibility);
+                                    hidepass = true;
+                                  }
+                                });
+                              },
+                              icon: btnpass,
                             ),
                             hintStyle: TextStyle(color: Colors.black),
                             enabledBorder: UnderlineInputBorder(

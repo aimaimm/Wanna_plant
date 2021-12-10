@@ -22,18 +22,20 @@ Future Unsuccess(BuildContext context) async {
               SizedBox(
                 height: 8,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'OK',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: TextButton.styleFrom(
-                    side: BorderSide(color: Colors.grey, width: 0.5),
+              FittedBox(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'OK',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: TextButton.styleFrom(
+                      side: BorderSide(color: Colors.grey, width: 0.5),
+                    ),
                   ),
                 ),
               ),

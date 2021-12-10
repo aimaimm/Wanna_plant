@@ -2,29 +2,74 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/constants.dart';
 
 class edit_txt extends StatefulWidget {
-  const edit_txt({Key? key}) : super(key: key);
+  const edit_txt({
+    Key? key,
+    required this.userdata,
+  }) : super(key: key);
+
+  final List userdata;
 
   @override
   _edit_txtState createState() => _edit_txtState();
 }
 
+TextEditingController name = TextEditingController();
+TextEditingController username = TextEditingController();
+TextEditingController phone = TextEditingController();
+TextEditingController address = TextEditingController();
+TextEditingController protmpt = TextEditingController();
+
 class _edit_txtState extends State<edit_txt> {
+  @override
+  void initState() {
+    name.text = widget.userdata[0]['name'];
+    username.text = widget.userdata[0]['username'];
+    phone.text = widget.userdata[0]['phonenumber'];
+    address.text = widget.userdata[0]['address'];
+    protmpt.text = widget.userdata[0]['promptpay'];
+    // print(widget.userdata);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TxtField_edit(
-          hintText: 'Yourname',
-          icon: Icon(
-            Icons.edit_sharp,
-            size: 15,
+        TextField(
+          controller: name,
+          style: TextStyle(fontSize: 12),
+          decoration: InputDecoration(
+            suffixIcon: Icon(
+              Icons.edit_sharp,
+              size: 15,
+            ),
+            contentPadding: EdgeInsets.all(10),
+            hintText: 'Yourname',
+            hintStyle: TextStyle(
+              fontSize: 10,
+            ),
+            fillColor: txtg,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Colors.transparent,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Colors.transparent,
+              ),
+            ),
           ),
         ),
         SizedBox(
           height: 13,
         ),
         TextField(
+          controller: username,
           readOnly: true,
           style: TextStyle(fontSize: 12),
           decoration: InputDecoration(
@@ -52,12 +97,26 @@ class _edit_txtState extends State<edit_txt> {
         SizedBox(
           height: 13,
         ),
+        SizedBox(
+          height: 16,
+        ),
+        Text(
+          'Contact',
+          style: TextStyle(fontSize: 10),
+        ),
+        SizedBox(
+          height: 13,
+        ),
         TextField(
-          readOnly: true,
+          controller: phone,
           style: TextStyle(fontSize: 12),
           decoration: InputDecoration(
+            suffixIcon: Icon(
+              Icons.edit_sharp,
+              size: 15,
+            ),
             contentPadding: EdgeInsets.all(10),
-            hintText: 'Password',
+            hintText: 'Phone number',
             hintStyle: TextStyle(
               fontSize: 10,
             ),
@@ -78,28 +137,12 @@ class _edit_txtState extends State<edit_txt> {
           ),
         ),
         SizedBox(
-          height: 16,
-        ),
-        Text(
-          'Contact',
-          style: TextStyle(fontSize: 10),
-        ),
-        SizedBox(
-          height: 13,
-        ),
-        TxtField_edit(
-          hintText: 'Phone number',
-          icon: Icon(
-            Icons.edit_sharp,
-            size: 15,
-          ),
-        ),
-        SizedBox(
           height: 13,
         ),
         Container(
           height: 5 * 24.0,
           child: TextField(
+            controller: address,
             maxLines: 5,
             style: TextStyle(
               fontSize: 12,
@@ -141,11 +184,33 @@ class _edit_txtState extends State<edit_txt> {
         SizedBox(
           height: 13,
         ),
-        TxtField_edit(
-          hintText: 'Protmptpay',
-          icon: Icon(
-            Icons.edit_sharp,
-            size: 15,
+        TextField(
+          controller: protmpt,
+          style: TextStyle(fontSize: 12),
+          decoration: InputDecoration(
+            suffixIcon: Icon(
+              Icons.edit_sharp,
+              size: 15,
+            ),
+            contentPadding: EdgeInsets.all(10),
+            hintText: 'Protmptpay',
+            hintStyle: TextStyle(
+              fontSize: 10,
+            ),
+            fillColor: txtg,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Colors.transparent,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: Colors.transparent,
+              ),
+            ),
           ),
         ),
       ],
@@ -153,42 +218,45 @@ class _edit_txtState extends State<edit_txt> {
   }
 }
 
-class TxtField_edit extends StatelessWidget {
-  const TxtField_edit({
-    Key? key,
-    required this.hintText,
-    required this.icon,
-  }) : super(key: key);
+// class TxtField_edit extends StatelessWidget {
+//   const TxtField_edit({
+//     Key? key,
+//     required this.hintText,
+//     required this.icon,
+//     required this.controller,
+//   }) : super(key: key);
 
-  final String hintText;
-  final Icon icon;
+//   final String hintText;
+//   final Icon icon;
+//   final String controller;
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      style: TextStyle(fontSize: 12),
-      decoration: InputDecoration(
-        suffixIcon: icon,
-        contentPadding: EdgeInsets.all(10),
-        hintText: hintText,
-        hintStyle: TextStyle(
-          fontSize: 10,
-        ),
-        fillColor: txtg,
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextField(
+//       controller: controller,
+//       style: TextStyle(fontSize: 12),
+//       decoration: InputDecoration(
+//         suffixIcon: icon,
+//         contentPadding: EdgeInsets.all(10),
+//         hintText: hintText,
+//         hintStyle: TextStyle(
+//           fontSize: 10,
+//         ),
+//         fillColor: txtg,
+//         filled: true,
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10.0),
+//           borderSide: BorderSide(
+//             color: Colors.transparent,
+//           ),
+//         ),
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10.0),
+//           borderSide: BorderSide(
+//             color: Colors.transparent,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
