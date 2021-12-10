@@ -106,7 +106,9 @@ class MyApp extends StatelessWidget {
         '/Profile': (context) => profileScreen(
               datauser: userdata,
             ),
-        '/Cart': (context) => cartScreen(),
+        '/Cart': (context) => cartScreen(
+          datauser: userdata,
+        ),
         '/Tracking_customer': (context) => TrackCustomer(
               userdata: userdata,
             ),

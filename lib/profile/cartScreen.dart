@@ -7,14 +7,17 @@ import 'package:wanna_plant/constants.dart';
 import 'package:http/http.dart' as http;
 
 class cartScreen extends StatefulWidget {
-  const cartScreen({Key? key}) : super(key: key);
+  const cartScreen({Key? key, required this.datauser}) : super(key: key);
+
+  final List datauser;
 
   @override
   _cartScreenState createState() => _cartScreenState();
 }
 
 class _cartScreenState extends State<cartScreen> {
-  List? dataincart;
+  List? rawdataincart;
+  List dataincart = [];
   bool buildui = false;
 
   Future showPayment() async {
@@ -42,7 +45,7 @@ class _cartScreenState extends State<cartScreen> {
                 child: TextButton(
                   onPressed: () {
                     setState(() {
-                      dataincart!.clear();
+                      dataincart.clear();
                       buildui = false;
                     });
                     Navigator.of(context).pop();
@@ -102,21 +105,21 @@ class _cartScreenState extends State<cartScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${dataincart![order]['province']}',
+                        '${dataincart[order]['province']}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black45,
                         ),
                       ),
                       Text(
-                        'Land: ${dataincart![order]['land_area']} ${dataincart![order]['land_unit']}',
+                        'Land: ${dataincart[order]['land_area']} ${dataincart[order]['land_unit']}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black45,
                         ),
                       ),
                       Text(
-                        'Total: ${dataincart![order]['total_money']} baht',
+                        'Total: ${dataincart[order]['total_money']} baht',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black45,
@@ -159,15 +162,15 @@ class _cartScreenState extends State<cartScreen> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    if (dataincart!.length > 1) {
+                    if (dataincart.length > 1) {
                       setState(() {
-                        dataincart!.removeAt(order);
+                        dataincart.removeAt(order);
                         String strdata = jsonEncode(dataincart);
                         prefs.setString('cart', strdata);
                       });
                     } else {
                       setState(() {
-                        dataincart!.clear();
+                        dataincart.clear();
                         buildui = false;
                         prefs.clear();
                       });
@@ -208,14 +211,22 @@ class _cartScreenState extends State<cartScreen> {
 
     // print(rawdatacart);
     if (rawdatacart != null) {
-      dataincart = jsonDecode(rawdatacart);
+      rawdataincart = jsonDecode(rawdatacart);
+      for (int i = 0; i < rawdataincart!.length; i++) {
+        if (rawdataincart![i]['customer_id'] == widget.datauser[0]['user_id']) {
+          dataincart.add(rawdataincart![i]);
+        }
+      }
       setState(() {
-        dataincart!.forEach((element) {
-          // print(element['total_money']);
-          subtotal += element['total_money'];
-          // print(subtotal);
-        });
-        buildui = true;
+        if (dataincart.length != 0) {
+          buildui = true;
+          dataincart.forEach((element) {
+            // print(element['total_money']);
+            subtotal += element['total_money'];
+            // print(subtotal);
+          });
+        }
+
         // print(dataincart);
       });
     }
@@ -259,7 +270,7 @@ class _cartScreenState extends State<cartScreen> {
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: dataincart!.length,
+                    itemCount: dataincart.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onLongPress: () {
@@ -282,7 +293,7 @@ class _cartScreenState extends State<cartScreen> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(18),
                                     child: Image.network(
-                                      '${dataincart![index]['pic_name']}',
+                                      '${dataincart[index]['pic_name']}',
                                       width: 150,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -295,7 +306,7 @@ class _cartScreenState extends State<cartScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          dataincart![index]['province'],
+                                          dataincart[index]['province'],
                                           style: TextStyle(fontSize: 11),
                                         ),
                                         SizedBox(
@@ -308,11 +319,11 @@ class _cartScreenState extends State<cartScreen> {
                                               style: TextStyle(fontSize: 11),
                                             ),
                                             Text(
-                                              "${dataincart![index]['land_area']}",
+                                              "${dataincart[index]['land_area']}",
                                               style: TextStyle(fontSize: 11),
                                             ),
                                             Text(
-                                              ' ${dataincart![index]['land_unit']}',
+                                              ' ${dataincart[index]['land_unit']}',
                                               style: TextStyle(fontSize: 11),
                                             )
                                           ],
@@ -327,7 +338,7 @@ class _cartScreenState extends State<cartScreen> {
                                               style: TextStyle(fontSize: 11),
                                             ),
                                             Text(
-                                                ' ${dataincart![index]['amountorder']}',
+                                                ' ${dataincart[index]['amountorder']}',
                                                 style: TextStyle(fontSize: 11))
                                           ],
                                         ),
@@ -347,7 +358,7 @@ class _cartScreenState extends State<cartScreen> {
                                                   fontSize: 13),
                                             ),
                                             Text(
-                                              ' ${dataincart![index]['total_money']}',
+                                              ' ${dataincart[index]['total_money']}',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 13),
