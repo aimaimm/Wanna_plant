@@ -29,6 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
   String main_picture = "";
   int selectorder = 0;
   int countorder = 1;
+  List? planted;
 
   List detail_land = [];
   void infoland() async {
@@ -42,15 +43,16 @@ class _DetailScreenState extends State<DetailScreen> {
           body: {'idland': widget.idland.toString(), 'user_check': "user"});
       http.Response response_picture = await http.post(uri_infolandpic,
           body: {'idland': widget.idland.toString(), 'user_check': "user"});
-      http.Response response_planted = await http
-          .post(uri_planted, body: {'land_id': widget.idland.toString()});
+      http.Response response_planted = await http.post(uri_planted,
+          body: {'land_id': widget.idland.toString(), 'check_role': "user"});
 
       if (response.statusCode == 200 &&
           response_picture.statusCode == 200 &&
           response_planted.statusCode == 200) {
         List rawdata_land = jsonDecode(response.body);
         List pic_land = jsonDecode(response_picture.body);
-        String planted = jsonDecode(response_planted.body);
+        planted = jsonDecode(response_planted.body);
+
         http.Response response_favbtn = await http.post(uri_favbtn, body: {
           'user_id': widget.datauser[0]['user_id'].toString(),
           'land_id': rawdata_land[0]['land_id'].toString(),
@@ -450,7 +452,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Planted: ${detail_land[0]['planted']}',
+                                  'Planted: ${planted![0]['planted']}',
                                   style: TextStyle(fontSize: 13),
                                 ),
                               ],
