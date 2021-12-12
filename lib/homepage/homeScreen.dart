@@ -27,6 +27,7 @@ class _HomeState extends State<Home> {
   var items = [];
   double animation_search = 1;
   bool show_items_count = false;
+  List popular_land = [];
 
   List? rawdata_land;
   bool build_ui = false;
@@ -142,6 +143,9 @@ class _HomeState extends State<Home> {
           }
         }
         items.addAll(data_land);
+        popular_land = data_land;
+        popular_land.sort((a, b) =>
+            b['rating'].compareTo(a['rating']));
         setState(() {
           if (rawdata_land != null) {
             build_ui = true;
@@ -172,11 +176,14 @@ class _HomeState extends State<Home> {
     if (query.isNotEmpty) {
       List<dynamic> dummyListData = [];
       dummySearchList.forEach((item) {
-        if ((item['province'].toString().toLowerCase()).contains(query.toLowerCase()) ||
+        if ((item['province'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
             (item['land_area'].toString().toLowerCase())
                 .contains(query.toLowerCase()) ||
-            (item['land_unit'].toString().toLowerCase()).contains(query.toLowerCase()) ||
-            (item['plants_name'].toString().toLowerCase()).contains(query.toLowerCase()) ||
+            (item['land_unit'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
+            (item['plants_name'].toString().toLowerCase())
+                .contains(query.toLowerCase()) ||
             (item['rating'].toString().toLowerCase())
                 .contains(query.toLowerCase())) {
           dummyListData.add(item);
@@ -395,7 +402,7 @@ class _HomeState extends State<Home> {
                                                       BouncingScrollPhysics(),
                                                   scrollDirection:
                                                       Axis.horizontal,
-                                                  itemCount: data_land.length,
+                                                  itemCount: 10,
                                                   itemBuilder:
                                                       (context, index) {
                                                     return InkWell(
@@ -406,7 +413,7 @@ class _HomeState extends State<Home> {
                                                           MaterialPageRoute(
                                                             builder: (context) =>
                                                                 DetailScreen(
-                                                              idland: data_land[
+                                                              idland: popular_land[
                                                                       index]
                                                                   ['land_id'],
                                                               datauser: widget
@@ -446,7 +453,7 @@ class _HomeState extends State<Home> {
                                                                               20),
                                                                   child: Image
                                                                       .network(
-                                                                    "${data_land[index]['pic_name']}",
+                                                                    "${popular_land[index]['pic_name']}",
                                                                     width: 150,
                                                                     height: 100,
                                                                     fit: BoxFit
@@ -467,17 +474,17 @@ class _HomeState extends State<Home> {
                                                                               .start,
                                                                       children: [
                                                                         Text(
-                                                                          '${data_land[index]['province']}',
+                                                                          '${popular_land[index]['province']}',
                                                                           style:
                                                                               TextStyle(fontSize: 10),
                                                                         ),
                                                                         Text(
-                                                                          '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
+                                                                          '${popular_land[index]['land_area']} ${data_land[index]['land_unit']}',
                                                                           style:
                                                                               TextStyle(fontSize: 10),
                                                                         ),
                                                                         Text(
-                                                                          plant_text(data_land[index]
+                                                                          plant_text(popular_land[index]
                                                                               [
                                                                               'plants_name']),
                                                                           style:
@@ -488,7 +495,7 @@ class _HomeState extends State<Home> {
                                                                     SizedBox(
                                                                       width: 40,
                                                                     ),
-                                                                    data_land[index]['rating'] ==
+                                                                    popular_land[index]['rating'] ==
                                                                             0
                                                                         ? Column(
                                                                             children: [
@@ -498,7 +505,7 @@ class _HomeState extends State<Home> {
                                                                                 size: 20,
                                                                               ),
                                                                               Text(
-                                                                                '${data_land[index]['rating']} rate',
+                                                                                '${popular_land[index]['rating']} rate',
                                                                                 style: TextStyle(
                                                                                   fontSize: 10,
                                                                                 ),
@@ -513,7 +520,7 @@ class _HomeState extends State<Home> {
                                                                                 size: 20,
                                                                               ),
                                                                               Text(
-                                                                                '${data_land[index]['rating']} rate',
+                                                                                '${popular_land[index]['rating']} rate',
                                                                                 style: TextStyle(
                                                                                   fontSize: 10,
                                                                                 ),
