@@ -77,8 +77,9 @@ class Contect_Screen extends StatelessWidget {
             top: size.height * 11 / 98,
             right: size.width * 3.5 / 40,
             child: Container(
-              width: 397,
-              height: 400,
+              padding: EdgeInsets.all(15),
+              width: size.width * 3 / 3.5,
+              height: size.width * 3 / 3.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(129),
@@ -86,7 +87,7 @@ class Contect_Screen extends StatelessWidget {
                 color: Color(0XFFF6F6F6),
               ),
               child: Container(
-                margin: EdgeInsets.only(left: 40),
+                margin: EdgeInsets.only(left: 25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -100,21 +101,29 @@ class Contect_Screen extends StatelessWidget {
                         SizedBox(
                           width: 30,
                         ),
-                        Text('(600) 254-741-41785')
+                        Text(
+                          '(600) 254-741-41785',
+                          style: TextStyle(fontSize: size.width * 0.035),
+                        )
                       ],
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.mail,
-                          size: 32,
-                          color: gbase,
-                        ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Text('o1plant.office@wannaplant.aw.th')
-                      ],
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.mail,
+                            size: 32,
+                            color: gbase,
+                          ),
+                          SizedBox(
+                            width: 30,
+                          ),
+                          Text(
+                            'o1plant.office@wannaplant.aw.th',
+                            style: TextStyle(fontSize: size.width * 0.035),
+                          )
+                        ],
+                      ),
                     ),
                     Row(
                       children: [
@@ -132,13 +141,25 @@ class Contect_Screen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Monday-Friday'),
-                            Text('8am-6pm'),
+                            Text(
+                              'Monday-Friday',
+                              style: TextStyle(fontSize: size.width * 0.035),
+                            ),
+                            Text(
+                              '8am-6pm',
+                              style: TextStyle(fontSize: size.width * 0.035),
+                            ),
                             SizedBox(
                               height: 15,
                             ),
-                            Text('Saturday-Sunday'),
-                            Text('10am-4pm'),
+                            Text(
+                              'Saturday-Sunday',
+                              style: TextStyle(fontSize: size.width * 0.035),
+                            ),
+                            Text(
+                              '10am-4pm',
+                              style: TextStyle(fontSize: size.width * 0.035),
+                            ),
                           ],
                         )
                       ],

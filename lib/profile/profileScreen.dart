@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/CustomBottomBar.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
+import 'package:wanna_plant/login/loginScreen.dart';
 import 'package:wanna_plant/profile/cartScreen.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,7 +53,7 @@ class _profileScreenState extends State<profileScreen> {
         // print(count_rating_planter);
         rating_count = count_rating_planter[0]['rating'] == null
             ? 0
-            : count_rating_planter[0]['rating'].toDouble();
+            : count_rating_planter[0]['rating'].roundToDouble();
         planted_count = count_rating_planter[0]['planted'] == null
             ? 0
             : count_rating_planter[0]['planted'];
@@ -102,7 +103,9 @@ class _profileScreenState extends State<profileScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => cartScreen(),
+                          builder: (context) => cartScreen(
+                            datauser: userdata,
+                          ),
                         ),
                       );
                     },
@@ -339,10 +342,12 @@ class _profileScreenState extends State<profileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
                                       child: TextButton.icon(
                                         onPressed: () {
                                           Navigator.pushNamed(
@@ -360,16 +365,16 @@ class _profileScreenState extends State<profileScreen> {
                                             alignment: Alignment.centerLeft),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 20,
-                                      color: Colors.grey.shade600,
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 10),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 20,
+                                        color: Colors.grey.shade600,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),

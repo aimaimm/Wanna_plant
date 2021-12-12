@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
-import 'package:wanna_plant/data/province.dart';
+
 import 'package:wanna_plant/signup/textInfo.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,15 +13,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  //  _signup() {
-  //     var Name = name.text;
-  //     var Username = username.text;
-  //     signup.add(Name);
-  //     print(signup);
-  //     setState(() {
-
-  //     });
-  //   }
+  
   @override
   Widget build(BuildContext context) {
     var sizeH = MediaQuery.of(context).size.height;
@@ -160,10 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             });
                       }
 
-                      // String email = "ton.com";
-                      // bool emailValid = RegExp(
-                      //         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                      //     .hasMatch(email);
+                      
                     },
                     child: Text('Next'),
                     style: TextButton.styleFrom(

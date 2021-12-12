@@ -106,6 +106,18 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               }
               var res = await requestlandpicture.send();
               if (res.statusCode == 200) {
+                name.text = "";
+                username.text = "";
+                password.text = "";
+                phonenumber.text = "";
+                address.text = "";
+                protmptpay.text = "";
+                imageFileList.clear();
+                entries.clear();
+                infoland = true;
+                plantTEC.clear();
+                priceTEC.clear();
+                rowCard.clear();
                 Navigator.pop(context);
                 successAlert(context);
               }
@@ -174,6 +186,18 @@ class _IdentifyScreenState extends State<IdentifyScreen> {
               },
             );
             if (response.statusCode == 200) {
+              name.text = "";
+              username.text = "";
+              password.text = "";
+              phonenumber.text = "";
+              address.text = "";
+              protmptpay.text = "";
+              imageFileList.clear();
+              entries.clear();
+              infoland = true;
+              plantTEC.clear();
+              priceTEC.clear();
+              rowCard.clear();
               Navigator.pop(context);
               userdata = jsonDecode(response.body);
               successAlert(context);

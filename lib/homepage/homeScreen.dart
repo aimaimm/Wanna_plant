@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:wanna_plant/data/data_customer.dart';
-import 'package:wanna_plant/data/data_planter.dart';
+
 import 'package:wanna_plant/homepage/DetailLand/DetailScreen.dart';
 import 'package:wanna_plant/homepage/homepage_seeAllScrenn.dart';
 
@@ -199,6 +198,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (hide_pop == false) {
       if (currentFocus.hasPrimaryFocus) {
@@ -415,116 +415,115 @@ class _HomeState extends State<Home> {
                                                           ),
                                                         );
                                                       },
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0XFFF9F9F9),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        margin: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 5),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(16),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20),
-                                                                child: Image
-                                                                    .network(
-                                                                  "${data_land[index]['pic_name']}",
-                                                                  width: 150,
-                                                                  height: 100,
-                                                                  fit: BoxFit
-                                                                      .cover,
+                                                      child: FittedBox(
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0XFFF9F9F9),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                          ),
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              20),
+                                                                  child: Image
+                                                                      .network(
+                                                                    "${data_land[index]['pic_name']}",
+                                                                    width: 150,
+                                                                    height: 100,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        '${data_land[index]['province']}',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                10),
-                                                                      ),
-                                                                      Text(
-                                                                        '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                10),
-                                                                      ),
-                                                                      Text(
-                                                                        plant_text(data_land[index]
-                                                                            [
-                                                                            'plants_name']),
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                10),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 40,
-                                                                  ),
-                                                                  data_land[index]
-                                                                              [
-                                                                              'rating'] ==
-                                                                          0
-                                                                      ? Column(
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.star_rate,
-                                                                              color: Colors.grey,
-                                                                              size: 20,
-                                                                            ),
-                                                                            Text(
-                                                                              '${data_land[index]['rating']} rate',
-                                                                              style: TextStyle(
-                                                                                fontSize: 10,
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        )
-                                                                      : Column(
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.star_rate,
-                                                                              color: Colors.amber,
-                                                                              size: 20,
-                                                                            ),
-                                                                            Text(
-                                                                              '${data_land[index]['rating']} rate',
-                                                                              style: TextStyle(
-                                                                                fontSize: 10,
-                                                                              ),
-                                                                            ),
-                                                                          ],
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          '${data_land[index]['province']}',
+                                                                          style:
+                                                                              TextStyle(fontSize: 10),
                                                                         ),
-                                                                ],
-                                                              ),
-                                                            ],
+                                                                        Text(
+                                                                          '${data_land[index]['land_area']} ${data_land[index]['land_unit']}',
+                                                                          style:
+                                                                              TextStyle(fontSize: 10),
+                                                                        ),
+                                                                        Text(
+                                                                          plant_text(data_land[index]
+                                                                              [
+                                                                              'plants_name']),
+                                                                          style:
+                                                                              TextStyle(fontSize: 10),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 40,
+                                                                    ),
+                                                                    data_land[index]['rating'] ==
+                                                                            0
+                                                                        ? Column(
+                                                                            children: [
+                                                                              Icon(
+                                                                                Icons.star_rate,
+                                                                                color: Colors.grey,
+                                                                                size: 20,
+                                                                              ),
+                                                                              Text(
+                                                                                '${data_land[index]['rating']} rate',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 10,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          )
+                                                                        : Column(
+                                                                            children: [
+                                                                              Icon(
+                                                                                Icons.star_rate,
+                                                                                color: Colors.amber,
+                                                                                size: 20,
+                                                                              ),
+                                                                              Text(
+                                                                                '${data_land[index]['rating']} rate',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 10,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -627,92 +626,96 @@ class _HomeState extends State<Home> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Color(0XFFF9F9F9),
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                     margin: EdgeInsets.only(bottom: 10),
                                     child: Padding(
                                       padding: const EdgeInsets.all(20),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(18),
-                                            child: Image.network(
-                                              '${items[index]['pic_name']}',
-                                              width: 150,
-                                              height: 100,
-                                              fit: BoxFit.cover,
+                                      child: FittedBox(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(18),
+                                              child: Image.network(
+                                                '${items[index]['pic_name']}',
+                                                width: 130,
+                                                height: 90,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(right: 30),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${items[index]['province']}',
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Text(
-                                                  'Land: ${items[index]['land_area']} ${items[index]['land_unit']}',
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                ),
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Text(
-                                                  plant_text(items[index]
-                                                      ['plants_name']),
-                                                  style:
-                                                      TextStyle(fontSize: 10),
-                                                ),
-                                              ],
+                                            SizedBox(width: 15),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 30),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${items[index]['province']}',
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    'Land: ${items[index]['land_area']} ${items[index]['land_unit']}',
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    plant_text(items[index]
+                                                        ['plants_name']),
+                                                    style:
+                                                        TextStyle(fontSize: 10),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          items[index]['rating'] == 0
-                                              ? Center(
-                                                  child: Column(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.grey,
-                                                        size: 25,
-                                                      ),
-                                                      Text(
-                                                        '${items[index]['rating']} rate',
-                                                        style: TextStyle(
-                                                          fontSize: 12,
+                                            items[index]['rating'] == 0
+                                                ? Center(
+                                                    child: Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.grey,
+                                                          size: 25,
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              : Center(
-                                                  child: Column(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star_rate,
-                                                        color: Colors.amber,
-                                                        size: 25,
-                                                      ),
-                                                      Text(
-                                                        '${items[index]['rating']} rate',
-                                                        style: TextStyle(
-                                                          fontSize: 12,
+                                                        Text(
+                                                          '${items[index]['rating']} rate',
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                        ],
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Center(
+                                                    child: Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star_rate,
+                                                          color: Colors.amber,
+                                                          size: 25,
+                                                        ),
+                                                        Text(
+                                                          '${items[index]['rating']} rate',
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

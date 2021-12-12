@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_plant/constants.dart';
-import 'package:wanna_plant/data/province.dart';
+
 
 TextEditingController name = TextEditingController();
 TextEditingController username = TextEditingController();

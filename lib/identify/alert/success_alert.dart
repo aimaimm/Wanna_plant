@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/area/regis_land_Screen.dart';
 import 'package:wanna_plant/constants.dart';
 import 'package:wanna_plant/identify/IdentifyCard.dart';
-import 'package:wanna_plant/identify/waitIdentifyScreen.dart';
+
 import 'package:http/http.dart' as http;
 
 Future successAlert(
@@ -29,20 +29,22 @@ Future successAlert(
               SizedBox(
                 height: 8,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: TextButton(
-                  onPressed: () {
-                    
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/Homepage', ModalRoute.withName('/Homepage'));
-                  },
-                  child: Text(
-                    'OK',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: TextButton.styleFrom(
-                    side: BorderSide(color: Colors.grey, width: 0.5),
+              FittedBox(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: TextButton(
+                    onPressed: () {
+                      
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/Homepage', ModalRoute.withName('/Homepage'));
+                    },
+                    child: Text(
+                      'OK',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: TextButton.styleFrom(
+                      side: BorderSide(color: Colors.grey, width: 0.5),
+                    ),
                   ),
                 ),
               ),

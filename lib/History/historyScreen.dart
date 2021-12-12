@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wanna_plant/CustomBottomBar.dart';
 import 'package:wanna_plant/History/myCard_history.dart';
 import 'package:wanna_plant/constants.dart';
-import 'package:wanna_plant/data/data_customer.dart';
-import 'package:wanna_plant/data/data_planter.dart';
+
 import 'package:wanna_plant/favorite/myCard_favorite.dart';
 import 'package:http/http.dart' as http;
 
@@ -68,7 +67,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   });
               if (response_name.statusCode == 200) {
                 List rawnamecustomer = jsonDecode(response_name.body);
-                // print(rawnamecustomer);
+                
                 name_customer.add(rawnamecustomer[0]);
                 data_planter.add(rawdata[i]);
               } else {
@@ -78,16 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               }
             }
           }
-          // print(data_customer);
-          // print(data_customer.length);
-          // print(data_customer[0]['rating']);
-          // print(data_customer[0]['pic_name']);
-          // print(data_customer[0].runtimeType);
-          // print(name_customer);
-          // print(data_planter);
-          // print(data_planter.length);
-          // print(data_planter[0].runtimeType);
-          // print(name_planter[0]['name']);
+        
           setState(() {
             if (data_customer.length == 0) {
               isnull_customer = true;
@@ -96,9 +86,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               isnull_planter = true;
             }
             syncdata = false;
-            // isnull_planter = true;
-            // isnull_customer = true;
-            // isnull = false;
+            
           });
         } else {
           setState(() {

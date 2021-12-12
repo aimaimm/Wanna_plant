@@ -24,9 +24,9 @@ class _Upload_imageScreenState extends State<Upload_imageScreen> {
       _imageFileList.addAll(selectedImages);
     }
 
-    //  print('Image list lenght :${_imageFileList!.length.toString()}');
+   
     setState(() {
-      //files = _imageFileList!.length.toString();
+      
     });
   }
 
@@ -98,48 +98,7 @@ class _Upload_imageScreenState extends State<Upload_imageScreen> {
               ),
             ),
 
-            // Container(
-            //   width: sizeW,
-            //   height: sizeH * 0.13,
-            //   child: ListView.builder(
-            //     physics: BouncingScrollPhysics(),
-            //     scrollDirection: Axis.horizontal,
-            //     itemCount: _imageFileList.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return Padding(
-            //         padding: const EdgeInsets.all(3.0),
-            //         child: Stack(
-            //           // clipBehavior: Clip.none,
-            //           // fit: StackFit.expand,
-            //           children: [
-            //             Image.file(
-            //               File(
-            //                 _imageFileList[index].path,
-            //               ),
-            //               fit: BoxFit.cover,
-            //               // width: 80,
-            //               // height: 150,
-            //             ),
-            //             Positioned(
-            //               right: -5,
-            //               top: -4,
-            //               child: IconButton(
-            //                 onPressed: () {
-            //                   _imageFileList.removeAt(index);
-            //                   setState(() {});
-            //                 },
-            //                 icon: Icon(
-            //                   Icons.do_disturb_on,
-            //                   color: Colors.red,
-            //                 ),
-            //               ),
-            //             )
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // )
+           
           ],
         ),
       ),
