@@ -172,11 +172,11 @@ class _HomeState extends State<Home> {
     if (query.isNotEmpty) {
       List<dynamic> dummyListData = [];
       dummySearchList.forEach((item) {
-        if ((item['province'].toLowerCase()).contains(query.toLowerCase()) ||
+        if ((item['province'].toString().toLowerCase()).contains(query.toLowerCase()) ||
             (item['land_area'].toString().toLowerCase())
                 .contains(query.toLowerCase()) ||
-            (item['land_unit'].toLowerCase()).contains(query.toLowerCase()) ||
-            (item['plants_name'].toLowerCase()).contains(query.toLowerCase()) ||
+            (item['land_unit'].toString().toLowerCase()).contains(query.toLowerCase()) ||
+            (item['plants_name'].toString().toLowerCase()).contains(query.toLowerCase()) ||
             (item['rating'].toString().toLowerCase())
                 .contains(query.toLowerCase())) {
           dummyListData.add(item);
