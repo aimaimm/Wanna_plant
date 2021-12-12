@@ -35,15 +35,22 @@ class _DetailScreenState extends State<DetailScreen> {
     Uri uri_infoland = Uri.http(url, "/infoland");
     Uri uri_infolandpic = Uri.http(url, "/infolandpic");
     Uri uri_favbtn = Uri.http(url, "/favbtn");
+    Uri uri_planted = Uri.http(url, "/countplanted");
+
     try {
       http.Response response = await http.post(uri_infoland,
           body: {'idland': widget.idland.toString(), 'user_check': "user"});
       http.Response response_picture = await http.post(uri_infolandpic,
           body: {'idland': widget.idland.toString(), 'user_check': "user"});
+      http.Response response_planted = await http
+          .post(uri_planted, body: {'land_id': widget.idland.toString()});
 
-      if (response.statusCode == 200 && response_picture.statusCode == 200) {
+      if (response.statusCode == 200 &&
+          response_picture.statusCode == 200 &&
+          response_planted.statusCode == 200) {
         List rawdata_land = jsonDecode(response.body);
         List pic_land = jsonDecode(response_picture.body);
+        String planted = jsonDecode(response_planted.body);
         http.Response response_favbtn = await http.post(uri_favbtn, body: {
           'user_id': widget.datauser[0]['user_id'].toString(),
           'land_id': rawdata_land[0]['land_id'].toString(),
@@ -83,7 +90,6 @@ class _DetailScreenState extends State<DetailScreen> {
                 },
               );
             } else {
-             
               if (detail_land[detail_land.length - 1]['plants_name'] !=
                   rawdata_land[i]['plants_name']) {
                 List stack_plant_name = [];
@@ -129,12 +135,11 @@ class _DetailScreenState extends State<DetailScreen> {
               }
             }
           }
-         
+
           main_picture =
               "http://$url/${detail_land[0]['pic_name'][0]['pic_name']}";
 
           setState(() {
-            
             List checkfavbtn = jsonDecode(response_favbtn.body);
             if (checkfavbtn.length != 0) {
               fav = true;
@@ -154,7 +159,7 @@ class _DetailScreenState extends State<DetailScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? rawdatacart = prefs.getString('cart');
-    
+
     if (rawdatacart == null) {
       List addtocart = [];
       if (detail_land[0]['plants_price'] is int) {
@@ -237,11 +242,10 @@ class _DetailScreenState extends State<DetailScreen> {
           'customer_id': widget.datauser[0]['user_id'],
           'province': detail_land[0]['province'],
         });
-       
+
         String savedata = jsonEncode(dummydata);
         prefs.setString('cart', savedata);
       }
-     
     }
 
     Navigator.pop(context);
@@ -1133,7 +1137,6 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
             ),
-            
           )
         : Scaffold(
             body: Center(
